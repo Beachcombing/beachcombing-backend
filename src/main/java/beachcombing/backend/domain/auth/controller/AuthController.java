@@ -1,0 +1,28 @@
+package beachcombing.backend.domain.auth.controller;
+
+import beachcombing.backend.domain.auth.dto.AuthJoinRequest;
+import beachcombing.backend.domain.auth.service.AuthService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/auth")
+@Slf4j
+@RequiredArgsConstructor
+public class AuthController {
+    private final AuthService authService;
+
+    // 일반 회원가입 (테스트용)
+    @PostMapping("/join")
+    public ResponseEntity<Void> join(@RequestBody AuthJoinRequest authJoinRequest) {
+
+        authService.join(authJoinRequest);
+        return ResponseEntity.ok().build();
+    }
+}
+
