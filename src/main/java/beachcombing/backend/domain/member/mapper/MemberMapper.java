@@ -1,17 +1,26 @@
-package beachcombing.backend.domain.user.mapper;
+package beachcombing.backend.domain.member.mapper;
 
 import beachcombing.backend.domain.auth.dto.AuthJoinRequest;
-import beachcombing.backend.domain.user.domain.AuthInfo;
-import beachcombing.backend.domain.user.domain.Profile;
-import beachcombing.backend.domain.user.domain.User;
+import beachcombing.backend.domain.member.domain.AuthInfo;
+import beachcombing.backend.domain.member.domain.Profile;
+import beachcombing.backend.domain.member.domain.Member;
+import beachcombing.backend.domain.member.dto.MemberDto;
+import beachcombing.backend.domain.member.dto.MemberFindOneResponse;
 import lombok.RequiredArgsConstructor;;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class UserMapper {
+public class MemberMapper {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public MemberFindOneResponse toUserFindOneResponse(Member member) {
+
+        return MemberFindOneResponse.builder()
+                .member(MemberDto.from(member))
+                .build();
+    }
 
     public AuthInfo toAuthInfo(String loginId, String password) {
 
@@ -30,7 +39,7 @@ public class UserMapper {
                 .build();
     }
 
-    public User toEntity(AuthJoinRequest request) {
+    public Member toEntity(AuthJoinRequest request) {
 
         AuthInfo authInfo = toAuthInfo(
                 request.getLoginId(),
@@ -41,6 +50,6 @@ public class UserMapper {
                 request.getEmail(),
                 request.getPhone());
 
-        return User.createUser(profile, authInfo);
+        return Member.createUser(profile, authInfo);
     }
 }
