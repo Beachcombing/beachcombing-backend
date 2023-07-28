@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AuthService authService;
 
-    // 일반 회원가입 (테스트용)
+    // 일반 회원가입 (백엔드 테스트용)
     @PostMapping("/join")
     public ResponseEntity<Void> join(@RequestBody AuthJoinRequest authJoinRequest) {
 
@@ -28,7 +28,7 @@ public class AuthController {
         return ResponseEntity.ok().build();
     }
 
-    // 일반 로그인
+    // 일반 로그인 ( 백엔드 테스트용 )
     @PostMapping("/login")
     public ResponseEntity<AuthLoginResponse> login(@RequestBody AuthLoginRequest request) {
 

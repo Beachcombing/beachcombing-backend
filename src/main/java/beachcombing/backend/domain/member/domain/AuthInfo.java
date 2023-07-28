@@ -1,4 +1,4 @@
-package beachcombing.backend.domain.user.domain;
+package beachcombing.backend.domain.member.domain;
 
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;

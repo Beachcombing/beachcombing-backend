@@ -1,4 +1,4 @@
-package beachcombing.backend.domain.user.domain;
+package beachcombing.backend.domain.member.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -11,7 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @OnDelete(action = OnDeleteAction.CASCADE)
 @Entity
-public class User {
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -23,13 +23,13 @@ public class User {
     private AuthInfo authInfo; // 로그인 정보
 
     @Builder
-    public User( Profile profile, AuthInfo authInfo) {
+    public Member(Profile profile, AuthInfo authInfo) {
         this.profile = profile;
         this.authInfo = authInfo;
     }
 
-    public static User createUser(Profile profile,AuthInfo authInfo){
-        return User.builder()
+    public static Member createUser(Profile profile, AuthInfo authInfo){
+        return Member.builder()
                 .profile(profile)
                 .authInfo(authInfo)
                 .build();

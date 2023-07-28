@@ -1,6 +1,6 @@
 package beachcombing.backend.domain.token_pair.domain;
 
-import beachcombing.backend.domain.user.domain.User;
+import beachcombing.backend.domain.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -21,20 +21,20 @@ public class TokenPair {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Member member;
 
     @Builder
-    public TokenPair(String accessToken, String refreshToken, User user) {
+    public TokenPair(String accessToken, String refreshToken, Member member) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
-        this.user = user;
+        this.member = member;
     }
 
-    public static TokenPair createTokenPair(String accessToken, String refreshToken, User user) {
+    public static TokenPair createTokenPair(String accessToken, String refreshToken, Member member) {
         return TokenPair.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .user(user)
+                .member(member)
                 .build();
     }
 

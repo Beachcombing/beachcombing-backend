@@ -1,7 +1,7 @@
 package beachcombing.backend.global.security.auth;
 
-import beachcombing.backend.domain.user.domain.User;
-import beachcombing.backend.domain.user.repository.UserRepository;
+import beachcombing.backend.domain.member.domain.Member;
+import beachcombing.backend.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.findByAuthInfoLoginId(username);
-        return new AuthDetails(user);
+        Member member = memberRepository.findByAuthInfoLoginId(username);
+        return new AuthDetails(member);
     }
 }
