@@ -1,5 +1,6 @@
 package beachcombing.backend.global.security;
 
+import beachcombing.backend.domain.user.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -45,9 +46,9 @@ public class JwtTokenProvider {
     }
 
     // accessToken 생성
-    public String generateAccessToken(String loginId) {
+    public String generateAccessToken(User user) {
 
-        Claims claims = Jwts.claims().setSubject(loginId); // JWT payload에 저장되는 정보 단위
+        Claims claims = Jwts.claims().setSubject(user.getAuthInfo().getLoginId()); // JWT payload에 저장되는 정보 단위
         Date issuedAt = new Date();
         Date TokenExpiresIn = new Date(issuedAt.getTime() + accessTokenValidTime);
 
@@ -55,9 +56,9 @@ public class JwtTokenProvider {
     }
 
     // refreshToken 생성
-    public String generateRefreshToken(String loginId) {
+    public String generateRefreshToken(User user) {
 
-        Claims claims = Jwts.claims().setSubject(loginId);
+        Claims claims = Jwts.claims().setSubject(user.getAuthInfo().getLoginId());
         Date issuedAt = new Date();
         Date TokenExpiresIn = new Date(issuedAt.getTime() + refreshTokenValidTime);
 
