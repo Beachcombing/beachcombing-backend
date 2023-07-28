@@ -16,7 +16,7 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Return an empty list since there are no authorities for this member
+        // 사용자 권한이 없으므로 빈 컬렉션 반환
         return Collections.emptyList();
     }
     @Override

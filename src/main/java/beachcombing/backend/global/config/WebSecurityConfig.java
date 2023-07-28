@@ -42,10 +42,10 @@ public class WebSecurityConfig {
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 사용 x
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(customAuthenticationEntryPoint))
-                .exceptionHandling(exceptionHandling -> exceptionHandling.accessDeniedHandler(customAccessDeniedHandler))
-                .addFilter(jwtAuthorizationFilter())
-                .addFilterBefore(jwtExceptionFilter(), JwtAuthorizationFilter.class)
+                .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(customAuthenticationEntryPoint)) //커스텀 인증 진입 지점 설정
+                .exceptionHandling(exceptionHandling -> exceptionHandling.accessDeniedHandler(customAccessDeniedHandler)) //  커스텀 접근 거부 핸들러 설정
+                .addFilter(jwtAuthorizationFilter()) // JWT를 사용하여 인증된 사용자의 권한을 확인하고, 사용자의 인증 정보를 확인
+                .addFilterBefore(jwtExceptionFilter(), JwtAuthorizationFilter.class) // JWT 관련 예외 처리
                 .authorizeRequests(authorize -> authorize
                         .requestMatchers("/auth/**").permitAll()
                         .anyRequest().authenticated()
@@ -66,7 +66,7 @@ public class WebSecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+        return authenticationConfiguration.getAuthenticationManager(); //인증 관리자를 설정
     }
 
     @Bean
