@@ -47,7 +47,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
             Member member = memberRepository.findByAuthInfoLoginId(username);
             PrincipalDetails principalDetails = new PrincipalDetails(member);
-            Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null,principalDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication); // 이때 자동으로 UserDetailsService의 loadByUsername 호출됨
         }
 
