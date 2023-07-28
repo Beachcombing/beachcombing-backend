@@ -11,7 +11,7 @@ import java.util.Collections;
 
 @Getter
 @AllArgsConstructor
-public class AuthDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails {
     private Member member;
 
     @Override
