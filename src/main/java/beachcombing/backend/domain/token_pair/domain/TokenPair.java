@@ -37,4 +37,9 @@ public class TokenPair {
                 .user(user)
                 .build();
     }
+
+    public void updateToken(String accessToken, String refreshToken) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+    }
 }

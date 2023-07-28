@@ -18,10 +18,11 @@ public class TokenPairService {
 
         TokenPair tokenPair = TokenPair.createTokenPair(accessToken, refreshToken, user);
 
-        if (tokenPairRepository.existsByUser(user)) {
-            tokenPairRepository.deleteByUser(user); // TODO: 삭제 대신 업데이트로 변경
-        }
-
-        tokenPairRepository.save(tokenPair);
+        // 기존 토큰이 있으면 업데이트하고, 없으면 새로 생성하여 저장
+        tokenPairRepository.findByUser(user)
+                .ifPresentOrElse(
+                        (findTokenPair) -> findTokenPair.updateToken(accessToken, refreshToken),
+                        () -> tokenPairRepository.save(tokenPair)
+                );
     }
 }
