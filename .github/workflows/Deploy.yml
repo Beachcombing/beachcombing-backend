@@ -47,7 +47,7 @@ jobs:
         docker build -t beachcombing .
         docker tag beachcombing future430/beachcombing:${GITHUB_SHA::7}
         docker push future430/beachcombing:${GITHUB_SHA::7}
-    # Deploy (docker_compose)
+    # Deploy (docker_compose 사용)
     - name: Deploy
       uses: appleboy/ssh-action@master
       with:
