@@ -47,15 +47,18 @@ jobs:
         docker build -t beachcombing .
         docker tag beachcombing future430/beachcombing:${GITHUB_SHA::7}
         docker push future430/beachcombing:${GITHUB_SHA::7}
-#    # Deploy
-#    - name: Deploy
-#      uses: appleboy/ssh-action@master
-#      with:
-#        host: ${{ secret.SSH_ELASTIC_IP }}
-#        username: ubuntu
-#        password: ${{ secrets.SSH_PASSWORD }}
-#        envs: GITHUB_SHA
-#        script: |
-#          docker pull future430/beachcombing_spring:${GITHUB_SHA::7}
-#          docker tag future430/beachcombing_spring:${GITHUB_SHA::7} beachcombing_spring
-#          docker-compose up -d
+    # Deploy
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      run: |
+        echo "$SSH_PEM_KEY" >> $HOME/key.pem
+        chmod 400 $HOME/key.pem
+        ssh -i $HOME/key.pem -o StrictHostKeyChecking=no $ubuntu@${SSH_SSH_ELASTIC_IP}
+      with:
+        host: ${{ secret.SSH_ELASTIC_IP }}
+        username: ubuntu
+        envs: GITHUB_SHA
+        script: |
+          docker pull future430/beachcombing:${GITHUB_SHA::7}
+          docker tag future430/beachcombing:${GITHUB_SHA::7} beachcombing
+          docker-compose up -d
