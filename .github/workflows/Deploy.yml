@@ -56,6 +56,6 @@ jobs:
         key: ${{ secrets.SSH_PEM_KEY }}
         envs: GITHUB_SHA
         script: |
-          docker pull future430/beachcombing:${GITHUB_SHA::7}
-          docker tag future430/beachcombing:${GITHUB_SHA::7} beachcombing
-          docker-compose up -d
+          sudo docker pull future430/beachcombing:${GITHUB_SHA::7}
+          sudo docker tag future430/beachcombing:${GITHUB_SHA::7} beachcombing
+          sudo docker-compose up -d
