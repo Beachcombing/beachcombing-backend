@@ -58,4 +58,4 @@ jobs:
         script: |
           sudo docker pull future430/beachcombing:${GITHUB_SHA::7}
           sudo docker tag future430/beachcombing:${GITHUB_SHA::7} beachcombing
-          sudo docker-compose up -p beachcombing
+          sudo docker-compose -p beachcombing up -d
