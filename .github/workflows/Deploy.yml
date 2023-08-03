@@ -2,7 +2,7 @@ name: Develop
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "develop" ]
 
 permissions:
   contents: read
@@ -41,18 +41,18 @@ jobs:
     - name: Docker build
       run: |
         docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-        docker build -t beachcombing_spring .
-        docker tag beachcombing_spring future430/beachcombing_spring:${GITHUB_SHA::7}
-        docker push future430/beachcombing_spring:${GITHUB_SHA::7}
-    # Deploy
+        docker build -t beachcombing .
+        docker tag beachcombing future430/beachcombing:${GITHUB_SHA::7}
+        docker push future430/beachcombing:${GITHUB_SHA::7}
+    # Deploy (docker_compose 사용)
     - name: Deploy
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secret.SSH_ELASTIC_IP }}
+        host: ${{ secrets.SSH_ELASTIC_IP }}
         username: ubuntu
-        password: ${{ secrets.SSH_PASSWORD }}
+        key: ${{ secrets.SSH_PEM_KEY }}
         envs: GITHUB_SHA
         script: |
-          docker pull future430/beachcombing_spring:${GITHUB_SHA::7}
-          docker tag future430/beachcombing_spring:${GITHUB_SHA::7} beachcombing_spring
-          docker-compose up -d
+          sudo docker pull future430/beachcombing:${GITHUB_SHA::7}
+          sudo docker tag future430/beachcombing:${GITHUB_SHA::7} beachcombing
+          sudo docker-compose -p beachcombing up -d
