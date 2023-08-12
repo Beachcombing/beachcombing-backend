@@ -18,8 +18,9 @@ public class Giftcard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int cost;
+    private Integer cost;
 
-    private Long store_id;
-
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
 }
