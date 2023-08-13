@@ -1,5 +1,6 @@
 package beachcombing.backend.domain.notification.domain;
 
+import beachcombing.backend.domain.common.domain.BaseEntity;
 import beachcombing.backend.domain.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Notification {
+public class Notification extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

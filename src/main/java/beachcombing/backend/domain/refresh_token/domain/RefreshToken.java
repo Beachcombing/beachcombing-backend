@@ -1,5 +1,6 @@
 package beachcombing.backend.domain.refresh_token.domain;
 
+import beachcombing.backend.domain.common.domain.BaseEntity;
 import beachcombing.backend.domain.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class RefreshToken {
+public class RefreshToken extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "refresh_token_id")
