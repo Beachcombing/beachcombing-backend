@@ -10,17 +10,18 @@ import lombok.Getter;
 public class MemberDto {
 
     private Long id;
-    private String name;
-    private String phone;
     private String email;
+    private String nickName;
+    private String image;
+
 
     public static MemberDto from(Member member) {
 
         return MemberDto.builder()
                 .id(member.getId())
-                .name(member.getProfile().getName())
-                .phone(member.getProfile().getPhone())
                 .email(member.getProfile().getEmail())
+                .nickName(member.getProfile().getNickname())
+                .image(member.getProfile().getImage())
                 .build();
     }
 }

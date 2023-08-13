@@ -24,7 +24,6 @@ public class MemberService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-
         MemberFindOneResponse response = memberMapper.toUserFindOneResponse(member);
 
         return response;
