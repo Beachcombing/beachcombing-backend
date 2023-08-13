@@ -31,7 +31,7 @@ public class JwtTokenProvider {
 
     // accessToken 유효시간 30분
     private long accessTokenValidTime = Duration.ofMinutes(30).toMillis();
-    // refreshToken 유효시간 2주
+    // RefreshToken 유효시간 2주
 
     private long refreshTokenValidTime = Duration.ofDays(14).toMillis();
 
@@ -55,7 +55,7 @@ public class JwtTokenProvider {
         return buildToken(claims, issuedAt, TokenExpiresIn, secretKey);
     }
 
-    // refreshToken 생성
+    // RefreshToken 생성
     public String generateRefreshToken(Member member) {
 
         Claims claims = Jwts.claims().setSubject(member.getAuthInfo().getLoginId());

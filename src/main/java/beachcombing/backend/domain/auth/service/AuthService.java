@@ -4,7 +4,7 @@ import beachcombing.backend.domain.auth.dto.AuthJoinRequest;
 import beachcombing.backend.domain.auth.dto.AuthLoginRequest;
 import beachcombing.backend.domain.auth.dto.AuthLoginResponse;
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.token_pair.service.TokenPairService;
+import beachcombing.backend.domain.refresh_token.service.RefreshTokenService;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
 import beachcombing.backend.domain.member.repository.MemberRepository;
 import beachcombing.backend.global.config.exception.CustomException;
@@ -22,7 +22,7 @@ public class AuthService {
     private final MemberMapper memberMapper;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
-    private final TokenPairService tokenPairService;
+    private final RefreshTokenService refreshTokenService;
 
     // 일반 회원가입 (테스트용)
     public void join(AuthJoinRequest authJoinRequest) {
@@ -47,7 +47,7 @@ public class AuthService {
         // 토큰 생성
         String accessToken = jwtTokenProvider.generateAccessToken(member);
         String refreshToken = jwtTokenProvider.generateRefreshToken(member);
-        tokenPairService.saveTokenPair(accessToken, refreshToken, member);
+        refreshTokenService.saveRefreshToken(refreshToken, member);
 
         AuthLoginResponse response = AuthLoginResponse.builder()
                 .accessToken(accessToken)
