@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Profile {
     private String name;        // 이름
     private String email;       // 이메일
-    private String phone;       // 핸드폰 번호
+    private String phone;        // 핸드폰 번호
 
     @Builder
     public Profile(String name, String email, String phone) {
