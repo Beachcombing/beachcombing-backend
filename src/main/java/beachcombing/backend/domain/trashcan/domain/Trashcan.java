@@ -23,7 +23,7 @@ public class Trashcan {
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "lng", column = @Column(nullable = false, precision = 10, scale = 8)),
+            @AttributeOverride(name = "lat", column = @Column(nullable = false, precision = 10, scale = 8)),
             @AttributeOverride(name = "lng", column = @Column(nullable = false, precision = 11, scale = 8))
     })
     private Location location; // 쓰레기통 좌표. TODO: column embeddable 타입 내에서 적용해도 바깥까지 적용되는지 확인해보기
