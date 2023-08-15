@@ -20,18 +20,18 @@ public class Record {
     @Column(name = "record_id")
     private Long id;
 
-    private LocalTime duration; // 청소 지속 시간 -> 00:00:00 (시, 분, 초)
+    private LocalTime duration; // 청소 시간 -> 00:00:00 (시, 분, 초)
     private Long distance; // 청소 거리
     private String beforeImage; // 청소 전 사진
     private String afterImage; // 청소 후 사진
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member member; // 청소한 사람
+    private Member member; // 청소한 회원
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "beach_id")
-    private Beach beach; // 청소한 곳
+    private Beach beach; // 청소한 해변
 
     @Builder
     public Record(LocalTime duration, Long distance, String beforeImage, String afterImage, Member member, Beach beach) {
