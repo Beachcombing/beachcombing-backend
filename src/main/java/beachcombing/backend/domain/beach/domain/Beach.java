@@ -17,9 +17,9 @@ public class Beach {
     @Column(name = "beach_id")
     private Long id;
 
-    private String name;
-    private String image;
-    private String range;
+    private String name; // 해변 이름
+    private String image; // 해변 사진
+    private String range; // 해변 범위 -> 해변 근처 인증용
 
     @Embedded
     @AttributeOverrides({
