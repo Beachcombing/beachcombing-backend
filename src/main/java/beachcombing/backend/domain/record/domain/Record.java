@@ -36,7 +36,7 @@ public class Record {
     @Builder
     public Record(LocalTime duration, Long distance, String beforeImage, String afterImage, Member member, Beach beach) {
 
-        this.duration =duration;
+        this.duration = duration;
         this.distance = distance;
         this.beforeImage = beforeImage;
         this.afterImage = afterImage;
