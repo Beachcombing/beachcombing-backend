@@ -44,7 +44,7 @@ public class Record {
         this.beach = beach;
     }
 
-    public Record createRecord(LocalTime duration, Long distance, String beforeImage, String afterImage, Member member, Beach beach) {
+    public static Record createRecord(LocalTime duration, Long distance, String beforeImage, String afterImage, Member member, Beach beach) {
 
         return Record.builder()
                 .duration(duration)
