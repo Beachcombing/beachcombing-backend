@@ -26,7 +26,7 @@ public class Beach {
             @AttributeOverride(name = "lng", column = @Column(nullable = false, precision = 10, scale = 8)),
             @AttributeOverride(name = "lng", column = @Column(nullable = false, precision = 11, scale = 8))
     })
-    private Location location; // TODO: column embeddable 타입 내에서 적용해도 바깥까지 적용되는지 확인해보기
+    private Location location; // 해변 좌표. TODO: column embeddable 타입 내에서 적용해도 바깥까지 적용되는지 확인해보기
 
     @Builder
     public Beach(String name, String image, String range, Location location) {
