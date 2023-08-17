@@ -1,27 +1,20 @@
-package beachcombing.backend.domain.giftcard.domain;
+package beachcombing.backend.domain.purchase;
 
+import beachcombing.backend.domain.giftcard.domain.Giftcard;
 import beachcombing.backend.domain.member.domain.Member;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
 @Entity
 @Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Purchase {
     @Id
     @Column(name = "purchase_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "giftcard_id")
