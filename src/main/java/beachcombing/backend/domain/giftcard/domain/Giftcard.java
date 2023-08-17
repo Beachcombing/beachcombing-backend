@@ -22,7 +22,6 @@ public class Giftcard {
 
     @Builder
     public Giftcard(Long id, Integer cost, Store store) {
-        this.id = id;
         this.cost = cost;
         this.store = store;
     }
@@ -30,7 +29,6 @@ public class Giftcard {
     public Giftcard createGiftcard(Long id, Integer cost, Store store) {
         return Giftcard.builder()
                 .cost(cost)
-                .id(id)
                 .store(store)
                 .build();
     }

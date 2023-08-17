@@ -20,15 +20,13 @@ public class Store {
 
     @Builder
     public Store(Long id, String name, String location, String image) {
-        this.id = id;
         this.name = name;
         this.location = location;
         this.image = image;
     }
 
-    public Store createStore(Long id, String name, String location, String image) {
+    public static Store createStore(String name, String location, String image) {
         return Store.builder()
-                .id(id)
                 .name(name)
                 .location(location)
                 .image(image)
