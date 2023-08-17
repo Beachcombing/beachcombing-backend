@@ -1,16 +1,12 @@
 package beachcombing.backend.domain.giftcard.domain;
 
+import beachcombing.backend.domain.store.Store;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Giftcard {
 
     @Id
