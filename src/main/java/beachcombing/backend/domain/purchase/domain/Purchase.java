@@ -23,12 +23,12 @@ public class Purchase {
     private Member member;
 
     @Builder
-    public Purchase(Long id, Giftcard giftcard, Member member) {
+    public Purchase(Giftcard giftcard, Member member) {
         this.giftcard = giftcard;
         this.member = member;
     }
 
-    public static Purchase createPurchase(Long id, Giftcard giftcard, Member member) {
+    public static Purchase createPurchase(Giftcard giftcard, Member member) {
         return Purchase.builder()
                 .giftcard(giftcard)
                 .member(member)
