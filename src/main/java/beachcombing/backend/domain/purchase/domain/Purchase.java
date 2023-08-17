@@ -1,11 +1,9 @@
-package beachcombing.backend.domain.purchase;
+package beachcombing.backend.domain.purchase.domain;
 
 import beachcombing.backend.domain.giftcard.domain.Giftcard;
 import beachcombing.backend.domain.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Date;
 
 @Entity
 @Getter
