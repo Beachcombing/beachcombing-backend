@@ -1,6 +1,6 @@
 package beachcombing.backend.domain.giftcard.domain;
 
-import beachcombing.backend.domain.store.Store;
+import beachcombing.backend.domain.store.domain.Store;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,4 +19,21 @@ public class Giftcard {
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
+
+    @Builder
+    public Giftcard(Long id, Integer cost, Store store) {
+        this.id = id;
+        this.cost = cost;
+        this.store = store;
+    }
+
+    public Giftcard createGiftcard(Long id, Integer cost, Store store) {
+        return Giftcard.builder()
+                .cost(cost)
+                .id(id)
+                .store(store)
+                .build();
+    }
+
+
 }
