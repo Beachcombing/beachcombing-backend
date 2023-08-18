@@ -52,6 +52,6 @@ public class MemberMapper {
                 request.getNickName(),
                 request.getImage());
 
-        return Member.createUser(profile, authInfo);
+        return Member.createMember(profile, authInfo);
     }
 }
