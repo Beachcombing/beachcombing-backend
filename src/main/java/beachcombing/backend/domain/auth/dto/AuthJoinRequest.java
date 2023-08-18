@@ -13,4 +13,5 @@ public class AuthJoinRequest {
     private String email;
     private String nickName;
     private String image;
+    private String role;
 }
