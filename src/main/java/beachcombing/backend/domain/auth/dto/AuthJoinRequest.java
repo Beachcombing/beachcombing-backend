@@ -9,7 +9,8 @@ public class AuthJoinRequest {
 
     private String loginId;
     private String password;
-    private String name;
+    private String provider;
     private String email;
-    private String phone;
+    private String nickName;
+    private String image;
 }
