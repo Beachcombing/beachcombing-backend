@@ -8,7 +8,6 @@ import org.hibernate.annotations.OnDeleteAction;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @OnDelete(action = OnDeleteAction.CASCADE)
-@AllArgsConstructor
 @Entity
 public class Member extends BaseEntity {
     @Id
@@ -23,16 +22,16 @@ public class Member extends BaseEntity {
 
     // 회원 추가 정보
     @Builder.Default
-    private Integer totalPoint = 0; // 전체 포인트
+    private Integer totalPoint; // 전체 포인트
     @Builder.Default
-    private Integer monthPoint = 0; // 월간 포인트
+    private Integer monthPoint; // 월간 포인트
     @Builder.Default
-    private Integer purchasePoint = 0; // 구매 포인트
+    private Integer purchasePoint; // 구매 포인트
     @Builder.Default
-    private Boolean profilePublic = true; // 프로필 공개 여부
+    private Boolean profilePublic; // 프로필 공개 여부
 
     @Builder.Default
-    private Boolean tutorialCompleted = false; // 튜토리얼 완료 여부
+    private Boolean tutorialCompleted; // 튜토리얼 완료 여부
 
 //    @OneToMany(mappedBy = "member")
 //    private List<Record> records = new ArrayList<>();  // 청소 기록 리스트 (Record:Member=다:1)
@@ -53,6 +52,11 @@ public class Member extends BaseEntity {
         return Member.builder()
                 .profile(profile)
                 .authInfo(authInfo)
+                .totalPoint(0)
+                .monthPoint(0)
+                .purchasePoint(0)
+                .profilePublic(true)
+                .tutorialCompleted(false)
                 .build();
     }
 }
