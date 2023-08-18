@@ -8,7 +8,6 @@ import org.hibernate.annotations.OnDeleteAction;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @OnDelete(action = OnDeleteAction.CASCADE)
-@Builder
 @AllArgsConstructor
 @Entity
 public class Member extends BaseEntity {
@@ -31,6 +30,7 @@ public class Member extends BaseEntity {
     private Integer purchasePoint = 0; // 구매 포인트
     @Builder.Default
     private Boolean profilePublic = true; // 프로필 공개 여부
+
     @Builder.Default
     private Boolean tutorialCompleted = false; // 튜토리얼 완료 여부
 
@@ -39,8 +39,17 @@ public class Member extends BaseEntity {
 //
 //    @OneToMany(mappedBy = "member")
 //    private List<Purchase> purchaseList = new ArrayList<>();  // 구매 기록 리스트 (Purchase:Member=다:1)
-
-    public static Member createUser(Profile profile, AuthInfo authInfo){
+    @Builder
+    public Member(Profile profile, AuthInfo authInfo, Integer totalPoint, Integer monthPoint, Integer purchasePoint, Boolean profilePublic, Boolean tutorialCompleted) {
+        this.profile = profile;
+        this.authInfo = authInfo;
+        this.totalPoint = totalPoint;
+        this.monthPoint = monthPoint;
+        this.purchasePoint = purchasePoint;
+        this.profilePublic = profilePublic;
+        this.tutorialCompleted = tutorialCompleted;
+    }
+    public static Member createMember(Profile profile, AuthInfo authInfo){
         return Member.builder()
                 .profile(profile)
                 .authInfo(authInfo)

@@ -13,7 +13,6 @@ import org.hibernate.annotations.OnDeleteAction;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Notification extends BaseEntity {
 
     @Id
@@ -29,4 +28,11 @@ public class Notification extends BaseEntity {
     private String title;
     private String message;
     private String details;
+    @Builder
+    public Notification(Member member, String title, String message, String details) {
+        this.member = member;
+        this.title = title;
+        this.message = message;
+        this.details = details;
+    }
 }

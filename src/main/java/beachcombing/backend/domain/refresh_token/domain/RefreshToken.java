@@ -8,7 +8,6 @@ import lombok.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 @Entity
 public class RefreshToken extends BaseEntity {
     @Id
@@ -21,6 +20,11 @@ public class RefreshToken extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+    @Builder
+    public RefreshToken(Long id, String refreshToken, Member member) {
+        this.refreshToken = refreshToken;
+        this.member = member;
+    }
 
     public static RefreshToken createRefreshToken(String refreshToken, Member member) {
         return RefreshToken.builder()
