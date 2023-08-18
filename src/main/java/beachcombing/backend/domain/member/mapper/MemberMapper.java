@@ -31,12 +31,13 @@ public class MemberMapper {
                 .build();
     }
 
-    public Profile toProfile(String email, String nickName, String image) {
+    public Profile toProfile(String email, String nickName, String image, String role) {
 
         return Profile.builder()
                 .email(email)
                 .nickname(nickName)
                 .image(image)
+                .role(role)
                 .build();
     }
 
@@ -50,7 +51,8 @@ public class MemberMapper {
         Profile profile = toProfile(
                 request.getEmail(),
                 request.getNickName(),
-                request.getImage());
+                request.getImage(),
+                request.getProvider());
 
         return Member.createMember(profile, authInfo);
     }

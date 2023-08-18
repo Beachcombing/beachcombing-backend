@@ -52,6 +52,7 @@ public class AuthService {
         AuthLoginResponse response = AuthLoginResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .role(member.getProfile().getRole())
                 .build();
 
         return response;
