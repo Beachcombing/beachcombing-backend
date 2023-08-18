@@ -21,16 +21,14 @@ public class Member extends BaseEntity {
     private AuthInfo authInfo; // 로그인 정보
 
     // 회원 추가 정보
-    @Builder.Default
+
     private Integer totalPoint; // 전체 포인트
-    @Builder.Default
     private Integer monthPoint; // 월간 포인트
-    @Builder.Default
+
     private Integer purchasePoint; // 구매 포인트
-    @Builder.Default
+
     private Boolean profilePublic; // 프로필 공개 여부
 
-    @Builder.Default
     private Boolean tutorialCompleted; // 튜토리얼 완료 여부
 
 //    @OneToMany(mappedBy = "member")
