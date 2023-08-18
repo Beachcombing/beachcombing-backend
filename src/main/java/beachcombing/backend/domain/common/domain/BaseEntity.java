@@ -15,8 +15,6 @@ import java.time.LocalDateTime;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@SuperBuilder
-@NoArgsConstructor
 public abstract class BaseEntity {
 
     @Column(updatable = false)
