@@ -3,16 +3,13 @@ package beachcombing.backend.domain.notification.domain;
 import beachcombing.backend.domain.common.domain.BaseEntity;
 import beachcombing.backend.domain.member.domain.Member;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-@Entity
+
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
 public class Notification extends BaseEntity {
 
     @Id
@@ -34,5 +31,14 @@ public class Notification extends BaseEntity {
         this.title = title;
         this.message = message;
         this.details = details;
+    }
+
+    public static Notification createNotification(Member member, String title, String message, String details) {
+        return Notification.builder()
+                .member(member)
+                .title(title)
+                .message(message)
+                .details(details)
+                .build();
     }
 }
