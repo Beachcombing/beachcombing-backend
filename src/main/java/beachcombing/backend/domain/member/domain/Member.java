@@ -28,7 +28,7 @@ public class Member {
         this.authInfo = authInfo;
     }
 
-    public static Member createUser(Profile profile, AuthInfo authInfo){
+    public static Member createMember(Profile profile, AuthInfo authInfo){
         return Member.builder()
                 .profile(profile)
                 .authInfo(authInfo)

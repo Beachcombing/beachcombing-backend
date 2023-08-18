@@ -50,6 +50,6 @@ public class MemberMapper {
                 request.getEmail(),
                 request.getPhone());
 
-        return Member.createUser(profile, authInfo);
+        return Member.createMember(profile, authInfo);
     }
 }

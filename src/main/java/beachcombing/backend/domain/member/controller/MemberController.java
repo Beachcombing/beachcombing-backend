@@ -22,9 +22,9 @@ public class MemberController {
 
     // 내 정보 조회하기
     @GetMapping("")
-    public ResponseEntity<MemberFindOneResponse> findUser( @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<MemberFindOneResponse> findMember(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        MemberFindOneResponse response = memberService.findUser(principalDetails.getMember().getId());
+        MemberFindOneResponse response = memberService.findMember(principalDetails.getMember().getId());
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
