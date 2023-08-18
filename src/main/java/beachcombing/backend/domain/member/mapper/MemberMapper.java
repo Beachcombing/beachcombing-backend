@@ -52,7 +52,7 @@ public class MemberMapper {
                 request.getEmail(),
                 request.getNickName(),
                 request.getImage(),
-                request.getProvider());
+                request.getRole());
 
         return Member.createMember(profile, authInfo);
     }
