@@ -12,13 +12,13 @@ public class Giftcard {
     @Id
     @Column(name = "giftcard_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // 상품권 id
 
-    private Integer cost;
+    private Integer cost; // 가격
 
     @ManyToOne
     @JoinColumn(name = "store_id")
-    private Store store;
+    private Store store; // 사용 가능한 상점
 
     @Builder
     public Giftcard(Integer cost, Store store) {

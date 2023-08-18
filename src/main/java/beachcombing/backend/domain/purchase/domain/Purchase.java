@@ -12,15 +12,15 @@ public class Purchase {
     @Id
     @Column(name = "purchase_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // 구매 id
 
     @ManyToOne
     @JoinColumn(name = "giftcard_id")
-    private Giftcard giftcard;
+    private Giftcard giftcard; // 구매한 상품권
 
     @ManyToOne
     @JoinColumn(name = "member_id")
-    private Member member;
+    private Member member; // 구매한 회원
 
     @Builder
     public Purchase(Giftcard giftcard, Member member) {

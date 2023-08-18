@@ -11,12 +11,12 @@ public class Store {
     @Id
     @Column(name = "store_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // 상점 id
 
     @Column(nullable = false)
-    private String name;
-    private String location;
-    private String image;
+    private String name; // 이름
+    private String location; // 위치
+    private String image; // 상점 이미지
 
     @Builder
     public Store(String name, String location, String image) {
