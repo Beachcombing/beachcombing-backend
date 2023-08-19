@@ -1,6 +1,6 @@
-package beachcombing.backend.domain.member_preferred_feed;
+package beachcombing.backend.domain.member_preferred_feed.domain;
 
-import beachcombing.backend.domain.feed.Feed;
+import beachcombing.backend.domain.feed.domain.Feed;
 import beachcombing.backend.domain.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
