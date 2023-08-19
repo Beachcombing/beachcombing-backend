@@ -1,23 +1,24 @@
 package beachcombing.backend.domain.member.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Embeddable
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Profile {
-    private String name;        // 이름
-    private String email;       // 이메일
-    private String phone;       // 핸드폰 번호
+public class Profile {  // 회원 기본 정보
+    private String email;
+    @Column(nullable = false, unique = true, length = 20)
+    private String nickname;
+    private String image; // s3에 저장된 이미지 파일 이름
+    private String role; // USER 혹은 ADMIN
 
     @Builder
-    public Profile(String name, String email, String phone) {
-        this.name = name;
+    public Profile(String email, String nickname, String image, String role) {
         this.email = email;
-        this.phone = phone;
+        this.nickname = nickname;
+        this.image = image;
+        this.role = role;
     }
 }
