@@ -22,20 +22,22 @@ public class MemberMapper {
                 .build();
     }
 
-    public AuthInfo toAuthInfo(String loginId, String password) {
+    public AuthInfo toAuthInfo(String loginId, String password, String provider) {
 
         return AuthInfo.builder()
                 .loginId(loginId)
                 .password(bCryptPasswordEncoder.encode(password))
+                .provider(provider)
                 .build();
     }
 
-    public Profile toProfile(String name, String email, String phone) {
+    public Profile toProfile(String email, String nickName, String image, String role) {
 
         return Profile.builder()
-                .name(name)
                 .email(email)
-                .phone(phone)
+                .nickname(nickName)
+                .image(image)
+                .role(role)
                 .build();
     }
 
@@ -43,13 +45,15 @@ public class MemberMapper {
 
         AuthInfo authInfo = toAuthInfo(
                 request.getLoginId(),
-                request.getPassword());
+                request.getPassword(),
+                request.getProvider());
 
         Profile profile = toProfile(
-                request.getName(),
                 request.getEmail(),
-                request.getPhone());
+                request.getNickName(),
+                request.getImage(),
+                request.getRole());
 
-        return Member.createUser(profile, authInfo);
+        return Member.createMember(profile, authInfo);
     }
 }
