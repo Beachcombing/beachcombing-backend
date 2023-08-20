@@ -47,7 +47,7 @@ public class JwtTokenProvider {
         return buildToken(claims, issuedAt, TokenExpiresIn, secretKey);
     }
 
-    // refreshToken 생성
+    // RefreshToken 생성
     public String generateRefreshToken(Member member) {
 
         Claims claims = Jwts.claims().setSubject(member.getAuthInfo().getLoginId());
