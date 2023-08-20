@@ -8,8 +8,6 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import java.time.Duration;
 import java.util.Base64;
 import java.util.Date;
 
@@ -29,12 +27,6 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    // accessToken 유효시간 30분
-    private long accessTokenValidTime = Duration.ofMinutes(30).toMillis();
-    // RefreshToken 유효시간 2주
-
-    private long refreshTokenValidTime = Duration.ofDays(14).toMillis();
-
     private String buildToken(Claims claims, Date issuedAt, Date TokenExpiresIn, String key) {
 
         return Jwts.builder()
@@ -50,7 +42,7 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.claims().setSubject(member.getAuthInfo().getLoginId()); // JWT payload에 저장되는 정보 단위
         Date issuedAt = new Date();
-        Date TokenExpiresIn = new Date(issuedAt.getTime() + accessTokenValidTime);
+        Date TokenExpiresIn = new Date(issuedAt.getTime() + JwtProperties.ACCESS_TOKEN_EXPIRATION_TIME);
 
         return buildToken(claims, issuedAt, TokenExpiresIn, secretKey);
     }
@@ -60,13 +52,13 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.claims().setSubject(member.getAuthInfo().getLoginId());
         Date issuedAt = new Date();
-        Date TokenExpiresIn = new Date(issuedAt.getTime() + refreshTokenValidTime);
+        Date TokenExpiresIn = new Date(issuedAt.getTime() + JwtProperties.REFRESH_TOKEN_EXPIRATION_TIME);
 
         return buildToken(claims, issuedAt, TokenExpiresIn, refreshSecretKey);
     }
 
     // accessToken에서 userPk(loginId) 추출
-    public String getLoginId(String token) {
+    public String getUsernameFromAccessToken(String token) {
 
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }

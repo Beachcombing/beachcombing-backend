@@ -14,7 +14,6 @@ public class MemberDto {
     private String nickName;
     private String image;
 
-
     public static MemberDto from(Member member) {
 
         return MemberDto.builder()

@@ -19,7 +19,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
     @Transactional(readOnly = true)
-    public MemberFindOneResponse findUser(long id) {
+    public MemberFindOneResponse findMember(long id) {
 
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
