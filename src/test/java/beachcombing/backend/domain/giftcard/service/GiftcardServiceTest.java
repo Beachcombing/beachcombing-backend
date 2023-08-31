@@ -6,6 +6,7 @@ import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardResponse;
 import beachcombing.backend.domain.giftcard.repository.GiftcardRepository;
 import beachcombing.backend.domain.member.repository.MemberRepository;
 import beachcombing.backend.domain.purchase.repository.PurchaseRepository;
+import beachcombing.backend.global.config.exception.CustomException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,6 +49,16 @@ class GiftcardServiceTest {
         PurchaseGiftcardResponse purchaseGiftcardResponse = giftcardService.purchaseGiftcard(purchasegiftcardRequest);
 
         // then
-        assertThat(purchaseGiftcardResponse.getId()).isEqualTo(3);
+        assertThat(purchaseGiftcardResponse.getId()).isEqualTo(6);
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 기프트카드")
+    void giftcardNotFoundError() {
+        // given
+        PurchaseGiftcardRequest purchasegiftcardRequest = PurchaseGiftcardRequest.builder().memberId(7L).giftcardId(2L).build();
+
+        // then
+        Assertions.assertThrows(CustomException.class, () -> giftcardService.purchaseGiftcard(purchasegiftcardRequest));
     }
 }
