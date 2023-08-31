@@ -1,2 +1,14 @@
-package beachcombing.backend.domain.giftcard.dto;public class PurchaseListResponse {
+package beachcombing.backend.domain.giftcard.dto;
+
+import lombok.Builder;
+import lombok.Getter;
+
+@Builder
+@Getter
+public class PurchaseListResponse {
+    private Long id;
+    private String name;
+    private String location;
+    private String image;
+    private Integer cost;
 }
