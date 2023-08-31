@@ -13,6 +13,10 @@ public class MemberDto {
     private String email;
     private String nickName;
     private String image;
+    private Integer totalPoint;
+    private Integer monthPoint;
+    private Integer purchasePoint;
+    private Boolean profilePublic;
 
     public static MemberDto from(Member member) {
 
@@ -21,6 +25,10 @@ public class MemberDto {
                 .email(member.getProfile().getEmail())
                 .nickName(member.getProfile().getNickname())
                 .image(member.getProfile().getImage())
+                .totalPoint(member.getTotalPoint())
+                .monthPoint(member.getMonthPoint())
+                .purchasePoint(member.getPurchasePoint())
+                .profilePublic(member.getProfilePublic())
                 .build();
     }
 }

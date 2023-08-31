@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
 
     private final MemberService memberService;
+    private String Message;
 
     // 내 정보 조회하기
     @GetMapping("")
