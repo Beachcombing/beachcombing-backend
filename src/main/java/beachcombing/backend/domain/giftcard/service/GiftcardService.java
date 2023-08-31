@@ -4,6 +4,7 @@ import beachcombing.backend.domain.giftcard.domain.Giftcard;
 import beachcombing.backend.domain.giftcard.dto.GiftcardListResponse;
 import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardRequest;
 import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardResponse;
+import beachcombing.backend.domain.giftcard.dto.PurchaseListResponse;
 import beachcombing.backend.domain.giftcard.repository.GiftcardRepository;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.repository.MemberRepository;
@@ -51,5 +52,18 @@ public class GiftcardService {
         purchaseRepository.save(purchase);
 
         return PurchaseGiftcardResponse.builder().id(purchase.getId()).build();
+    }
+
+    public List<PurchaseListResponse> getPurchaseList(Long memberId) {
+        return purchaseRepository.findByMemberId(memberId).stream()
+                .map(Purchase::getGiftcard)
+                .map(giftcard -> PurchaseListResponse.builder()
+                        .id(giftcard.getId())
+                        .name(giftcard.getStore().getName())
+                        .location(giftcard.getStore().getLocation())
+                        .image(giftcard.getStore().getImage())
+                        .cost(giftcard.getCost())
+                        .build())
+                .collect(Collectors.toList());
     }
 }
