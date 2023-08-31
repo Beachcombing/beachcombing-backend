@@ -3,6 +3,7 @@ package beachcombing.backend.domain.giftcard.service;
 import beachcombing.backend.domain.giftcard.dto.GiftcardListResponse;
 import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardRequest;
 import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardResponse;
+import beachcombing.backend.domain.giftcard.dto.PurchaseListResponse;
 import beachcombing.backend.domain.giftcard.repository.GiftcardRepository;
 import beachcombing.backend.domain.member.repository.MemberRepository;
 import beachcombing.backend.domain.purchase.repository.PurchaseRepository;
@@ -49,7 +50,7 @@ class GiftcardServiceTest {
         PurchaseGiftcardResponse purchaseGiftcardResponse = giftcardService.purchaseGiftcard(purchasegiftcardRequest);
 
         // then
-        assertThat(purchaseGiftcardResponse.getId()).isEqualTo(6);
+        assertThat(purchaseGiftcardResponse.getId()).isEqualTo(7);
     }
 
     @Test
@@ -60,5 +61,13 @@ class GiftcardServiceTest {
 
         // then
         Assertions.assertThrows(CustomException.class, () -> giftcardService.purchaseGiftcard(purchasegiftcardRequest));
+    }
+
+    @Test
+    @DisplayName("구매한 기프트 카드 목록 조회")
+    void getPurchaseList() {
+        List<PurchaseListResponse> purchaseListResponses =  giftcardService.getPurchaseList(7L);
+
+        assertThat(purchaseListResponses.size()).isEqualTo(2);
     }
 }
