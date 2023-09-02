@@ -46,7 +46,7 @@ public class MemberService {
     //중복 닉네임 검증
 
     @Transactional(readOnly = true)
-    private void validateDuplicatedNickname(String nickname) {
+    public void validateDuplicatedNickname(String nickname) {
 
         Boolean NicknameCheck = memberRepository.existsByProfileNickname(nickname);
         if(NicknameCheck) {

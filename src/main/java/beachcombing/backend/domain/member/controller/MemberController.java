@@ -1,5 +1,6 @@
 package beachcombing.backend.domain.member.controller;
 
+import beachcombing.backend.domain.member.dto.NicknameCheckRequest;
 import beachcombing.backend.domain.member.dto.UpdateMemberInfoRequest;
 import beachcombing.backend.domain.member.dto.MemberFindOneResponse;
 import beachcombing.backend.domain.member.service.MemberService;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
-    private String Message;
 
     // 내 정보 조회하기
     @GetMapping("")
@@ -31,7 +31,7 @@ public class MemberController {
 
     //회원 정보 수정하기
     @PatchMapping("")
-    public ResponseEntity<MemberFindOneResponse> editMemberInfo(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody UpdateMemberInfoRequest updateMemberInfoRequest) {
+    public ResponseEntity<Void> editMemberInfo(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody UpdateMemberInfoRequest updateMemberInfoRequest) {
 
         memberService.updateInfo(principalDetails.getMember().getId(), updateMemberInfoRequest);
 
@@ -39,7 +39,12 @@ public class MemberController {
 
     }
 
+    //닉네임 중복 확인하기
+    @GetMapping("nickname-check")
+    public ResponseEntity<Void> checkNickname(@RequestBody NicknameCheckRequest nicknameCheckRequest) {
 
-
+        memberService.validateDuplicatedNickname(nicknameCheckRequest.getNickname());
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     }
