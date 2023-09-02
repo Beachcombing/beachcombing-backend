@@ -1,5 +1,6 @@
 package beachcombing.backend.domain.member.controller;
 
+import beachcombing.backend.domain.member.dto.UpdateMemberInfoRequest;
 import beachcombing.backend.domain.member.dto.MemberFindOneResponse;
 import beachcombing.backend.domain.member.service.MemberService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
@@ -8,9 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/members")
@@ -29,4 +28,18 @@ public class MemberController {
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-}
+
+    //회원 정보 수정하기
+    @PatchMapping("")
+    public ResponseEntity<MemberFindOneResponse> editMemberInfo(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody UpdateMemberInfoRequest updateMemberInfoRequest) {
+
+        memberService.updateInfo(principalDetails.getMember().getId(), updateMemberInfoRequest);
+
+        return new ResponseEntity(HttpStatus.OK);
+
+    }
+
+
+
+
+    }
