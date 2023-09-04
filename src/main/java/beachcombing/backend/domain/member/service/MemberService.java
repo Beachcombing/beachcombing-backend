@@ -24,10 +24,8 @@ public class MemberService {
     @Transactional(readOnly = true)
     public MemberFindOneResponse findMember(long id) {
 
-        Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
-
-        MemberFindOneResponse response = memberMapper.toUserFindOneResponse(member);
+        Member findMember = findMemberById(id);
+        MemberFindOneResponse response = memberMapper.toUserFindOneResponse(findMember);
 
         return response;
     }
@@ -35,16 +33,13 @@ public class MemberService {
     //회원 정보 수정
     public void updateInfo(long id, UpdateMemberInfoRequest request) {
 
-        Member findMember = memberRepository.findById(id)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
-
+        Member findMember = findMemberById(id);
         validateDuplicatedNickname(request.getNickname());
         findMember.getProfile().updateNicknameAndImage(request);
 
     }
 
     //중복 닉네임 검증
-
     @Transactional(readOnly = true)
     public void validateDuplicatedNickname(String nickname) {
 
@@ -54,5 +49,11 @@ public class MemberService {
         }
     }
 
+    //id값으로 멤버 찾기 -> 중복 코드 줄이기
+    @Transactional(readOnly = true)
+    public Member findMemberById(long id){
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+    }
 
 }
