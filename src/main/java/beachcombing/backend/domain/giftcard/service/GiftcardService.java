@@ -27,7 +27,7 @@ public class GiftcardService {
     private final MemberRepository memberRepository;
 
     public List<GiftcardResponse> getGiftcardList() {
-        return giftcardRepository.findAll().stream()
+        List<GiftcardResponse> giftcardResponseList = giftcardRepository.findAll().stream()
                 .map(giftcard -> GiftcardResponse.builder()
                         .id(giftcard.getId())
                         .name(giftcard.getStore().getName())
@@ -36,6 +36,8 @@ public class GiftcardService {
                         .cost(giftcard.getCost())
                         .build())
                 .collect(Collectors.toList());
+
+        return giftcardResponseList;
     }
 
     public PurchaseGiftcardResponse purchaseGiftcard(PurchaseGiftcardRequest purchaseGiftcardRequest) {
