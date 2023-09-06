@@ -3,7 +3,7 @@ package beachcombing.backend.domain.giftcard.controller;
 import beachcombing.backend.domain.giftcard.dto.GiftcardResponse;
 import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardRequest;
 import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardResponse;
-import beachcombing.backend.domain.giftcard.dto.PurchaseListResponse;
+import beachcombing.backend.domain.giftcard.dto.PurchaseResponse;
 import beachcombing.backend.domain.giftcard.service.GiftcardService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +37,8 @@ public class GiftcardController {
     }
 
     @GetMapping("/purchase")
-    public ResponseEntity<List<PurchaseListResponse>> getPurchaseList(@AuthenticationPrincipal PrincipalDetails userDetails) {
-        List<PurchaseListResponse> purchaseListResponses = giftcardService.getPurchaseList(userDetails.getMember().getId());
+    public ResponseEntity<List<PurchaseResponse>> getPurchaseList(@AuthenticationPrincipal PrincipalDetails userDetails) {
+        List<PurchaseResponse> purchaseListResponses = giftcardService.getPurchaseList(userDetails.getMember().getId());
 
         return ResponseEntity.ok().body(purchaseListResponses);
     }

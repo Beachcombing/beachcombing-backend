@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class PurchaseListResponse {
+public class PurchaseResponse {
     private Long id;
     private String name;
     private String location;
