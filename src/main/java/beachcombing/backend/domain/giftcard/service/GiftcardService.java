@@ -40,7 +40,7 @@ public class GiftcardService {
 
     public PurchaseGiftcardResponse purchaseGiftcard(PurchaseGiftcardRequest purchaseGiftcardRequest) {
         Member member = memberRepository.findById(purchaseGiftcardRequest.getMemberId())
-                .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
         Giftcard giftcard = giftcardRepository.findById(purchaseGiftcardRequest.getGiftcardId())
                 .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_GIFTCARD));
 

@@ -22,7 +22,7 @@ public class MemberService {
     public MemberFindOneResponse findMember(long id) {
 
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
 
         MemberFindOneResponse response = memberMapper.toUserFindOneResponse(member);
 
