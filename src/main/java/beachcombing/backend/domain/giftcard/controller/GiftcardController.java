@@ -1,6 +1,6 @@
 package beachcombing.backend.domain.giftcard.controller;
 
-import beachcombing.backend.domain.giftcard.dto.GiftcardListResponse;
+import beachcombing.backend.domain.giftcard.dto.GiftcardResponse;
 import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardRequest;
 import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardResponse;
 import beachcombing.backend.domain.giftcard.dto.PurchaseListResponse;
@@ -22,8 +22,8 @@ public class GiftcardController {
 
     // 카드 목록 조회
     @GetMapping("")
-    public ResponseEntity<List<GiftcardListResponse>> getGiftcardList() {
-        List<GiftcardListResponse> giftcardListResponses = giftcardService.getGiftcardList();
+    public ResponseEntity<List<GiftcardResponse>> getGiftcardList() {
+        List<GiftcardResponse> giftcardListResponses = giftcardService.getGiftcardList();
         return ResponseEntity.ok().body(giftcardListResponses);
     }
 

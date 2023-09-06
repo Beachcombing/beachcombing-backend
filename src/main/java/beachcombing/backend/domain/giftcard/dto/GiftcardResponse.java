@@ -2,11 +2,10 @@ package beachcombing.backend.domain.giftcard.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
-public class GiftcardListResponse {
+public class GiftcardResponse {
     private Long id;
     private String name;
     private String location;

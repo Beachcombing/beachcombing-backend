@@ -1,7 +1,7 @@
 package beachcombing.backend.domain.giftcard.service;
 
 import beachcombing.backend.domain.giftcard.domain.Giftcard;
-import beachcombing.backend.domain.giftcard.dto.GiftcardListResponse;
+import beachcombing.backend.domain.giftcard.dto.GiftcardResponse;
 import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardRequest;
 import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardResponse;
 import beachcombing.backend.domain.giftcard.dto.PurchaseListResponse;
@@ -26,9 +26,9 @@ public class GiftcardService {
     private final PurchaseRepository purchaseRepository;
     private final MemberRepository memberRepository;
 
-    public List<GiftcardListResponse> getGiftcardList() {
+    public List<GiftcardResponse> getGiftcardList() {
         return giftcardRepository.findAll().stream()
-                .map(giftcard -> GiftcardListResponse.builder()
+                .map(giftcard -> GiftcardResponse.builder()
                         .id(giftcard.getId())
                         .name(giftcard.getStore().getName())
                         .location(giftcard.getStore().getLocation())
