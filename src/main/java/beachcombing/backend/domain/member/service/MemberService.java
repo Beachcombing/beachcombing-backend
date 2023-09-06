@@ -31,28 +31,28 @@ public class MemberService {
     }
 
     //회원 정보 수정
-    public void updateInfo(long id, UpdateMemberInfoRequest request) {
+    public void updateInfo(long id, UpdateMemberInfoRequest request, Boolean isChanged) {
 
         Member findMember = findMemberById(id);
         validateDuplicatedNickname(request.getNickname());
-        findMember.getProfile().updateNicknameAndImage(request);
+        findMember.getProfile().updateNicknameAndImage(request, isChanged);
 
     }
 
-    //중복 닉네임 검증
+    //중복 닉네임 검증\
     @Transactional(readOnly = true)
     public void validateDuplicatedNickname(String nickname) {
 
-        Boolean NicknameCheck = memberRepository.existsByProfileNickname(nickname);
-        if(NicknameCheck) {
+        Boolean nicknameCheck = memberRepository.existsByProfileNickname(nickname);
+        if(nicknameCheck) {
             throw new CustomException(ErrorCode.EXIST_USER_NICKNAME);
         }
     }
 
     //id값으로 멤버 찾기 -> 중복 코드 줄이기
     @Transactional(readOnly = true)
-    public Member findMemberById(long id){
-        return memberRepository.findById(id)
+    public Member findMemberById(long userId){
+        return memberRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
     }
 

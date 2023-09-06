@@ -1,6 +1,5 @@
 package beachcombing.backend.domain.member.controller;
 
-import beachcombing.backend.domain.member.dto.NicknameCheckRequest;
 import beachcombing.backend.domain.member.dto.UpdateMemberInfoRequest;
 import beachcombing.backend.domain.member.dto.MemberFindOneResponse;
 import beachcombing.backend.domain.member.service.MemberService;
@@ -31,20 +30,20 @@ public class MemberController {
 
     //회원 정보 수정하기
     @PatchMapping("")
-    public ResponseEntity<Void> editMemberInfo(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody UpdateMemberInfoRequest updateMemberInfoRequest) {
+    public ResponseEntity<Void> editMemberInfo(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody UpdateMemberInfoRequest updateMemberInfoRequest, @RequestParam(name = "is-changed") Boolean isChanged ) {
 
-        memberService.updateInfo(principalDetails.getMember().getId(), updateMemberInfoRequest);
+        memberService.updateInfo(principalDetails.getMember().getId(), updateMemberInfoRequest, isChanged);
 
-        return new ResponseEntity(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).build();
 
     }
 
     //닉네임 중복 확인하기
     @GetMapping("nickname-check")
-    public ResponseEntity<Void> checkNickname(@RequestBody NicknameCheckRequest nicknameCheckRequest) {
+    public ResponseEntity<Void> checkNickname(@RequestParam(name = "nickname") String nickName) {
 
-        memberService.validateDuplicatedNickname(nicknameCheckRequest.getNickname());
-        return new ResponseEntity(HttpStatus.OK);
+        memberService.validateDuplicatedNickname(nickName);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     }

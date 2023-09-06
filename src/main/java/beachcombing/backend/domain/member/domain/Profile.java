@@ -27,15 +27,9 @@ public class Profile {  // 회원 기본 정보
     }
 
     //image빠짐
-    public void updateNicknameAndImage (UpdateMemberInfoRequest request){
+    public void updateNicknameAndImage (UpdateMemberInfoRequest request, Boolean isChanged){
         this.nickname = request.getNickname();
 
-        /* getIsChanged가 true 이면, image 변경
-        if(request.getIsChanged())
-        {
-
-        }
-        */
-
+        //TODO getIsChanged가 true 이면, image 변경
     }
 }
