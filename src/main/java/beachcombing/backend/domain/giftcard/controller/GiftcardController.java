@@ -29,7 +29,7 @@ public class GiftcardController {
 
     // 카드 구매
     @PostMapping("/{giftcardId}/purchase")
-    public ResponseEntity<PurchaseGiftcardResponse> purchaseGiftCard(@PathVariable Long giftcardId, @AuthenticationPrincipal PrincipalDetails userDetails) {
+    public ResponseEntity<PurchaseGiftcardResponse> purchaseGiftCard(@AuthenticationPrincipal PrincipalDetails userDetails, @PathVariable Long giftcardId) {
         PurchaseGiftcardResponse giftcardPurchaseResponse = giftcardService.purchaseGiftcard(PurchaseGiftcardRequest.builder()
                 .memberId(userDetails.getMember().getId()).giftcardId(giftcardId).build());
 
