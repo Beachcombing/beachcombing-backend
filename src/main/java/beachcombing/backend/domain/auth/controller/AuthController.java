@@ -49,7 +49,7 @@ public class AuthController {
     // 로그아웃
     @PostMapping("logout")
     public ResponseEntity<Void> logout(@RequestBody Map<String,String> accessToken){
-        authService.logout(accessToken.get("accessTokne"));
+        authService.logout(accessToken.get("accessToken"));
         return ResponseEntity.ok().build();
     }
 
