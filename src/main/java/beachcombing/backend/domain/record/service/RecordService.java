@@ -5,7 +5,9 @@ import beachcombing.backend.domain.beach.repository.BeachRepository;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.repository.MemberRepository;
 import beachcombing.backend.domain.record.domain.Record;
+import beachcombing.backend.domain.record.dto.RecordBeachMarkerResponse;
 import beachcombing.backend.domain.record.dto.RecordIdResponse;
+import beachcombing.backend.domain.record.dto.RecordResponse;
 import beachcombing.backend.domain.record.dto.RecordSaveRequest;
 import beachcombing.backend.domain.record.mapper.RecordMapper;
 import beachcombing.backend.domain.record.repository.RecordRepository;
@@ -16,6 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +54,34 @@ public class RecordService {
         return recordMapper.toRecordIdResponse(record);
     }
 
+    // 청소기록 목록 조회
+    public List<RecordResponse> getRecordList(Long memberId) {
+        Member member = getMember(memberId);
+
+        List<RecordResponse> response = recordRepository.findByMember(member).stream()
+                .map(record -> {
+                    Boolean isWritten = (record.getFeed() != null);
+                    //String beforeImageUrl = imageService.processImage(record.getBeforeImage());
+                    //String afterImageUrl = imageService.processImage(record.getAfterImage());
+                    String beforeImageUrl = "beforeImageUrl";
+                    String afterImageUrl = "afterImageUrl";
+                    return recordMapper.toRecordResponse(record, beforeImageUrl, afterImageUrl, isWritten);
+                })
+                .collect(Collectors.toList());
+        return response;
+    }
+
+    // 마이페이지 - (지도) 청소한 해변 조회
+    public List<RecordBeachMarkerResponse> getMyBeachMarker(Long memberId) {
+        Member member = getMember(memberId);
+        List<RecordBeachMarkerResponse> response = recordRepository.findByMember(member).stream()
+                .map(Record::getBeach)
+                .map(recordMapper::toRecordBeachMarkerResponse)
+                .collect(Collectors.toList());
+
+        return response;
+    }
+
     // 예외 처리 - 존재하는 member 인가
     private Member getMember(Long memberId) {
 
@@ -69,4 +102,5 @@ public class RecordService {
             throw new CustomException(ErrorCode.SHOULD_EXIST_IMAGE);
         }
     }
+
 }
