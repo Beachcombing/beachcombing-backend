@@ -1,6 +1,8 @@
 package beachcombing.backend.domain.record.domain;
 
 import beachcombing.backend.domain.beach.domain.Beach;
+import beachcombing.backend.domain.common.domain.BaseEntity;
+import beachcombing.backend.domain.feed.domain.Feed;
 import beachcombing.backend.domain.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -13,7 +15,7 @@ import java.time.LocalTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Record {
+public class Record extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +35,12 @@ public class Record {
     @JoinColumn(name = "beach_id")
     private Beach beach; // 청소한 해변
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "feed_id")
+    private Feed feed;
+
     @Builder
-    public Record(LocalTime duration, Long distance, String beforeImage, String afterImage, Member member, Beach beach) {
+    public Record(LocalTime duration, Long distance, String beforeImage, String afterImage, Member member, Beach beach, Feed feed) {
 
         this.duration = duration;
         this.distance = distance;
@@ -42,6 +48,7 @@ public class Record {
         this.afterImage = afterImage;
         this.member = member;
         this.beach = beach;
+        this.feed = feed;
     }
 
     public static Record createRecord(LocalTime duration, Long distance, String beforeImage, String afterImage, Member member, Beach beach) {
