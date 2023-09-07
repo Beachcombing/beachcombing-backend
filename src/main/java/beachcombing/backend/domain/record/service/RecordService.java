@@ -36,8 +36,6 @@ public class RecordService {
     public RecordIdResponse saveRecord(Long memberId, RecordSaveRequest request){
         Member member = getMember(memberId);
         Beach beach = getBeach(request.beachId);
-        checkExistsImage(request.beforeImage);
-        checkExistsImage(request.afterImage);
 
         // 이미지 업로드
         //String beforeUuid = imageService.uploadImage(request.beforeImage);
@@ -85,13 +83,6 @@ public class RecordService {
 
         return beachRepository.findById(beachId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_BEACH));
-    }
-
-    // 예외 처리 - 이미지 있는지
-    private void checkExistsImage(MultipartFile image) {
-        if (image.isEmpty()) {
-            throw new CustomException(ErrorCode.SHOULD_EXIST_IMAGE);
-        }
     }
 
 }
