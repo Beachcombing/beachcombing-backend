@@ -9,13 +9,13 @@ import java.time.LocalTime;
 @Builder
 public class RecordResponse {
 
-    private Long recordId;
-    private LocalTime duration;
-    private LocalDateTime date;
-    private Long distance;
-    private String beforeImage;
-    private String afterImage;
-    private Boolean isWritten;
-    private Long beachId;
-    private String beachName;
+    public Long recordId;
+    public LocalTime duration;
+    public LocalDateTime date;
+    public Long distance;
+    public String beforeImage;
+    public String afterImage;
+    public Boolean isWritten;
+    public Long beachId;
+    public String beachName;
 }
