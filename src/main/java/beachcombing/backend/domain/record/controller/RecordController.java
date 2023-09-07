@@ -6,6 +6,7 @@ import beachcombing.backend.domain.record.service.RecordService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -22,20 +23,14 @@ public class RecordController {
     @PostMapping("")
     public ResponseEntity<RecordIdResponse> saveRecord(@AuthenticationPrincipal PrincipalDetails userDetails,
                                                        @Valid RecordSaveRequest request){
-
         RecordIdResponse response = recordService.saveRecord(userDetails.getMember().getId(), request);
-
-        return ResponseEntity.ok().body(response);
-
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     // 자신의 청소기록 목록 조회
     @GetMapping("")
     public ResponseEntity<List<RecordResponse>> getRecordList(@AuthenticationPrincipal PrincipalDetails userDetails){
         List<RecordResponse> response = recordService.getRecordList(userDetails.getMember().getId());
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-
-
-
 }
