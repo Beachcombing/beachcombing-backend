@@ -5,10 +5,7 @@ import beachcombing.backend.domain.beach.repository.BeachRepository;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.repository.MemberRepository;
 import beachcombing.backend.domain.record.domain.Record;
-import beachcombing.backend.domain.record.dto.RecordBeachMarkerResponse;
-import beachcombing.backend.domain.record.dto.RecordIdResponse;
-import beachcombing.backend.domain.record.dto.RecordResponse;
-import beachcombing.backend.domain.record.dto.RecordSaveRequest;
+import beachcombing.backend.domain.record.dto.*;
 import beachcombing.backend.domain.record.mapper.RecordMapper;
 import beachcombing.backend.domain.record.repository.RecordRepository;
 import beachcombing.backend.global.config.exception.CustomException;
@@ -77,9 +74,28 @@ public class RecordService {
         List<RecordBeachMarkerResponse> response = recordRepository.findByMember(member).stream()
                 .map(Record::getBeach)
                 .map(recordMapper::toRecordBeachMarkerResponse)
-                .collect(Collectors.toList());
+                .toList();
 
         return response;
+    }
+
+    // 마이페이지 - (지도) 특정 위치 청소 기록 목록 조회
+    public RecordListByBeachResponse getMyBeachRecord(Long memberId, Long beachId) {
+        Member member = getMember(memberId);
+        Beach beach = getBeach(beachId);
+
+        List<RecordDto> recordDtoList = recordRepository.findByMemberAndBeachOrderByCreatedDateDesc(member, beach).stream()
+                .map(record -> {
+                            //String beforeImageUrl = imageService.processImage(record.getBeforeImage());
+                            //String afterImageUrl = imageService.processImage(record.getAfterImage());
+                            String beforeImageUrl = "";
+                            String afterImageUrl = "";
+                            return recordMapper.toRecordDto(record, beforeImageUrl, afterImageUrl);
+                        }
+                )
+                .toList();
+
+        return recordMapper.toRecordListByBeachResponse(beach, recordDtoList);
     }
 
     // 예외 처리 - 존재하는 member 인가

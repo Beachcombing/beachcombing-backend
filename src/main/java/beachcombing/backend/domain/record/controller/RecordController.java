@@ -1,9 +1,6 @@
 package beachcombing.backend.domain.record.controller;
 
-import beachcombing.backend.domain.record.dto.RecordBeachMarkerResponse;
-import beachcombing.backend.domain.record.dto.RecordIdResponse;
-import beachcombing.backend.domain.record.dto.RecordResponse;
-import beachcombing.backend.domain.record.dto.RecordSaveRequest;
+import beachcombing.backend.domain.record.dto.*;
 import beachcombing.backend.domain.record.service.RecordService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
 import jakarta.validation.Valid;
@@ -39,9 +36,20 @@ public class RecordController {
     }
 
     // 마이페이지 - (지도) 청소한 해변 조회
-    @GetMapping("/location")
+    @GetMapping("location")
     public ResponseEntity<List<RecordBeachMarkerResponse>> getMyBeachMarker(@AuthenticationPrincipal PrincipalDetails userDetails){
         List<RecordBeachMarkerResponse> response = recordService.getMyBeachMarker(userDetails.getMember().getId());
+        return ResponseEntity.ok().body(response);
+    }
+
+
+    // 마이페이지 - (지도) 특정 위치 청소 기록 목록 조회
+    @GetMapping("beach/{beachId}")
+    public ResponseEntity<RecordListByBeachResponse> getMyBeachRecord(@AuthenticationPrincipal PrincipalDetails userDetails,
+                                                                    @PathVariable("beachId") Long beachId) {
+
+        RecordListByBeachResponse response = recordService.getMyBeachRecord(userDetails.getMember().getId(), beachId);
+
         return ResponseEntity.ok().body(response);
     }
 
