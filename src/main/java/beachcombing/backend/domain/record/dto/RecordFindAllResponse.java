@@ -1,11 +1,15 @@
 package beachcombing.backend.domain.record.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RecordFindAllResponse {
 
     public Long recordId;
