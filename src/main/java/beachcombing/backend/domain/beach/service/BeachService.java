@@ -62,7 +62,7 @@ public class BeachService {
 
 
     // 예외 처리 - 존재하는 beach 인가
-    private Beach getBeach(Long beachId) {
+    public Beach getBeach(Long beachId) {
         return beachRepository.findById(beachId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_BEACH));
     }
