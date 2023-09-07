@@ -1,9 +1,9 @@
-package beachcombing.backend.domain.record.dto;
+package beachcombing.backend.domain.beach.dto;
 
 import lombok.Builder;
 
 @Builder
-public class RecordBeachMarkerResponse {
+public class BeachMarkerResponse {
     public Long id;
     public String name;
     public String lat;

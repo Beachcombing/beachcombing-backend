@@ -1,6 +1,7 @@
 package beachcombing.backend.domain.record.service;
 
 import beachcombing.backend.domain.beach.domain.Beach;
+import beachcombing.backend.domain.beach.dto.BeachMarkerResponse;
 import beachcombing.backend.domain.beach.repository.BeachRepository;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.repository.MemberRepository;
@@ -31,7 +32,7 @@ public class RecordService {
     private final BeachRepository beachRepository;
     private final RecordMapper recordMapper;
 
-    // 청소기록하기
+    // 청소 기록하기
     public RecordIdResponse saveRecord(Long memberId, RecordSaveRequest request){
         Member member = getMember(memberId);
         Beach beach = getBeach(request.beachId);
@@ -51,7 +52,8 @@ public class RecordService {
         return recordMapper.toRecordIdResponse(record);
     }
 
-    // 청소기록 목록 조회
+    // 자신의 청소기록 목록 조회
+    @Transactional(readOnly = true)
     public List<RecordResponse> getRecordList(Long memberId) {
         Member member = getMember(memberId);
 
@@ -68,35 +70,8 @@ public class RecordService {
         return response;
     }
 
-    // 마이페이지 - (지도) 청소한 해변 조회
-    public List<RecordBeachMarkerResponse> getMyBeachMarker(Long memberId) {
-        Member member = getMember(memberId);
-        List<RecordBeachMarkerResponse> response = recordRepository.findByMember(member).stream()
-                .map(Record::getBeach)
-                .map(recordMapper::toRecordBeachMarkerResponse)
-                .toList();
 
-        return response;
-    }
 
-    // 마이페이지 - (지도) 특정 위치 청소 기록 목록 조회
-    public RecordListByBeachResponse getMyBeachRecord(Long memberId, Long beachId) {
-        Member member = getMember(memberId);
-        Beach beach = getBeach(beachId);
-
-        List<RecordDto> recordDtoList = recordRepository.findByMemberAndBeachOrderByCreatedDateDesc(member, beach).stream()
-                .map(record -> {
-                            //String beforeImageUrl = imageService.processImage(record.getBeforeImage());
-                            //String afterImageUrl = imageService.processImage(record.getAfterImage());
-                            String beforeImageUrl = "";
-                            String afterImageUrl = "";
-                            return recordMapper.toRecordDto(record, beforeImageUrl, afterImageUrl);
-                        }
-                )
-                .toList();
-
-        return recordMapper.toRecordListByBeachResponse(beach, recordDtoList);
-    }
 
     // 예외 처리 - 존재하는 member 인가
     private Member getMember(Long memberId) {

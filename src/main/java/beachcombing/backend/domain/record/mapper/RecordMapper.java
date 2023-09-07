@@ -2,6 +2,7 @@ package beachcombing.backend.domain.record.mapper;
 
 
 import beachcombing.backend.domain.beach.domain.Beach;
+import beachcombing.backend.domain.beach.dto.BeachMarkerResponse;
 import beachcombing.backend.domain.beach.mapper.BeachMapper;
 import beachcombing.backend.domain.record.domain.Record;
 import beachcombing.backend.domain.record.dto.*;
@@ -9,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
@@ -36,14 +36,6 @@ public class RecordMapper {
                 .build();
     }
 
-    public RecordBeachMarkerResponse toRecordBeachMarkerResponse(Beach beach){
-        return RecordBeachMarkerResponse.builder()
-                .id(beach.getId())
-                .name(beach.getName())
-                .lat(beach.getLocation().getLat().toString())
-                .lng(beach.getLocation().getLng().toString())
-                .build();
-    }
 
     public RecordDto toRecordDto(Record record, String beforeImage, String afterImage) {
         return RecordDto.builder()
@@ -53,13 +45,6 @@ public class RecordMapper {
                 .distance(record.getDistance())
                 .beforeImage(beforeImage)
                 .afterImage(afterImage)
-                .build();
-    }
-
-    public RecordListByBeachResponse toRecordListByBeachResponse(Beach beach, List<RecordDto> recordDtoList){
-        return RecordListByBeachResponse.builder()
-                .beach(beachMapper.toBeachDto(beach))
-                .recordList(recordDtoList)
                 .build();
     }
 
