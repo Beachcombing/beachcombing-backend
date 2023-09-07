@@ -31,17 +31,17 @@ public class MemberService {
     }
 
     //회원 정보 수정
-    public void updateInfo(long id, UpdateMemberInfoRequest request, Boolean isChanged) {
+    public void updateMemberInfo(long id, UpdateMemberInfoRequest request, Boolean isChanged) {
 
         Member findMember = findMemberById(id);
-        validateDuplicatedNickname(request.getNickname());
+        checkNickname(request.getNickname());
         findMember.getProfile().updateNicknameAndImage(request, isChanged);
 
     }
 
     //중복 닉네임 검증\
     @Transactional(readOnly = true)
-    public void validateDuplicatedNickname(String nickname) {
+    public void checkNickname(String nickname) {
 
         Boolean nicknameCheck = memberRepository.existsByProfileNickname(nickname);
         if(nicknameCheck) {

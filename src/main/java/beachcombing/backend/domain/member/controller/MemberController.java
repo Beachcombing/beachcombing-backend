@@ -30,9 +30,9 @@ public class MemberController {
 
     //회원 정보 수정하기
     @PatchMapping("")
-    public ResponseEntity<Void> editMemberInfo(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody UpdateMemberInfoRequest updateMemberInfoRequest, @RequestParam(name = "is-changed") Boolean isChanged ) {
+    public ResponseEntity<Void> updateMemberInfo(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody UpdateMemberInfoRequest updateMemberInfoRequest, @RequestParam(name = "is-changed") Boolean isChanged ) {
 
-        memberService.updateInfo(principalDetails.getMember().getId(), updateMemberInfoRequest, isChanged);
+        memberService.updateMemberInfo(principalDetails.getMember().getId(), updateMemberInfoRequest, isChanged);
 
         return ResponseEntity.status(HttpStatus.OK).build();
 
@@ -42,7 +42,7 @@ public class MemberController {
     @GetMapping("nickname-check")
     public ResponseEntity<Void> checkNickname(@RequestParam(name = "nickname") String nickName) {
 
-        memberService.validateDuplicatedNickname(nickName);
+        memberService.checkNickname(nickName);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
