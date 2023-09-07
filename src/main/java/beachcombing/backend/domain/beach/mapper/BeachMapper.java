@@ -2,13 +2,9 @@ package beachcombing.backend.domain.beach.mapper;
 
 import beachcombing.backend.domain.beach.domain.Beach;
 import beachcombing.backend.domain.beach.dto.BeachDto;
-import beachcombing.backend.domain.beach.dto.BeachMarkerResponse;
-import beachcombing.backend.domain.record.dto.RecordDto;
-import beachcombing.backend.domain.beach.dto.BeachRecordListResponse;
+import beachcombing.backend.domain.beach.dto.BeachFineOneResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -19,8 +15,8 @@ public class BeachMapper {
                 .build();
     }
 
-    public BeachMarkerResponse toBeachMarkerResponse(Beach beach){
-        return BeachMarkerResponse.builder()
+    public BeachFineOneResponse toBeachFindOneResponse(Beach beach){
+        return BeachFineOneResponse.builder()
                 .id(beach.getId())
                 .name(beach.getName())
                 .lat(beach.getLocation().getLat().toString())
@@ -28,10 +24,4 @@ public class BeachMapper {
                 .build();
     }
 
-    public BeachRecordListResponse toRecordListByBeachResponse(Beach beach, List<RecordDto> recordDtoList){
-        return BeachRecordListResponse.builder()
-                .beach(toBeachDto(beach))
-                .recordList(recordDtoList)
-                .build();
-    }
 }

@@ -3,6 +3,6 @@ package beachcombing.backend.domain.record.dto;
 import lombok.Builder;
 
 @Builder
-public class RecordIdResponse {
+public class RecordSaveResponse {
     public Long id;
 }

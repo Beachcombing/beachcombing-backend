@@ -2,7 +2,7 @@ package beachcombing.backend.domain.record.mapper;
 
 
 import beachcombing.backend.domain.beach.domain.Beach;
-import beachcombing.backend.domain.beach.dto.BeachMarkerResponse;
+import beachcombing.backend.domain.beach.dto.RecordByBeachFindAllResponse;
 import beachcombing.backend.domain.beach.mapper.BeachMapper;
 import beachcombing.backend.domain.record.domain.Record;
 import beachcombing.backend.domain.record.dto.*;
@@ -16,14 +16,21 @@ import java.util.List;
 public class RecordMapper {
     private final BeachMapper beachMapper;
 
-    public RecordIdResponse toRecordIdResponse(Record record){
-        return RecordIdResponse.builder()
+    public RecordSaveResponse toRecordIdResponse(Record record){
+        return RecordSaveResponse.builder()
                 .id(record.getId())
                 .build();
     }
 
-    public RecordResponse toRecordResponse(Record record, String beforeImage, String afterImage, Boolean isWritten){
-        return RecordResponse.builder()
+    public RecordByBeachFindAllResponse toRecordByBeachFindAllResponse(Beach beach, List<RecordDto> recordDtoList){
+        return RecordByBeachFindAllResponse.builder()
+                .beach(beachMapper.toBeachDto(beach))
+                .recordList(recordDtoList)
+                .build();
+    }
+
+    public RecordFindAllResponse toRecordFindAllResponse(Record record, String beforeImage, String afterImage, Boolean isWritten){
+        return RecordFindAllResponse.builder()
                 .recordId(record.getId())
                 .duration(record.getDuration())
                 .date(record.getCreatedDate())
@@ -47,6 +54,7 @@ public class RecordMapper {
                 .afterImage(afterImage)
                 .build();
     }
+
 
 
 }

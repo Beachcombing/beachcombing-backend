@@ -2,12 +2,11 @@ package beachcombing.backend.domain.record.dto;
 
 import lombok.Builder;
 
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Builder
-public class RecordResponse {
+public class RecordFindAllResponse {
 
     public Long recordId;
     public LocalTime duration;

@@ -6,7 +6,7 @@ import lombok.Builder;
 import java.util.List;
 
 @Builder
-public class BeachRecordListResponse {
+public class RecordByBeachFindAllResponse {
     public BeachDto beach;
     public List<RecordDto> recordList;
 
