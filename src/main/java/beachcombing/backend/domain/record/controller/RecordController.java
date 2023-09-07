@@ -1,6 +1,6 @@
 package beachcombing.backend.domain.record.controller;
 
-import beachcombing.backend.domain.beach.dto.RecordByBeachFindAllResponse;
+import beachcombing.backend.domain.record.dto.RecordByBeachFindAllResponse;
 import beachcombing.backend.domain.record.dto.*;
 import beachcombing.backend.domain.record.service.RecordService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;

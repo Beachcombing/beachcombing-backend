@@ -2,7 +2,7 @@ package beachcombing.backend.domain.record.mapper;
 
 
 import beachcombing.backend.domain.beach.domain.Beach;
-import beachcombing.backend.domain.beach.dto.RecordByBeachFindAllResponse;
+import beachcombing.backend.domain.record.dto.RecordByBeachFindAllResponse;
 import beachcombing.backend.domain.beach.mapper.BeachMapper;
 import beachcombing.backend.domain.record.domain.Record;
 import beachcombing.backend.domain.record.dto.*;
@@ -14,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Component
 public class RecordMapper {
-    private final BeachMapper beachMapper;
 
     public RecordSaveResponse toRecordIdResponse(Record record){
         return RecordSaveResponse.builder()
@@ -24,7 +23,7 @@ public class RecordMapper {
 
     public RecordByBeachFindAllResponse toRecordByBeachFindAllResponse(Beach beach, List<RecordDto> recordDtoList){
         return RecordByBeachFindAllResponse.builder()
-                .beach(beachMapper.toBeachDto(beach))
+                .beachName(beach.getName())
                 .recordList(recordDtoList)
                 .build();
     }

@@ -1,6 +1,5 @@
-package beachcombing.backend.domain.beach.dto;
+package beachcombing.backend.domain.record.dto;
 
-import beachcombing.backend.domain.record.dto.RecordDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecordByBeachFindAllResponse {
-    public BeachDto beach;
+    public String beachName;
     public List<RecordDto> recordList;
 
 }
