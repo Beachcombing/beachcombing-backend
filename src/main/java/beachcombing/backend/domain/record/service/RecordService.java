@@ -44,7 +44,7 @@ public class RecordService {
         String beforeUuid = "beforeImage";
         String afterUuid = "afterImage";
 
-        Record record = Record.createRecord(request.time, request.range, beforeUuid, afterUuid, member, beach);
+        Record record = Record.createRecord(request.duration, request.distance, beforeUuid, afterUuid, member, beach);
 
         recordRepository.save(record);
 

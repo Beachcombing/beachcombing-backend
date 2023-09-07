@@ -11,9 +11,9 @@ public class RecordSaveRequest {
     @NotNull
     public Long beachId;
     @NotNull
-    public LocalTime time;
+    public LocalTime duration;
     @NotNull
-    public Long range;
+    public Long distance;
     @NotNull
     public MultipartFile beforeImage;
     @NotNull
