@@ -28,4 +28,10 @@ public class MemberService {
 
         return response;
     }
+
+    // 예외 처리 - 존재하는 member 인가
+    public Member getMember(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
+    }
 }

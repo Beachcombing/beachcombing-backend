@@ -87,9 +87,18 @@ public class RecordService {
         return recordMapper.toRecordByBeachFindAllResponse(beach, recordDtoList);
     }
 
+    public Record getLatestRecord(Beach beach){
+        return recordRepository.findTopByBeachOrderByCreatedDateDesc(beach)
+                .orElse(null);
+    }
+
+    public List<Record> getRecords(Member member){
+        return recordRepository.findByMember(member);
+    }
+
 
     // 예외 처리 - 존재하는 member 인가
-    private Member getMember(Long memberId) {
+    public Member getMember(Long memberId) {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
     }
