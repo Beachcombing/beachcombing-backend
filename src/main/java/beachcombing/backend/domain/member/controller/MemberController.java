@@ -1,6 +1,6 @@
 package beachcombing.backend.domain.member.controller;
 
-import beachcombing.backend.domain.member.dto.UpdateMemberInfoRequest;
+import beachcombing.backend.domain.member.dto.MemberUpdateOneRequest;
 import beachcombing.backend.domain.member.dto.MemberFindOneResponse;
 import beachcombing.backend.domain.member.service.MemberService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
@@ -30,9 +30,9 @@ public class MemberController {
 
     //회원 정보 수정하기
     @PatchMapping("")
-    public ResponseEntity<Void> updateMemberInfo(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody UpdateMemberInfoRequest updateMemberInfoRequest, @RequestParam(name = "is-changed") Boolean isChanged ) {
+    public ResponseEntity<Void> updateMember(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody MemberUpdateOneRequest memberUpdateOneRequest, @RequestParam(name = "is-changed") Boolean isChanged ) {
 
-        memberService.updateMemberInfo(principalDetails.getMember().getId(), updateMemberInfoRequest, isChanged);
+        memberService.updateMember(principalDetails.getMember().getId(), memberUpdateOneRequest, isChanged);
 
         return ResponseEntity.status(HttpStatus.OK).build();
 
