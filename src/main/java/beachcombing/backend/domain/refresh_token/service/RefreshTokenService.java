@@ -14,12 +14,12 @@ public class RefreshTokenService {
 
     private final RefreshTokenRepository refreshTokenRepository;
 
-    public void saveRefreshToken(String refreshToken, Member member) {
+    public void saveRefreshToken(String refreshToken, String keyLoginId) {
 
-        RefreshToken newRefreshToken = RefreshToken.createRefreshToken(refreshToken, member);
+        RefreshToken newRefreshToken = RefreshToken.createRefreshToken(refreshToken, keyLoginId);
 
         // 기존 토큰이 있으면 업데이트하고, 없으면 새로 생성하여 저장
-        refreshTokenRepository.findByMember(member)
+        refreshTokenRepository.findByKeyLoginId(keyLoginId)
                 .ifPresentOrElse(
                         (findRefreshToken) -> findRefreshToken.updateToken(refreshToken),
                         () -> refreshTokenRepository.save(newRefreshToken)
