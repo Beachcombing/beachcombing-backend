@@ -4,8 +4,7 @@ import beachcombing.backend.domain.auth.dto.AuthJoinRequest;
 import beachcombing.backend.domain.member.domain.AuthInfo;
 import beachcombing.backend.domain.member.domain.Profile;
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.member.dto.MemberDto;
-import beachcombing.backend.domain.member.dto.MemberFindOneResponse;
+import beachcombing.backend.domain.member.dto.MemberFindResponse;
 import lombok.RequiredArgsConstructor;;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -15,10 +14,17 @@ import org.springframework.stereotype.Component;
 public class MemberMapper {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public MemberFindOneResponse toUserFindOneResponse(Member member) {
+    public static MemberFindResponse toMemberFindResponse(Member member) {
 
-        return MemberFindOneResponse.builder()
-                .member(MemberDto.from(member))
+        return MemberFindResponse.builder()
+                .id(member.getId())
+                .email(member.getProfile().getEmail())
+                .nickName(member.getProfile().getNickname())
+                .image(member.getProfile().getImage())
+                .totalPoint(member.getTotalPoint())
+                .monthPoint(member.getMonthPoint())
+                .purchasePoint(member.getPurchasePoint())
+                .profilePublic(member.getProfilePublic())
                 .build();
     }
 
