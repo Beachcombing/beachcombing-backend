@@ -1,7 +1,6 @@
 package beachcombing.backend.domain.giftcard.service;
 
 import beachcombing.backend.domain.giftcard.dto.GiftcardFindAllResponse;
-import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardRequest;
 import beachcombing.backend.domain.giftcard.dto.PurchaseUpdateResponse;
 import beachcombing.backend.domain.giftcard.dto.PurchaseFindAllResponse;
 import beachcombing.backend.domain.giftcard.repository.GiftcardRepository;
@@ -42,23 +41,25 @@ class GiftcardServiceTest {
     @DisplayName("기프트카드 구매")
     void purchaseGiftcard() {
         // given
-        PurchaseGiftcardRequest purchasegiftcardRequest = PurchaseGiftcardRequest.builder().memberId(7L).giftcardId(1L).build();
+        Long memberId = 7L;
+        Long giftcardId = 1L;
 
         // when
-        PurchaseUpdateResponse purchaseGiftcardResponse = giftcardService.updatePurchase(purchasegiftcardRequest);
+        PurchaseUpdateResponse purchaseGiftcardResponse = giftcardService.savePurchase(memberId, giftcardId);
 
         // then
-        assertThat(purchaseGiftcardResponse.getId()).isEqualTo(7);
+        assertThat(purchaseGiftcardResponse.getId()).isEqualTo(11L);
     }
 
     @Test
     @DisplayName("존재하지 않는 기프트카드")
     void giftcardNotFoundError() {
         // given
-        PurchaseGiftcardRequest purchasegiftcardRequest = PurchaseGiftcardRequest.builder().memberId(7L).giftcardId(2L).build();
+        Long memberId = 7L;
+        Long giftcardId = 2L;
 
         // then
-        Assertions.assertThrows(CustomException.class, () -> giftcardService.updatePurchase(purchasegiftcardRequest));
+        Assertions.assertThrows(CustomException.class, () -> giftcardService.savePurchase(memberId,giftcardId));
     }
 
     @Test
@@ -66,6 +67,6 @@ class GiftcardServiceTest {
     void getPurchaseList() {
         List<PurchaseFindAllResponse> purchaseListResponses =  giftcardService.findAllPurchase(7L);
 
-        assertThat(purchaseListResponses.size()).isEqualTo(2);
+        assertThat(purchaseListResponses.size()).isEqualTo(6);
     }
 }
