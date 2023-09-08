@@ -3,7 +3,7 @@ package beachcombing.backend.domain.auth.service;
 import beachcombing.backend.domain.auth.dto.AuthJoinRequest;
 import beachcombing.backend.domain.auth.dto.AuthLoginRequest;
 import beachcombing.backend.domain.auth.dto.AuthLoginResponse;
-import beachcombing.backend.domain.auth.dto.AuthRecreateTokenResponse;
+import beachcombing.backend.domain.auth.dto.AuthRefreshResponse;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
 import beachcombing.backend.domain.member.repository.MemberRepository;
@@ -63,7 +63,7 @@ public class AuthService {
     }
 
     // accessToken 재발급
-    public AuthRecreateTokenResponse refresh(String request) {
+    public AuthRefreshResponse refresh(String request) {
         String refreshToken = request.replace("Bearer", "");
 
         //refreshToken 유효성 확인
@@ -84,7 +84,7 @@ public class AuthService {
             throw new CustomException(ErrorCode.TOKEN_EXPIRED);
         }
 
-        AuthRecreateTokenResponse response = AuthRecreateTokenResponse.builder()
+        AuthRefreshResponse response = AuthRefreshResponse.builder()
                 .accessToken(createdAccessToken)
                 .role(findMember.getProfile().getRole())
                 .build();

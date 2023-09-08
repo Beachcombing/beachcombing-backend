@@ -3,11 +3,10 @@ package beachcombing.backend.domain.auth.controller;
 import beachcombing.backend.domain.auth.dto.AuthJoinRequest;
 import beachcombing.backend.domain.auth.dto.AuthLoginRequest;
 import beachcombing.backend.domain.auth.dto.AuthLoginResponse;
-import beachcombing.backend.domain.auth.dto.AuthRecreateTokenResponse;
+import beachcombing.backend.domain.auth.dto.AuthRefreshResponse;
 import beachcombing.backend.domain.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,8 +40,8 @@ public class AuthController {
 
     // AccessToken 재발급
     @PostMapping("token")
-    public ResponseEntity<AuthRecreateTokenResponse> refresh(@RequestBody Map<String, String> refreshToken){
-        AuthRecreateTokenResponse response = authService.refresh(refreshToken.get("refreshToken"));
+    public ResponseEntity<AuthRefreshResponse> refresh(@RequestBody Map<String, String> refreshToken){
+        AuthRefreshResponse response = authService.refresh(refreshToken.get("refreshToken"));
         return ResponseEntity.ok().body(response);
     }
 
