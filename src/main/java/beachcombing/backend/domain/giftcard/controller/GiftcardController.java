@@ -7,6 +7,7 @@ import beachcombing.backend.domain.giftcard.dto.PurchaseFindAllResponse;
 import beachcombing.backend.domain.giftcard.service.GiftcardService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -23,23 +24,23 @@ public class GiftcardController {
     // 카드 목록 조회
     @GetMapping("")
     public ResponseEntity<List<GiftcardFindAllResponse>> findAllGiftcard() {
-        List<GiftcardFindAllResponse> giftcardListResponses = giftcardService.findAllGiftcard();
-        return ResponseEntity.ok().body(giftcardListResponses);
+        List<GiftcardFindAllResponse> response = giftcardService.findAllGiftcard();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     // 카드 구매
     @PostMapping("/{giftcardId}/purchase")
     public ResponseEntity<PurchaseUpdateResponse> updatePurchase(@AuthenticationPrincipal PrincipalDetails userDetails, @PathVariable Long giftcardId) {
-        PurchaseUpdateResponse giftcardPurchaseResponse = giftcardService.updatePurchase(PurchaseGiftcardRequest.builder()
+        PurchaseUpdateResponse response = giftcardService.updatePurchase(PurchaseGiftcardRequest.builder()
                 .memberId(userDetails.getMember().getId()).giftcardId(giftcardId).build());
 
-        return ResponseEntity.ok().body(giftcardPurchaseResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/purchase")
     public ResponseEntity<List<PurchaseFindAllResponse>> findAllPurchase(@AuthenticationPrincipal PrincipalDetails userDetails) {
-        List<PurchaseFindAllResponse> purchaseListResponses = giftcardService.findAllPurchase(userDetails.getMember().getId());
+        List<PurchaseFindAllResponse> response = giftcardService.findAllPurchase(userDetails.getMember().getId());
 
-        return ResponseEntity.ok().body(purchaseListResponses);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
