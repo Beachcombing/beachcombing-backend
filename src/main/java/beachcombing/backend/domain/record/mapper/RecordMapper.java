@@ -2,6 +2,7 @@ package beachcombing.backend.domain.record.mapper;
 
 
 import beachcombing.backend.domain.beach.domain.Beach;
+import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.record.dto.RecordByBeachFindAllResponse;
 import beachcombing.backend.domain.beach.mapper.BeachMapper;
 import beachcombing.backend.domain.record.domain.Record;
@@ -21,10 +22,10 @@ public class RecordMapper {
                 .build();
     }
 
-    public RecordByBeachFindAllResponse toRecordByBeachFindAllResponse(Beach beach, List<RecordDto> recordDtoList){
+    public RecordByBeachFindAllResponse toRecordByBeachFindAllResponse(Beach beach, List<RecordByBeachFindAllResponse.RecordDto> recordList){
         return RecordByBeachFindAllResponse.builder()
                 .beachName(beach.getName())
-                .recordList(recordDtoList)
+                .recordList(recordList)
                 .build();
     }
 
@@ -43,17 +44,9 @@ public class RecordMapper {
     }
 
 
-    public RecordDto toRecordDto(Record record, String beforeImage, String afterImage) {
-        return RecordDto.builder()
-                .id(record.getId())
-                .date(record.getCreatedDate())
-                .duration(record.getDuration())
-                .distance(record.getDistance())
-                .beforeImage(beforeImage)
-                .afterImage(afterImage)
-                .build();
+    public Record toEntity(RecordSaveRequest request, String beforeImage, String afterImage, Member member, Beach beach){
+        return Record.createRecord(request.duration, request.distance, beforeImage, afterImage, member, beach);
     }
-
 
 
 }
