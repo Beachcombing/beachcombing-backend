@@ -1,8 +1,9 @@
 package beachcombing.backend.domain.beach.mapper;
 
 import beachcombing.backend.domain.beach.domain.Beach;
+import beachcombing.backend.domain.beach.dto.BeachFindMarkerResponse;
 import beachcombing.backend.domain.beach.dto.BeachFindResponse;
-import beachcombing.backend.domain.beach.dto.BeachFineMarkerResponse;
+import beachcombing.backend.domain.beach.dto.BeachFineMyMarkerResponse;
 import beachcombing.backend.domain.record.domain.Record;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,8 +12,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class BeachMapper {
 
-    public BeachFineMarkerResponse toBeachFindMarkerOneResponse(Beach beach){
-        return BeachFineMarkerResponse.builder()
+    public BeachFineMyMarkerResponse toBeachFindMyMarkerResponse(Beach beach){
+        return BeachFineMyMarkerResponse.builder()
                 .id(beach.getId())
                 .name(beach.getName())
                 .lat(beach.getLocation().getLat().toString())
@@ -33,6 +34,15 @@ public class BeachMapper {
                 .member(BeachFindResponse.MemberDto.from(record.getMember()))
                 .build();
 
+    }
+
+    public BeachFindMarkerResponse toBeachFindMarkerResponse(Beach beach, String memberImage){
+        return BeachFindMarkerResponse.builder()
+                .id(beach.getId())
+                .lat(beach.getLocation().getLat().toString())
+                .lng(beach.getLocation().getLng().toString())
+                .memberImage(memberImage)
+                .build();
     }
 
 

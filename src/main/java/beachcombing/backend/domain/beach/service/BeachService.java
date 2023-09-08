@@ -1,16 +1,15 @@
 package beachcombing.backend.domain.beach.service;
 
 import beachcombing.backend.domain.beach.domain.Beach;
+import beachcombing.backend.domain.beach.dto.BeachFindMarkerResponse;
 import beachcombing.backend.domain.beach.dto.BeachFindResponse;
 import beachcombing.backend.domain.beach.mapper.BeachMapper;
 import beachcombing.backend.domain.beach.repository.BeachRepository;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.repository.MemberRepository;
-import beachcombing.backend.domain.member.service.MemberService;
 import beachcombing.backend.domain.record.domain.Record;
-import beachcombing.backend.domain.beach.dto.BeachFineMarkerResponse;
+import beachcombing.backend.domain.beach.dto.BeachFineMyMarkerResponse;
 import beachcombing.backend.domain.record.repository.RecordRepository;
-import beachcombing.backend.domain.record.service.RecordService;
 import beachcombing.backend.global.config.exception.CustomException;
 import beachcombing.backend.global.config.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -32,11 +33,11 @@ public class BeachService {
 
     // (지도) 내가 청소한 해변 마커 조회
     @Transactional(readOnly = true)
-    public List<BeachFineMarkerResponse> findMarkerBeach(Long memberId) {
+    public List<BeachFineMyMarkerResponse> findMyMarkerBeach(Long memberId) {
         Member member = getMember(memberId);
-        List<BeachFineMarkerResponse> response = recordRepository.findByMember(member).stream()
+        List<BeachFineMyMarkerResponse> response = recordRepository.findByMember(member).stream()
                 .map(Record::getBeach)
-                .map(beachMapper::toBeachFindMarkerOneResponse)
+                .map(beachMapper::toBeachFindMyMarkerResponse)
                 .toList();
 
         return response;
@@ -60,6 +61,32 @@ public class BeachService {
 
     }
 
+    @Transactional(readOnly = true)
+    public List<BeachFindMarkerResponse> findMarkerBeach() {
+        List<BeachFindMarkerResponse> response = beachRepository.findAll().stream()
+                .map(beach -> {
+                    String memberImageUrl = getLatestRecordMemberImage(beach);
+                    return beachMapper.toBeachFindMarkerResponse(beach, memberImageUrl);
+                })
+                .toList();
+
+        return response;
+    }
+
+    private String getLatestRecordMemberImage(Beach beach){
+        Optional<Record> latestRecord = recordRepository.findTopByBeachOrderByCreatedDateDesc(beach);
+
+        if(latestRecord.isEmpty()) return "none";
+
+        Record record = latestRecord.get();
+        Member member = record.getMember();
+
+        if(!member.getProfilePublic()) return "lock";
+
+        //return imageService.processImage(member.getImage());
+        return "imageUrl";
+    }
+
     // 예외 처리 - 존재하는 beach 인가
     private Beach getBeach(Long beachId) {
         return beachRepository.findById(beachId)
@@ -71,6 +98,7 @@ public class BeachService {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
     }
+
 
 
 }

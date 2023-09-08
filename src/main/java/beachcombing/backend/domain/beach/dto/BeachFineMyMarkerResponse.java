@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BeachFineMarkerResponse {
+public class BeachFineMyMarkerResponse {
     public Long id;
     public String name;
     public String lat;
