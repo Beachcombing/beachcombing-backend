@@ -1,7 +1,6 @@
 package beachcombing.backend.domain.giftcard.controller;
 
 import beachcombing.backend.domain.giftcard.dto.GiftcardFindAllResponse;
-import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardRequest;
 import beachcombing.backend.domain.giftcard.dto.PurchaseUpdateResponse;
 import beachcombing.backend.domain.giftcard.dto.PurchaseFindAllResponse;
 import beachcombing.backend.domain.giftcard.service.GiftcardService;
@@ -31,8 +30,7 @@ public class GiftcardController {
     // 카드 구매
     @PostMapping("/{giftcardId}/purchase")
     public ResponseEntity<PurchaseUpdateResponse> updatePurchase(@AuthenticationPrincipal PrincipalDetails userDetails, @PathVariable Long giftcardId) {
-        PurchaseUpdateResponse response = giftcardService.updatePurchase(PurchaseGiftcardRequest.builder()
-                .memberId(userDetails.getMember().getId()).giftcardId(giftcardId).build());
+        PurchaseUpdateResponse response = giftcardService.savePurchase(userDetails.getMember().getId(), giftcardId);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
