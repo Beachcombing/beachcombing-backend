@@ -16,7 +16,7 @@ public class Giftcard {
 
     private Integer cost; // 가격
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store; // 사용 가능한 상점
 
