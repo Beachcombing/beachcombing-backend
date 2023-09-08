@@ -2,7 +2,7 @@ package beachcombing.backend.domain.member.service;
 
 
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.member.dto.MemberFindOneResponse;
+import beachcombing.backend.domain.member.dto.MemberFindResponse;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
 import beachcombing.backend.domain.member.repository.MemberRepository;
 import beachcombing.backend.global.config.exception.CustomException;
@@ -19,19 +19,14 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
     @Transactional(readOnly = true)
-    public MemberFindOneResponse findMember(long id) {
+    public MemberFindResponse findMember(long id) {
 
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        MemberFindOneResponse response = memberMapper.toUserFindOneResponse(member);
+        MemberFindResponse response = memberMapper.toMemberFindOneResponse(member);
 
         return response;
     }
 
-    // 예외 처리 - 존재하는 member 인가
-    public Member getMember(Long memberId) {
-        return memberRepository.findById(memberId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
-    }
 }
