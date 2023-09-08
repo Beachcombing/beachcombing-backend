@@ -1,8 +1,8 @@
 package beachcombing.backend.domain.beach.controller;
 
-import beachcombing.backend.domain.beach.dto.BeachFindOneResponse;
+import beachcombing.backend.domain.beach.dto.BeachFindResponse;
 import beachcombing.backend.domain.beach.service.BeachService;
-import beachcombing.backend.domain.beach.dto.BeachFineMarkerOneResponse;
+import beachcombing.backend.domain.beach.dto.BeachFineMarkerResponse;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,15 +25,15 @@ public class BeachController {
 
     // (지도) 내가 청소한 해변 마커 조회
     @GetMapping("my")
-    public ResponseEntity<List<BeachFineMarkerOneResponse>> findMarkerOneBeach(@AuthenticationPrincipal PrincipalDetails userDetails){
-        List<BeachFineMarkerOneResponse> response = beachService.findMarkerOneBeach(userDetails.getMember().getId());
+    public ResponseEntity<List<BeachFineMarkerResponse>> findMarkerBeach(@AuthenticationPrincipal PrincipalDetails userDetails){
+        List<BeachFineMarkerResponse> response = beachService.findMarkerBeach(userDetails.getMember().getId());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     // 해번 상세 조회
     @GetMapping("{beachId}")
-    public ResponseEntity<BeachFindOneResponse> findOneBeach(@PathVariable("beachId") Long beachId){
-        BeachFindOneResponse response = beachService.findOneBeach(beachId);
+    public ResponseEntity<BeachFindResponse> findBeach(@PathVariable("beachId") Long beachId){
+        BeachFindResponse response = beachService.findBeach(beachId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

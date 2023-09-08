@@ -1,16 +1,13 @@
 package beachcombing.backend.domain.beach.service;
 
 import beachcombing.backend.domain.beach.domain.Beach;
-import beachcombing.backend.domain.beach.dto.BeachFindOneResponse;
+import beachcombing.backend.domain.beach.dto.BeachFindResponse;
 import beachcombing.backend.domain.beach.mapper.BeachMapper;
 import beachcombing.backend.domain.beach.repository.BeachRepository;
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.member.repository.MemberRepository;
 import beachcombing.backend.domain.member.service.MemberService;
 import beachcombing.backend.domain.record.domain.Record;
-import beachcombing.backend.domain.beach.dto.BeachFineMarkerOneResponse;
-import beachcombing.backend.domain.record.mapper.RecordMapper;
-import beachcombing.backend.domain.record.repository.RecordRepository;
+import beachcombing.backend.domain.beach.dto.BeachFineMarkerResponse;
 import beachcombing.backend.domain.record.service.RecordService;
 import beachcombing.backend.global.config.exception.CustomException;
 import beachcombing.backend.global.config.exception.ErrorCode;
@@ -33,9 +30,9 @@ public class BeachService {
 
     // (지도) 내가 청소한 해변 마커 조회
     @Transactional(readOnly = true)
-    public List<BeachFineMarkerOneResponse> findMarkerOneBeach(Long memberId) {
+    public List<BeachFineMarkerResponse> findMarkerBeach(Long memberId) {
         Member member = memberService.getMember(memberId);
-        List<BeachFineMarkerOneResponse> response = recordService.getRecords(member).stream()
+        List<BeachFineMarkerResponse> response = recordService.getRecords(member).stream()
                 .map(Record::getBeach)
                 .map(beachMapper::toBeachFindMarkerOneResponse)
                 .toList();
@@ -43,7 +40,7 @@ public class BeachService {
         return response;
     }
     @Transactional(readOnly = true)
-    public BeachFindOneResponse findOneBeach(Long beachId) {
+    public BeachFindResponse findBeach(Long beachId) {
         Beach beach = getBeach(beachId);
         Record record = recordService.getLatestRecord(beach);
 

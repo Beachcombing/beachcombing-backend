@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BeachFindOneResponse {
+public class BeachFindResponse {
     public BeachDto beach;
     public RecordDto record;
     public MemberDto member;
