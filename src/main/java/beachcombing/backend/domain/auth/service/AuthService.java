@@ -4,6 +4,7 @@ import beachcombing.backend.domain.auth.dto.AuthJoinRequest;
 import beachcombing.backend.domain.auth.dto.AuthLoginRequest;
 import beachcombing.backend.domain.auth.dto.AuthLoginResponse;
 import beachcombing.backend.domain.auth.dto.AuthRefreshResponse;
+import beachcombing.backend.domain.auth.mapper.AuthMapper;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
 import beachcombing.backend.domain.member.repository.MemberRepository;
@@ -27,6 +28,7 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenService refreshTokenService;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final AuthMapper authMapper;
 
     // 일반 회원가입 (테스트용)
     public void join(AuthJoinRequest authJoinRequest) {
@@ -53,13 +55,8 @@ public class AuthService {
         String refreshToken = jwtTokenProvider.generateRefreshToken(member);
         refreshTokenService.saveRefreshToken(refreshToken, member.getAuthInfo().getLoginId());
 
-        AuthLoginResponse response = AuthLoginResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .role(member.getProfile().getRole())
-                .build();
+        return authMapper.toAuthLoginResponse(accessToken, refreshToken, member);
 
-        return response;
     }
 
     // accessToken 재발급
@@ -77,19 +74,14 @@ public class AuthService {
             throw new CustomException(ErrorCode.TOKEN_INVALID);
         }
 
-        Member findMember = memberRepository.findByAuthInfoLoginId(loginId);
-        String createdAccessToken = jwtTokenProvider.generateAccessToken(findMember);
+        Member member = memberRepository.findByAuthInfoLoginId(loginId);
+        String createdAccessToken = jwtTokenProvider.generateAccessToken(member);
 
         if (createdAccessToken == null) {
             throw new CustomException(ErrorCode.TOKEN_EXPIRED);
         }
 
-        AuthRefreshResponse response = AuthRefreshResponse.builder()
-                .accessToken(createdAccessToken)
-                .role(findMember.getProfile().getRole())
-                .build();
-
-        return response;
+        return authMapper.toAuthRefreshResponse(createdAccessToken, member);
     }
 
     public void logout(String request) {
