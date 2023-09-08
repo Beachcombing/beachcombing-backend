@@ -1,4 +1,4 @@
-package beachcombing.backend.domain.record.dto;
+package beachcombing.backend.domain.record.controller.dto;
 
 import beachcombing.backend.domain.record.domain.Record;
 import com.fasterxml.jackson.annotation.JsonFormat;

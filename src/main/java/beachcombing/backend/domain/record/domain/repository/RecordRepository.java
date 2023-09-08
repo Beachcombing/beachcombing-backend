@@ -1,4 +1,4 @@
-package beachcombing.backend.domain.record.repository;
+package beachcombing.backend.domain.record.domain.repository;
 
 import beachcombing.backend.domain.beach.domain.Beach;
 import beachcombing.backend.domain.member.domain.Member;

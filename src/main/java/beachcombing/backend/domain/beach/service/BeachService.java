@@ -1,15 +1,16 @@
 package beachcombing.backend.domain.beach.service;
 
 import beachcombing.backend.domain.beach.domain.Beach;
-import beachcombing.backend.domain.beach.dto.BeachFindMarkerResponse;
-import beachcombing.backend.domain.beach.dto.BeachFindResponse;
+import beachcombing.backend.domain.beach.controller.dto.BeachFindMarkerResponse;
+import beachcombing.backend.domain.beach.controller.dto.BeachFindResponse;
+import beachcombing.backend.domain.beach.controller.dto.BeachVerifyNearRequest;
 import beachcombing.backend.domain.beach.mapper.BeachMapper;
-import beachcombing.backend.domain.beach.repository.BeachRepository;
+import beachcombing.backend.domain.beach.domain.repository.BeachRepository;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.repository.MemberRepository;
 import beachcombing.backend.domain.record.domain.Record;
-import beachcombing.backend.domain.beach.dto.BeachFineMyMarkerResponse;
-import beachcombing.backend.domain.record.repository.RecordRepository;
+import beachcombing.backend.domain.beach.controller.dto.BeachFineMyMarkerResponse;
+import beachcombing.backend.domain.record.domain.repository.RecordRepository;
 import beachcombing.backend.global.config.exception.CustomException;
 import beachcombing.backend.global.config.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -73,6 +73,14 @@ public class BeachService {
         return response;
     }
 
+
+    public void verifyNearBeach(Long beachId, BeachVerifyNearRequest request) {
+        Beach beach = getBeach(beachId);
+        beach.getRange();
+
+    }
+
+    // 최근 청소기록 유저 프로필이미지 url 조회
     private String getLatestRecordMemberImage(Beach beach){
         Optional<Record> latestRecord = recordRepository.findTopByBeachOrderByCreatedDateDesc(beach);
 
@@ -98,7 +106,6 @@ public class BeachService {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
     }
-
 
 
 }

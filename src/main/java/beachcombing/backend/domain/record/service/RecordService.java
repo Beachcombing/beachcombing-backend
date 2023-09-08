@@ -1,16 +1,17 @@
 package beachcombing.backend.domain.record.service;
 
 import beachcombing.backend.domain.beach.domain.Beach;
-import beachcombing.backend.domain.beach.service.BeachService;
-import beachcombing.backend.domain.member.service.MemberService;
-import beachcombing.backend.domain.record.dto.RecordByBeachFindAllResponse;
-import beachcombing.backend.domain.beach.repository.BeachRepository;
+import beachcombing.backend.domain.record.controller.dto.RecordByBeachFindAllResponse;
+import beachcombing.backend.domain.beach.domain.repository.BeachRepository;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.repository.MemberRepository;
+import beachcombing.backend.domain.record.controller.dto.RecordFindAllResponse;
+import beachcombing.backend.domain.record.controller.dto.RecordSaveRequest;
+import beachcombing.backend.domain.record.controller.dto.RecordSaveResponse;
 import beachcombing.backend.domain.record.domain.Record;
 import beachcombing.backend.domain.record.dto.*;
 import beachcombing.backend.domain.record.mapper.RecordMapper;
-import beachcombing.backend.domain.record.repository.RecordRepository;
+import beachcombing.backend.domain.record.domain.repository.RecordRepository;
 import beachcombing.backend.global.config.exception.CustomException;
 import beachcombing.backend.global.config.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

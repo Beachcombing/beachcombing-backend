@@ -1,4 +1,4 @@
-package beachcombing.backend.domain.record.dto;
+package beachcombing.backend.domain.record.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

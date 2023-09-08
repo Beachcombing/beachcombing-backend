@@ -1,9 +1,9 @@
 package beachcombing.backend.domain.auth.controller;
 
-import beachcombing.backend.domain.auth.dto.AuthJoinRequest;
-import beachcombing.backend.domain.auth.dto.AuthLoginRequest;
-import beachcombing.backend.domain.auth.dto.AuthLoginResponse;
-import beachcombing.backend.domain.auth.dto.AuthRefreshResponse;
+import beachcombing.backend.domain.auth.controller.dto.AuthJoinRequest;
+import beachcombing.backend.domain.auth.controller.dto.AuthLoginRequest;
+import beachcombing.backend.domain.auth.controller.dto.AuthLoginResponse;
+import beachcombing.backend.domain.auth.controller.dto.AuthRefreshResponse;
 import beachcombing.backend.domain.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

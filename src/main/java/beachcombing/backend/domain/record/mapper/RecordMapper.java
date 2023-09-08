@@ -3,8 +3,10 @@ package beachcombing.backend.domain.record.mapper;
 
 import beachcombing.backend.domain.beach.domain.Beach;
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.record.dto.RecordByBeachFindAllResponse;
-import beachcombing.backend.domain.beach.mapper.BeachMapper;
+import beachcombing.backend.domain.record.controller.dto.RecordByBeachFindAllResponse;
+import beachcombing.backend.domain.record.controller.dto.RecordFindAllResponse;
+import beachcombing.backend.domain.record.controller.dto.RecordSaveRequest;
+import beachcombing.backend.domain.record.controller.dto.RecordSaveResponse;
 import beachcombing.backend.domain.record.domain.Record;
 import beachcombing.backend.domain.record.dto.*;
 import lombok.RequiredArgsConstructor;

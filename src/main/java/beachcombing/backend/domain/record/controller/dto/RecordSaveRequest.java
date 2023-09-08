@@ -1,4 +1,4 @@
-package beachcombing.backend.domain.record.dto;
+package beachcombing.backend.domain.record.controller.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

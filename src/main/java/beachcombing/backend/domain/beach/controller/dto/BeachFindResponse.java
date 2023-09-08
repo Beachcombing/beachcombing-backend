@@ -1,4 +1,4 @@
-package beachcombing.backend.domain.beach.dto;
+package beachcombing.backend.domain.beach.controller.dto;
 
 import beachcombing.backend.domain.beach.domain.Beach;
 import beachcombing.backend.domain.member.domain.Member;

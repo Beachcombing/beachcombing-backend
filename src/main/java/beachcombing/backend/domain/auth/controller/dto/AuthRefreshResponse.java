@@ -1,4 +1,4 @@
-package beachcombing.backend.domain.auth.dto;
+package beachcombing.backend.domain.auth.controller.dto;
 
 import lombok.Builder;
 import lombok.Getter;

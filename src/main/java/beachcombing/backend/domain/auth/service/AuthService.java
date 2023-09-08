@@ -1,15 +1,15 @@
 package beachcombing.backend.domain.auth.service;
 
-import beachcombing.backend.domain.auth.dto.AuthJoinRequest;
-import beachcombing.backend.domain.auth.dto.AuthLoginRequest;
-import beachcombing.backend.domain.auth.dto.AuthLoginResponse;
-import beachcombing.backend.domain.auth.dto.AuthRefreshResponse;
+import beachcombing.backend.domain.auth.controller.dto.AuthJoinRequest;
+import beachcombing.backend.domain.auth.controller.dto.AuthLoginRequest;
+import beachcombing.backend.domain.auth.controller.dto.AuthLoginResponse;
+import beachcombing.backend.domain.auth.controller.dto.AuthRefreshResponse;
 import beachcombing.backend.domain.auth.mapper.AuthMapper;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
 import beachcombing.backend.domain.member.repository.MemberRepository;
 import beachcombing.backend.domain.refresh_token.domain.RefreshToken;
-import beachcombing.backend.domain.refresh_token.repository.RefreshTokenRepository;
+import beachcombing.backend.domain.refresh_token.domain.repository.RefreshTokenRepository;
 import beachcombing.backend.domain.refresh_token.service.RefreshTokenService;
 import beachcombing.backend.global.config.exception.CustomException;
 import beachcombing.backend.global.config.exception.ErrorCode;

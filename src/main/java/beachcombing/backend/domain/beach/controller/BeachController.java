@@ -1,19 +1,18 @@
 package beachcombing.backend.domain.beach.controller;
 
-import beachcombing.backend.domain.beach.dto.BeachFindMarkerResponse;
-import beachcombing.backend.domain.beach.dto.BeachFindResponse;
+import beachcombing.backend.domain.beach.controller.dto.BeachFindMarkerResponse;
+import beachcombing.backend.domain.beach.controller.dto.BeachFindResponse;
+import beachcombing.backend.domain.beach.controller.dto.BeachVerifyNearRequest;
 import beachcombing.backend.domain.beach.service.BeachService;
-import beachcombing.backend.domain.beach.dto.BeachFineMyMarkerResponse;
+import beachcombing.backend.domain.beach.controller.dto.BeachFineMyMarkerResponse;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,12 +38,18 @@ public class BeachController {
     }
 
     // (지도) 해변 위치 전체 조회
-    @GetMapping("/location")
+    @GetMapping("location")
     public ResponseEntity<List<BeachFindMarkerResponse>> findMarkerBeach(){
         List<BeachFindMarkerResponse> response = beachService.findMarkerBeach();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     // 해변 근처 인증하기
+    @GetMapping("{beachId}/near-by")
+    public ResponseEntity<Void> verifyNearBeach(@PathVariable("beachId") Long beachId, @Valid @RequestBody BeachVerifyNearRequest request){
+        beachService.verifyNearBeach(beachId, request);
+        return ResponseEntity.status(HttpStatus.OK).build();
+
+    }
 
 }

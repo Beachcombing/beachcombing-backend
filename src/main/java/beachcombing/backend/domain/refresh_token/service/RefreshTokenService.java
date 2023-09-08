@@ -1,8 +1,7 @@
 package beachcombing.backend.domain.refresh_token.service;
 
-import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.refresh_token.domain.RefreshToken;
-import beachcombing.backend.domain.refresh_token.repository.RefreshTokenRepository;
+import beachcombing.backend.domain.refresh_token.domain.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

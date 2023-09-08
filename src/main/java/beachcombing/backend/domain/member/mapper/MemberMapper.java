@@ -1,6 +1,6 @@
 package beachcombing.backend.domain.member.mapper;
 
-import beachcombing.backend.domain.auth.dto.AuthJoinRequest;
+import beachcombing.backend.domain.auth.controller.dto.AuthJoinRequest;
 import beachcombing.backend.domain.member.domain.AuthInfo;
 import beachcombing.backend.domain.member.domain.Profile;
 import beachcombing.backend.domain.member.domain.Member;

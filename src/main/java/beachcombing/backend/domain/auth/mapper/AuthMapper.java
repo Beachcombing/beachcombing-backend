@@ -1,7 +1,7 @@
 package beachcombing.backend.domain.auth.mapper;
 
-import beachcombing.backend.domain.auth.dto.AuthLoginResponse;
-import beachcombing.backend.domain.auth.dto.AuthRefreshResponse;
+import beachcombing.backend.domain.auth.controller.dto.AuthLoginResponse;
+import beachcombing.backend.domain.auth.controller.dto.AuthRefreshResponse;
 import beachcombing.backend.domain.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,9 +1,9 @@
 package beachcombing.backend.domain.beach.mapper;
 
 import beachcombing.backend.domain.beach.domain.Beach;
-import beachcombing.backend.domain.beach.dto.BeachFindMarkerResponse;
-import beachcombing.backend.domain.beach.dto.BeachFindResponse;
-import beachcombing.backend.domain.beach.dto.BeachFineMyMarkerResponse;
+import beachcombing.backend.domain.beach.controller.dto.BeachFindMarkerResponse;
+import beachcombing.backend.domain.beach.controller.dto.BeachFindResponse;
+import beachcombing.backend.domain.beach.controller.dto.BeachFineMyMarkerResponse;
 import beachcombing.backend.domain.record.domain.Record;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
