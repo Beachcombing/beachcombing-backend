@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class PurchaseGiftcardResponse {
+public class PurchaseUpdateResponse {
     private Long id;
 }

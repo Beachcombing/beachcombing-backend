@@ -1,9 +1,9 @@
 package beachcombing.backend.domain.giftcard.controller;
 
-import beachcombing.backend.domain.giftcard.dto.GiftcardResponse;
+import beachcombing.backend.domain.giftcard.dto.GiftcardFindAllResponse;
 import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardRequest;
-import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardResponse;
-import beachcombing.backend.domain.giftcard.dto.PurchaseResponse;
+import beachcombing.backend.domain.giftcard.dto.PurchaseUpdateResponse;
+import beachcombing.backend.domain.giftcard.dto.PurchaseFindAllResponse;
 import beachcombing.backend.domain.giftcard.service.GiftcardService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -22,23 +22,23 @@ public class GiftcardController {
 
     // 카드 목록 조회
     @GetMapping("")
-    public ResponseEntity<List<GiftcardResponse>> getGiftcardList() {
-        List<GiftcardResponse> giftcardListResponses = giftcardService.getGiftcardList();
+    public ResponseEntity<List<GiftcardFindAllResponse>> findAllGiftcard() {
+        List<GiftcardFindAllResponse> giftcardListResponses = giftcardService.findAllGiftcard();
         return ResponseEntity.ok().body(giftcardListResponses);
     }
 
     // 카드 구매
     @PostMapping("/{giftcardId}/purchase")
-    public ResponseEntity<PurchaseGiftcardResponse> purchaseGiftCard(@AuthenticationPrincipal PrincipalDetails userDetails, @PathVariable Long giftcardId) {
-        PurchaseGiftcardResponse giftcardPurchaseResponse = giftcardService.purchaseGiftcard(PurchaseGiftcardRequest.builder()
+    public ResponseEntity<PurchaseUpdateResponse> updatePurchase(@AuthenticationPrincipal PrincipalDetails userDetails, @PathVariable Long giftcardId) {
+        PurchaseUpdateResponse giftcardPurchaseResponse = giftcardService.updatePurchase(PurchaseGiftcardRequest.builder()
                 .memberId(userDetails.getMember().getId()).giftcardId(giftcardId).build());
 
         return ResponseEntity.ok().body(giftcardPurchaseResponse);
     }
 
     @GetMapping("/purchase")
-    public ResponseEntity<List<PurchaseResponse>> getPurchaseList(@AuthenticationPrincipal PrincipalDetails userDetails) {
-        List<PurchaseResponse> purchaseListResponses = giftcardService.getPurchaseList(userDetails.getMember().getId());
+    public ResponseEntity<List<PurchaseFindAllResponse>> findAllPurchase(@AuthenticationPrincipal PrincipalDetails userDetails) {
+        List<PurchaseFindAllResponse> purchaseListResponses = giftcardService.findAllPurchase(userDetails.getMember().getId());
 
         return ResponseEntity.ok().body(purchaseListResponses);
     }

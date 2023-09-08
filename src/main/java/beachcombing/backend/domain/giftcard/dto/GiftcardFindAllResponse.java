@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class GiftcardResponse {
+public class GiftcardFindAllResponse {
     private Long id;
     private String name;
     private String location;

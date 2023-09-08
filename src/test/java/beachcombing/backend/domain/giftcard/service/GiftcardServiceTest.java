@@ -1,9 +1,9 @@
 package beachcombing.backend.domain.giftcard.service;
 
-import beachcombing.backend.domain.giftcard.dto.GiftcardResponse;
+import beachcombing.backend.domain.giftcard.dto.GiftcardFindAllResponse;
 import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardRequest;
-import beachcombing.backend.domain.giftcard.dto.PurchaseGiftcardResponse;
-import beachcombing.backend.domain.giftcard.dto.PurchaseResponse;
+import beachcombing.backend.domain.giftcard.dto.PurchaseUpdateResponse;
+import beachcombing.backend.domain.giftcard.dto.PurchaseFindAllResponse;
 import beachcombing.backend.domain.giftcard.repository.GiftcardRepository;
 import beachcombing.backend.domain.member.repository.MemberRepository;
 import beachcombing.backend.domain.purchase.repository.PurchaseRepository;
@@ -33,8 +33,8 @@ class GiftcardServiceTest {
     @Test
     @DisplayName("기프트카드 목록 조회")
     void getGiftcardList() {
-        List<GiftcardResponse> giftcardListResponses = giftcardService.getGiftcardList();
-        assertThat(giftcardListResponses).extracting(GiftcardResponse::getName).contains("일산그린");
+        List<GiftcardFindAllResponse> giftcardListResponses = giftcardService.findAllGiftcard();
+        assertThat(giftcardListResponses).extracting(GiftcardFindAllResponse::getName).contains("일산그린");
         System.out.println("0 번째 기프트 카드 스토어 이름 = " + giftcardListResponses.get(0).getName());
     }
 
@@ -45,7 +45,7 @@ class GiftcardServiceTest {
         PurchaseGiftcardRequest purchasegiftcardRequest = PurchaseGiftcardRequest.builder().memberId(7L).giftcardId(1L).build();
 
         // when
-        PurchaseGiftcardResponse purchaseGiftcardResponse = giftcardService.purchaseGiftcard(purchasegiftcardRequest);
+        PurchaseUpdateResponse purchaseGiftcardResponse = giftcardService.updatePurchase(purchasegiftcardRequest);
 
         // then
         assertThat(purchaseGiftcardResponse.getId()).isEqualTo(7);
@@ -58,13 +58,13 @@ class GiftcardServiceTest {
         PurchaseGiftcardRequest purchasegiftcardRequest = PurchaseGiftcardRequest.builder().memberId(7L).giftcardId(2L).build();
 
         // then
-        Assertions.assertThrows(CustomException.class, () -> giftcardService.purchaseGiftcard(purchasegiftcardRequest));
+        Assertions.assertThrows(CustomException.class, () -> giftcardService.updatePurchase(purchasegiftcardRequest));
     }
 
     @Test
     @DisplayName("구매한 기프트 카드 목록 조회")
     void getPurchaseList() {
-        List<PurchaseResponse> purchaseListResponses =  giftcardService.getPurchaseList(7L);
+        List<PurchaseFindAllResponse> purchaseListResponses =  giftcardService.findAllPurchase(7L);
 
         assertThat(purchaseListResponses.size()).isEqualTo(2);
     }
