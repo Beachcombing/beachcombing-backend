@@ -60,4 +60,5 @@ public class Member extends BaseEntity {
                 .tutorialCompleted(false)
                 .build();
     }
+
 }

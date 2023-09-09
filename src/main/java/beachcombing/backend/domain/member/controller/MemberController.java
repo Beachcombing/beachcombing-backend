@@ -1,5 +1,6 @@
 package beachcombing.backend.domain.member.controller;
 
+import beachcombing.backend.domain.member.dto.MemberUpdateOneRequest;
 import beachcombing.backend.domain.member.dto.MemberFindOneResponse;
 import beachcombing.backend.domain.member.service.MemberService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
@@ -8,10 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/members")
@@ -29,4 +28,23 @@ public class MemberController {
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-}
+
+    //회원 정보 수정하기
+    @PatchMapping("")
+    public ResponseEntity<Void> updateMember(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody MemberUpdateOneRequest memberUpdateOneRequest, @RequestParam(name = "is-changed") Boolean isChanged ) {
+
+        memberService.updateMember(principalDetails.getMember().getId(), memberUpdateOneRequest, isChanged);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+
+    }
+
+    //닉네임 중복 확인하기
+    @GetMapping("nickname-check")
+    public ResponseEntity<Void> checkNickname(@RequestParam(name = "nickname") String nickName) {
+
+        memberService.checkNickname(nickName);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    }
