@@ -22,18 +22,18 @@ public class MemberService {
 
     //회원 정보 조회
     @Transactional(readOnly = true)
-    public MemberFindOneResponse findMember(long id) {
+    public MemberFindOneResponse findMember(long userId) {
 
-        Member findMember = findMemberById(id);
+        Member findMember = findMemberById(userId);
         MemberFindOneResponse response = memberMapper.toUserFindOneResponse(findMember);
 
         return response;
     }
 
     //회원 정보 수정
-    public void updateMember(long id, MemberUpdateOneRequest request, Boolean isChanged) {
+    public void updateMember(long userId, MemberUpdateOneRequest request, Boolean isChanged) {
 
-        Member findMember = findMemberById(id);
+        Member findMember = findMemberById(userId);
         checkNickname(request.getNickname());
         findMember.getProfile().updateNicknameAndImage(request, isChanged);
 
