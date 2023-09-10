@@ -47,4 +47,12 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    //프로필 공개여부 설정하기
+    @PatchMapping("profile-public")
+    public ResponseEntity<Void> updateProfilePublic(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestParam(name = "isPublic") Boolean profilePublic){
+
+        memberService.updateProfilePublic(principalDetails.getMember().getId(), profilePublic);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     }

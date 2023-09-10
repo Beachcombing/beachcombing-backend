@@ -56,4 +56,10 @@ public class MemberService {
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
     }
 
+    //프로필 공개여부 변경하기
+    public void updateProfilePublic(Long userId, Boolean profilePublic) {
+
+        Member findMember = findMemberById(userId);
+        findMember.updateProfilePublic(profilePublic);
+    }
 }
