@@ -2,7 +2,7 @@ package beachcombing.backend.domain.member.service;
 
 
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.member.dto.MemberUpdateOneRequest;
+import beachcombing.backend.domain.member.dto.MemberUpdateRequest;
 import beachcombing.backend.domain.member.dto.MemberFindOneResponse;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
 import beachcombing.backend.domain.member.repository.MemberRepository;
@@ -31,7 +31,7 @@ public class MemberService {
     }
 
     //회원 정보 수정
-    public void updateMember(long userId, MemberUpdateOneRequest request, Boolean isChanged) {
+    public void updateMember(long userId, MemberUpdateRequest request, Boolean isChanged) {
 
         Member findMember = findMemberById(userId);
         checkNickname(request.getNickname());

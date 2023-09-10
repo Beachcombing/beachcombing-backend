@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class MemberUpdateOneRequest {
+public class MemberUpdateRequest {
 
     private String nickname;
     //private String image;
