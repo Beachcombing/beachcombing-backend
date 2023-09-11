@@ -1,7 +1,7 @@
 package beachcombing.backend.domain.purchase.mapper;
 
 import beachcombing.backend.domain.giftcard.domain.Giftcard;
-import beachcombing.backend.domain.giftcard.dto.PurchaseUpdateResponse;
+import beachcombing.backend.domain.giftcard.dto.PurchaseSaveResponse;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.purchase.domain.Purchase;
 import org.springframework.stereotype.Component;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class PurchaseMapper {
 
-    public PurchaseUpdateResponse toPurchaseIdResponse(Purchase purchase) {
-        return PurchaseUpdateResponse.builder()
+    public PurchaseSaveResponse toPurchaseIdResponse(Purchase purchase) {
+        return PurchaseSaveResponse.builder()
                 .id(purchase.getId())
                 .build();
     }

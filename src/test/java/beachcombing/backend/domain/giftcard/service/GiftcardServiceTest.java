@@ -1,7 +1,7 @@
 package beachcombing.backend.domain.giftcard.service;
 
 import beachcombing.backend.domain.giftcard.dto.GiftcardFindAllResponse;
-import beachcombing.backend.domain.giftcard.dto.PurchaseUpdateResponse;
+import beachcombing.backend.domain.giftcard.dto.PurchaseSaveResponse;
 import beachcombing.backend.domain.giftcard.dto.PurchaseFindAllResponse;
 import beachcombing.backend.domain.giftcard.repository.GiftcardRepository;
 import beachcombing.backend.domain.member.repository.MemberRepository;
@@ -45,7 +45,7 @@ class GiftcardServiceTest {
         Long giftcardId = 1L;
 
         // when
-        PurchaseUpdateResponse purchaseGiftcardResponse = giftcardService.savePurchase(memberId, giftcardId);
+        PurchaseSaveResponse purchaseGiftcardResponse = giftcardService.savePurchase(memberId, giftcardId);
 
         // then
         assertThat(purchaseGiftcardResponse.getId()).isEqualTo(11L);

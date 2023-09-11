@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class PurchaseUpdateResponse {
+public class PurchaseSaveResponse {
     private Long id;
 }
