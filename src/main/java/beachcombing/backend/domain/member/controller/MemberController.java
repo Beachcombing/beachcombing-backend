@@ -55,4 +55,12 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    //회원 탈퇴하기
+    @DeleteMapping("")
+    public ResponseEntity<Void> deleteAccount(@AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        memberService.deleteAccount(principalDetails.getMember().getId());
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     }

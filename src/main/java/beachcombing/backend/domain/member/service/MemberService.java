@@ -62,4 +62,9 @@ public class MemberService {
         Member findMember = findMemberById(userId);
         findMember.updateProfilePublic(profilePublic);
     }
+
+    public void deleteAccount(Long userId) {
+        Member findMember = findMemberById(userId);
+        memberRepository.delete(findMember);
+    }
 }
