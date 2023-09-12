@@ -8,8 +8,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import static jakarta.persistence.FetchType.*;
-
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,11 +17,11 @@ public class MemberPreferredFeed {
     @Column(name = "member_preferred_id")
     private Long id;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "feed_id")
     private Feed feed; // 좋아요 눌러진 Feed
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member; // 좋아요 누른 회원
 

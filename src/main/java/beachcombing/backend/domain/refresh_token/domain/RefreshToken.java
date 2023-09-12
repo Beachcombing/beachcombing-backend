@@ -23,20 +23,18 @@ public class RefreshToken extends BaseEntity {
     @Column(length=600)
     private String refreshToken;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    private String keyLoginId;
     
     @Builder
-    public RefreshToken(String refreshToken, Member member) {
+    public RefreshToken(String refreshToken, String keyLoginId) {
         this.refreshToken = refreshToken;
-        this.member = member;
+        this.keyLoginId = keyLoginId;
     }
 
-    public static RefreshToken createRefreshToken(String refreshToken, Member member) {
+    public static RefreshToken createRefreshToken(String refreshToken, String keyLoginId) {
         return RefreshToken.builder()
                 .refreshToken(refreshToken)
-                .member(member)
+                .keyLoginId(keyLoginId)
                 .build();
     }
 
