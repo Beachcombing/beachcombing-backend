@@ -3,9 +3,11 @@ package beachcombing.backend.domain.beach.controller.dto;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class BeachVerifyNearRequest {
 

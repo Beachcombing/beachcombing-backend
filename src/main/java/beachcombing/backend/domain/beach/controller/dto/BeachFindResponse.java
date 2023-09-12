@@ -20,9 +20,11 @@ public class BeachFindResponse {
     public MemberDto member;
 
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class BeachDto {
-        private Long id;
-        private String name;
+        public Long id;
+        public String name;
 
         public static BeachDto from(Beach beach) {
 
@@ -34,16 +36,18 @@ public class BeachFindResponse {
     }
 
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class RecordDto {
 
-        private Long id;
-        private String nickname;
+        public Long id;
+        public String nickname;
         @JsonFormat(pattern = "yy.MM.dd")
-        private LocalDateTime date;
-        private LocalTime duration;
-        private Long distance;
-        private String beforeImage;
-        private String afterImage;
+        public LocalDateTime date;
+        public LocalTime duration;
+        public Long distance;
+        public String beforeImage;
+        public String afterImage;
 
         public static RecordDto from(Record record, String beforeImage, String afterImage) {
 
@@ -61,9 +65,11 @@ public class BeachFindResponse {
 
 
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class MemberDto {
-        private Long id;
-        private String nickname;
+        public Long id;
+        public String nickname;
 
         public static MemberDto from(Member member) {
             return MemberDto.builder()
