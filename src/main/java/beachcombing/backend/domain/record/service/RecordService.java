@@ -9,7 +9,6 @@ import beachcombing.backend.domain.record.controller.dto.RecordFindAllResponse;
 import beachcombing.backend.domain.record.controller.dto.RecordSaveRequest;
 import beachcombing.backend.domain.record.controller.dto.RecordSaveResponse;
 import beachcombing.backend.domain.record.domain.Record;
-import beachcombing.backend.domain.record.dto.*;
 import beachcombing.backend.domain.record.mapper.RecordMapper;
 import beachcombing.backend.domain.record.domain.repository.RecordRepository;
 import beachcombing.backend.global.config.exception.CustomException;
