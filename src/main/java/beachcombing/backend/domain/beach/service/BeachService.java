@@ -86,7 +86,7 @@ public class BeachService {
         Beach beach = getBeach(beachId);
 
         // 해변 범위 문자열 가공
-        String tempRange = beach.getRange()
+        String tempRange = beach.getBeachRange()
                 .replace("{", "")
                 .replace(" ", "")
                 .replaceAll(".$","");
