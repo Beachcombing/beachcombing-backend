@@ -26,7 +26,7 @@ public class RecordController {
     public ResponseEntity<RecordSaveResponse> saveRecord(@AuthenticationPrincipal PrincipalDetails userDetails,
                                                          @Valid RecordSaveRequest request){
         RecordSaveResponse response = recordService.saveRecord(userDetails.getMember().getId(), request);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     // 자신의 청소기록 목록 조회

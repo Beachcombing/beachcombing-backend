@@ -1,15 +1,14 @@
 package beachcombing.backend.domain.record.controller.dto;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalTime;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
 public class RecordSaveRequest {
     @NotNull
     public Long beachId;
