@@ -42,7 +42,7 @@ public class BeachService {
         Member member = getMember(memberId);
         List<BeachFineMyMarkerResponse> response = recordRepository.findByMember(member).stream()
                 .map(Record::getBeach)
-                .map(beachMapper::toBeachFindMyMarkerResponse)
+                .map(BeachFineMyMarkerResponse::from)
                 .toList();
 
         return response;
@@ -56,7 +56,7 @@ public class BeachService {
                 .orElse(null);
 
         if(record == null || !record.getMember().getProfilePublic() ){
-            return beachMapper.toBeachFindOneResponse(beach);
+            return BeachFindResponse.from(beach);
         }
 
         //String beforeImageUrl = imageService.processImage(record.getBeforeImage());
@@ -64,7 +64,7 @@ public class BeachService {
         String beforeImageUrl = "test";
         String afterImageUrl = "test";
 
-        return beachMapper.toBeachFindOneResponse(beach, record, beforeImageUrl, afterImageUrl);
+        return BeachFindResponse.of(beach, record, beforeImageUrl, afterImageUrl);
 
     }
 
@@ -74,7 +74,7 @@ public class BeachService {
         List<BeachFindMarkerResponse> response = beachRepository.findAll().stream()
                 .map(beach -> {
                     String memberImageUrl = getLatestRecordMemberImage(beach);
-                    return beachMapper.toBeachFindMarkerResponse(beach, memberImageUrl);
+                    return BeachFindMarkerResponse.of(beach, memberImageUrl);
                 })
                 .toList();
 

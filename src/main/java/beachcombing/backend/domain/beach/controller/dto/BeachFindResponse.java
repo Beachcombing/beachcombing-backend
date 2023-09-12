@@ -19,6 +19,21 @@ public class BeachFindResponse {
     public RecordDto record;
     public MemberDto member;
 
+    public static BeachFindResponse from(Beach beach){
+        return BeachFindResponse.builder()
+                .beach(BeachFindResponse.BeachDto.from(beach))
+                .build();
+
+    }
+    public static BeachFindResponse of(Beach beach, Record record, String beforeImage, String afterImage){
+        return BeachFindResponse.builder()
+                .beach(BeachFindResponse.BeachDto.from(beach))
+                .record(BeachFindResponse.RecordDto.from(record, beforeImage, afterImage))
+                .member(BeachFindResponse.MemberDto.from(record.getMember()))
+                .build();
+
+    }
+
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
