@@ -1,5 +1,6 @@
 package beachcombing.backend.domain.record.controller.dto;
 
+import beachcombing.backend.domain.beach.domain.Beach;
 import beachcombing.backend.domain.record.domain.Record;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,13 @@ import java.util.List;
 public class RecordByBeachFindAllResponse {
     public String beachName;
     public List<RecordDto> recordList;
+
+    public static RecordByBeachFindAllResponse of(Beach beach, List<RecordByBeachFindAllResponse.RecordDto> recordList){
+        return RecordByBeachFindAllResponse.builder()
+                .beachName(beach.getName())
+                .recordList(recordList)
+                .build();
+    }
 
     @Builder
     @NoArgsConstructor

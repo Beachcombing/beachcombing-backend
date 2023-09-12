@@ -1,5 +1,6 @@
 package beachcombing.backend.domain.record.controller.dto;
 
+import beachcombing.backend.domain.record.domain.Record;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -21,4 +22,18 @@ public class RecordFindAllResponse {
     public Boolean isWritten;
     public Long beachId;
     public String beachName;
+
+    public static RecordFindAllResponse of(Record record, String beforeImage, String afterImage, Boolean isWritten){
+        return RecordFindAllResponse.builder()
+                .recordId(record.getId())
+                .duration(record.getDuration())
+                .date(record.getCreatedDate())
+                .distance(record.getDistance())
+                .beforeImage(beforeImage)
+                .afterImage(afterImage)
+                .isWritten(isWritten)
+                .beachId(record.getBeach().getId())
+                .beachName(record.getBeach().getName())
+                .build();
+    }
 }

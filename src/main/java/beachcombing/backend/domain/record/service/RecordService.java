@@ -9,7 +9,6 @@ import beachcombing.backend.domain.record.controller.dto.RecordFindAllResponse;
 import beachcombing.backend.domain.record.controller.dto.RecordSaveRequest;
 import beachcombing.backend.domain.record.controller.dto.RecordSaveResponse;
 import beachcombing.backend.domain.record.domain.Record;
-import beachcombing.backend.domain.record.mapper.RecordMapper;
 import beachcombing.backend.domain.record.domain.repository.RecordRepository;
 import beachcombing.backend.global.config.exception.CustomException;
 import beachcombing.backend.global.config.exception.ErrorCode;
@@ -26,7 +25,6 @@ import java.util.List;
 @Transactional
 public class RecordService {
     private final RecordRepository recordRepository;
-    private final RecordMapper recordMapper;
 
     //private final ImageService imageService;
     private final MemberRepository memberRepository;
@@ -44,11 +42,11 @@ public class RecordService {
         String beforeUuid = "beforeImage";
         String afterUuid = "afterImage";
 
-        Record record = recordMapper.toEntity(request, beforeUuid, afterUuid, member, beach);
+        Record record = Record.createRecord(request.duration,request.distance, beforeUuid, afterUuid, member, beach);
 
         recordRepository.save(record);
 
-        return recordMapper.toRecordIdResponse(record);
+        return RecordSaveResponse.from(record);
     }
 
     // 자신의 청소기록 목록 조회
@@ -63,7 +61,7 @@ public class RecordService {
                     //String afterImageUrl = imageService.processImage(record.getAfterImage());
                     String beforeImageUrl = "beforeImageUrl";
                     String afterImageUrl = "afterImageUrl";
-                    return recordMapper.toRecordFindAllResponse(record, beforeImageUrl, afterImageUrl, isWritten);
+                    return RecordFindAllResponse.of(record, beforeImageUrl, afterImageUrl, isWritten);
                 })
                 .toList();
         return response;
@@ -86,7 +84,7 @@ public class RecordService {
                 )
                 .toList();
 
-        return recordMapper.toRecordByBeachFindAllResponse(beach, recordDtoList);
+        return RecordByBeachFindAllResponse.of(beach, recordDtoList);
     }
 
     // 예외 처리 - 존재하는 member 인가

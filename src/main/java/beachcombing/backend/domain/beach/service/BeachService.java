@@ -4,7 +4,6 @@ import beachcombing.backend.domain.beach.domain.Beach;
 import beachcombing.backend.domain.beach.controller.dto.BeachFindMarkerResponse;
 import beachcombing.backend.domain.beach.controller.dto.BeachFindResponse;
 import beachcombing.backend.domain.beach.controller.dto.BeachVerifyNearRequest;
-import beachcombing.backend.domain.beach.mapper.BeachMapper;
 import beachcombing.backend.domain.beach.domain.repository.BeachRepository;
 import beachcombing.backend.domain.beach.service.helper.RayCastingHelper;
 import beachcombing.backend.domain.member.domain.Member;
@@ -31,7 +30,6 @@ import java.util.Optional;
 @Transactional
 public class BeachService {
     private final BeachRepository beachRepository;
-    private final BeachMapper beachMapper;
     private final MemberRepository memberRepository;
     private final RecordRepository recordRepository;
     private final RayCastingHelper rayCastingHelper;
