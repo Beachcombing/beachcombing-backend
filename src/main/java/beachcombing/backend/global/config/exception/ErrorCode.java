@@ -25,6 +25,9 @@ public enum ErrorCode {
 
     // Record 애외
     NOT_FOUND_RECORD(HttpStatus.NOT_FOUND, "해당 기록을 찾을 수 없습니다."),
+    
+    // Giftcard 예외
+    NOT_FOUND_GIFTCARD(HttpStatus.NOT_FOUND, "해당 기프트카드를 찾을 수 없습니다."),;
 
     // Beach 예외
     NOT_FOUND_BEACH(HttpStatus.NOT_FOUND, "해당 해변을 찾을 수 없습니다."),
