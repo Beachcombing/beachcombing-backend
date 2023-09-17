@@ -2,7 +2,7 @@ package beachcombing.backend.domain.member.service;
 
 
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.member.dto.MemberUpdateOneRequest;
+import beachcombing.backend.domain.member.dto.MemberUpdateRequest;
 import beachcombing.backend.domain.member.dto.MemberFindOneResponse;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
 import beachcombing.backend.domain.member.repository.MemberRepository;
@@ -22,18 +22,18 @@ public class MemberService {
 
     //회원 정보 조회
     @Transactional(readOnly = true)
-    public MemberFindOneResponse findMember(long id) {
+    public MemberFindOneResponse findMember(long memberId) {
 
-        Member findMember = findMemberById(id);
+        Member findMember = findMemberById(memberId);
         MemberFindOneResponse response = memberMapper.toUserFindOneResponse(findMember);
 
         return response;
     }
 
     //회원 정보 수정
-    public void updateMember(long id, MemberUpdateOneRequest request, Boolean isChanged) {
+    public void updateMember(long memberId, MemberUpdateRequest request, Boolean isChanged) {
 
-        Member findMember = findMemberById(id);
+        Member findMember = findMemberById(memberId);
         checkNickname(request.getNickname());
         findMember.getProfile().updateNicknameAndImage(request, isChanged);
 
@@ -49,11 +49,21 @@ public class MemberService {
         }
     }
 
-    //id값으로 멤버 찾기 -> 중복 코드 줄이기
-    @Transactional(readOnly = true)
-    public Member findMemberById(long userId){
-        return memberRepository.findById(userId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+    //프로필 공개여부 변경하기
+    public void updateProfilePublic(Long memberId, Boolean profilePublic) {
+
+        Member findMember = findMemberById(memberId);
+        findMember.updateProfilePublic(profilePublic);
     }
 
+    public void deleteMember(Long memberId) {
+        Member findMember = findMemberById(memberId);
+        memberRepository.delete(findMember);
+    }
+
+    //id값으로 멤버 찾기 -> 중복 코드 줄이기
+    private Member findMemberById(long memberId){
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+    }
 }
