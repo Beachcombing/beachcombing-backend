@@ -35,7 +35,7 @@ public class MemberController {
 
         memberService.updateMember(principalDetails.getMember().getId(), memberUpdateRequest, isChanged);
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
 
@@ -52,7 +52,7 @@ public class MemberController {
     public ResponseEntity<Void> updateProfilePublic(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestParam(name = "isPublic") Boolean profilePublic){
 
         memberService.updateProfilePublic(principalDetails.getMember().getId(), profilePublic);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     //회원 탈퇴하기
