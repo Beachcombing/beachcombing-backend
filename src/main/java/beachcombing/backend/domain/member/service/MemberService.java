@@ -2,10 +2,10 @@ package beachcombing.backend.domain.member.service;
 
 
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.member.dto.MemberUpdateRequest;
-import beachcombing.backend.domain.member.dto.MemberFindOneResponse;
+import beachcombing.backend.domain.member.controller.dto.MemberFindResponse;
+import beachcombing.backend.domain.member.controller.dto.MemberUpdateRequest;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
-import beachcombing.backend.domain.member.repository.MemberRepository;
+import beachcombing.backend.domain.member.domain.repository.MemberRepository;
 import beachcombing.backend.global.config.exception.CustomException;
 import beachcombing.backend.global.config.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +22,10 @@ public class MemberService {
 
     //회원 정보 조회
     @Transactional(readOnly = true)
-    public MemberFindOneResponse findMember(long memberId) {
+    public MemberFindResponse findMember(long memberId) {
 
         Member findMember = findMemberById(memberId);
-        MemberFindOneResponse response = memberMapper.toUserFindOneResponse(findMember);
+        MemberFindResponse response = memberMapper.toMemberFindResponse(findMember);
 
         return response;
     }
@@ -39,7 +39,7 @@ public class MemberService {
 
     }
 
-    //중복 닉네임 검증\
+    //중복 닉네임 검증
     @Transactional(readOnly = true)
     public void checkNickname(String nickname) {
 
@@ -66,4 +66,5 @@ public class MemberService {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
     }
+
 }

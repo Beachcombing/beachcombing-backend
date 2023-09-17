@@ -1,4 +1,4 @@
-package beachcombing.backend.domain.member.repository;
+package beachcombing.backend.domain.member.domain.repository;
 
 import beachcombing.backend.domain.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;

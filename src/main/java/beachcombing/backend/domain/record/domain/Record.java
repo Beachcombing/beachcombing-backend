@@ -4,6 +4,7 @@ import beachcombing.backend.domain.beach.domain.Beach;
 import beachcombing.backend.domain.common.domain.BaseEntity;
 import beachcombing.backend.domain.feed.domain.Feed;
 import beachcombing.backend.domain.member.domain.Member;
+import beachcombing.backend.domain.record.controller.dto.RecordSaveRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -62,4 +63,5 @@ public class Record extends BaseEntity {
                 .beach(beach)
                 .build();
     }
+
 }

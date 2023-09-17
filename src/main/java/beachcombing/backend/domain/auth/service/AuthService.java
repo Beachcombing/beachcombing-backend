@@ -1,14 +1,15 @@
 package beachcombing.backend.domain.auth.service;
 
-import beachcombing.backend.domain.auth.dto.AuthJoinRequest;
-import beachcombing.backend.domain.auth.dto.AuthLoginRequest;
-import beachcombing.backend.domain.auth.dto.AuthLoginResponse;
-import beachcombing.backend.domain.auth.dto.AuthRecreateTokenResponse;
+import beachcombing.backend.domain.auth.controller.dto.AuthJoinRequest;
+import beachcombing.backend.domain.auth.controller.dto.AuthLoginRequest;
+import beachcombing.backend.domain.auth.controller.dto.AuthLoginResponse;
+import beachcombing.backend.domain.auth.controller.dto.AuthRefreshResponse;
+import beachcombing.backend.domain.auth.mapper.AuthMapper;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
-import beachcombing.backend.domain.member.repository.MemberRepository;
+import beachcombing.backend.domain.member.domain.repository.MemberRepository;
 import beachcombing.backend.domain.refresh_token.domain.RefreshToken;
-import beachcombing.backend.domain.refresh_token.repository.RefreshTokenRepository;
+import beachcombing.backend.domain.refresh_token.domain.repository.RefreshTokenRepository;
 import beachcombing.backend.domain.refresh_token.service.RefreshTokenService;
 import beachcombing.backend.global.config.exception.CustomException;
 import beachcombing.backend.global.config.exception.ErrorCode;
@@ -27,6 +28,7 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenService refreshTokenService;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final AuthMapper authMapper;
 
     // 일반 회원가입 (테스트용)
     public void join(AuthJoinRequest authJoinRequest) {
@@ -53,17 +55,12 @@ public class AuthService {
         String refreshToken = jwtTokenProvider.generateRefreshToken(member);
         refreshTokenService.saveRefreshToken(refreshToken, member.getAuthInfo().getLoginId());
 
-        AuthLoginResponse response = AuthLoginResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .role(member.getProfile().getRole())
-                .build();
+        return authMapper.toAuthLoginResponse(accessToken, refreshToken, member);
 
-        return response;
     }
 
     // accessToken 재발급
-    public AuthRecreateTokenResponse refresh(String request) {
+    public AuthRefreshResponse refresh(String request) {
         String refreshToken = request.replace("Bearer", "");
 
         //refreshToken 유효성 확인
@@ -77,19 +74,14 @@ public class AuthService {
             throw new CustomException(ErrorCode.TOKEN_INVALID);
         }
 
-        Member findMember = memberRepository.findByAuthInfoLoginId(loginId);
-        String createdAccessToken = jwtTokenProvider.generateAccessToken(findMember);
+        Member member = memberRepository.findByAuthInfoLoginId(loginId);
+        String createdAccessToken = jwtTokenProvider.generateAccessToken(member);
 
         if (createdAccessToken == null) {
             throw new CustomException(ErrorCode.TOKEN_EXPIRED);
         }
 
-        AuthRecreateTokenResponse response = AuthRecreateTokenResponse.builder()
-                .accessToken(createdAccessToken)
-                .role(findMember.getProfile().getRole())
-                .build();
-
-        return response;
+        return authMapper.toAuthRefreshResponse(createdAccessToken, member);
     }
 
     public void logout(String request) {

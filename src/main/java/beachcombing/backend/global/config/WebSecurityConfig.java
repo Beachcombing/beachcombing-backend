@@ -1,6 +1,6 @@
 package beachcombing.backend.global.config;
 
-import beachcombing.backend.domain.member.repository.MemberRepository;
+import beachcombing.backend.domain.member.domain.repository.MemberRepository;
 import beachcombing.backend.global.security.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

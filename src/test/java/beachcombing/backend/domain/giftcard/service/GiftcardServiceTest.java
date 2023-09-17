@@ -4,7 +4,7 @@ import beachcombing.backend.domain.giftcard.dto.GiftcardFindAllResponse;
 import beachcombing.backend.domain.giftcard.dto.PurchaseSaveResponse;
 import beachcombing.backend.domain.giftcard.dto.PurchaseFindAllResponse;
 import beachcombing.backend.domain.giftcard.repository.GiftcardRepository;
-import beachcombing.backend.domain.member.repository.MemberRepository;
+import beachcombing.backend.domain.member.domain.repository.MemberRepository;
 import beachcombing.backend.domain.purchase.repository.PurchaseRepository;
 import beachcombing.backend.global.config.exception.CustomException;
 import org.junit.jupiter.api.Assertions;

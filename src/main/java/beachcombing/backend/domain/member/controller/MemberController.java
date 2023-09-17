@@ -1,7 +1,7 @@
 package beachcombing.backend.domain.member.controller;
 
-import beachcombing.backend.domain.member.dto.MemberUpdateRequest;
-import beachcombing.backend.domain.member.dto.MemberFindOneResponse;
+import beachcombing.backend.domain.member.controller.dto.MemberFindResponse;
+import beachcombing.backend.domain.member.controller.dto.MemberUpdateRequest;
 import beachcombing.backend.domain.member.service.MemberService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +22,9 @@ public class MemberController {
 
     // 내 정보 조회하기
     @GetMapping("")
-    public ResponseEntity<MemberFindOneResponse> findMember(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<MemberFindResponse> findMember(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        MemberFindOneResponse response = memberService.findMember(principalDetails.getMember().getId());
+        MemberFindResponse response = memberService.findMember(principalDetails.getMember().getId());
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

@@ -1,7 +1,9 @@
 package beachcombing.backend.domain.record.controller;
 
-import beachcombing.backend.domain.record.dto.RecordByBeachFindAllResponse;
-import beachcombing.backend.domain.record.dto.*;
+import beachcombing.backend.domain.record.controller.dto.RecordByBeachFindAllResponse;
+import beachcombing.backend.domain.record.controller.dto.RecordFindAllResponse;
+import beachcombing.backend.domain.record.controller.dto.RecordSaveRequest;
+import beachcombing.backend.domain.record.controller.dto.RecordSaveResponse;
 import beachcombing.backend.domain.record.service.RecordService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
 import jakarta.validation.Valid;
@@ -24,7 +26,7 @@ public class RecordController {
     public ResponseEntity<RecordSaveResponse> saveRecord(@AuthenticationPrincipal PrincipalDetails userDetails,
                                                          @Valid RecordSaveRequest request){
         RecordSaveResponse response = recordService.saveRecord(userDetails.getMember().getId(), request);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     // 자신의 청소기록 목록 조회

@@ -1,7 +1,7 @@
 package beachcombing.backend.global.security;
 
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.member.repository.MemberRepository;
+import beachcombing.backend.domain.member.domain.repository.MemberRepository;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -19,7 +19,7 @@ public class Beach {
 
     private String name; // 해변 이름
     private String image; // 해변 사진
-    private String range; // 해변 범위 -> 해변 근처 인증용
+    private String beachRange; // 해변 범위 -> 해변 근처 인증용
 
     @Embedded
     @AttributeOverrides({
@@ -29,20 +29,20 @@ public class Beach {
     private Location location; // 해변 좌표. TODO: column embeddable 타입 내에서 적용해도 바깥까지 적용되는지 확인해보기
 
     @Builder
-    public Beach(String name, String image, String range, Location location) {
+    public Beach(String name, String image, String beachRange, Location location) {
 
         this.name = name;
         this.image = image;
-        this.range = range;
+        this.beachRange = beachRange;
         this.location = location;
     }
 
-    public static Beach createBeach(String name, String image, String range, Location location) {
+    public static Beach createBeach(String name, String image, String beachRange, Location location) {
 
         return Beach.builder()
                 .name(name)
                 .image(image)
-                .range(range)
+                .beachRange(beachRange)
                 .location(location)
                 .build();
     }

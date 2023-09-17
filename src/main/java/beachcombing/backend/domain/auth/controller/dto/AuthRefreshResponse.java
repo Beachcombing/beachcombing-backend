@@ -1,12 +1,11 @@
-package beachcombing.backend.domain.auth.dto;
+package beachcombing.backend.domain.auth.controller.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
-public class AuthRecreateTokenResponse {
+public class AuthRefreshResponse {
     private String accessToken;
     private String role;
 }

@@ -7,7 +7,7 @@ import beachcombing.backend.domain.giftcard.dto.PurchaseFindAllResponse;
 import beachcombing.backend.domain.giftcard.mapper.GiftcardMapper;
 import beachcombing.backend.domain.giftcard.repository.GiftcardRepository;
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.member.repository.MemberRepository;
+import beachcombing.backend.domain.member.domain.repository.MemberRepository;
 import beachcombing.backend.domain.purchase.domain.Purchase;
 import beachcombing.backend.domain.purchase.mapper.PurchaseMapper;
 import beachcombing.backend.domain.purchase.repository.PurchaseRepository;

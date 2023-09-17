@@ -1,6 +1,6 @@
 package beachcombing.backend.domain.member.domain;
 
-import beachcombing.backend.domain.member.dto.MemberUpdateRequest;
+import beachcombing.backend.domain.member.controller.dto.MemberUpdateRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.*;

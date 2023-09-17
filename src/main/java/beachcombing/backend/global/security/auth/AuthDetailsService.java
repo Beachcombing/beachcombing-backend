@@ -1,7 +1,7 @@
 package beachcombing.backend.global.security.auth;
 
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.member.repository.MemberRepository;
+import beachcombing.backend.domain.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
