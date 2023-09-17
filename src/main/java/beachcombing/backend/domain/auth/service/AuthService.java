@@ -7,7 +7,7 @@ import beachcombing.backend.domain.auth.controller.dto.AuthRefreshResponse;
 import beachcombing.backend.domain.auth.mapper.AuthMapper;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
-import beachcombing.backend.domain.member.repository.MemberRepository;
+import beachcombing.backend.domain.member.domain.repository.MemberRepository;
 import beachcombing.backend.domain.refresh_token.domain.RefreshToken;
 import beachcombing.backend.domain.refresh_token.domain.repository.RefreshTokenRepository;
 import beachcombing.backend.domain.refresh_token.service.RefreshTokenService;

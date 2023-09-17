@@ -1,4 +1,4 @@
-package beachcombing.backend.domain.member.dto;
+package beachcombing.backend.domain.member.controller.dto;
 
 import lombok.Builder;
 import lombok.Getter;

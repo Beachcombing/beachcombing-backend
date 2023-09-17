@@ -4,7 +4,7 @@ import beachcombing.backend.domain.auth.controller.dto.AuthJoinRequest;
 import beachcombing.backend.domain.member.domain.AuthInfo;
 import beachcombing.backend.domain.member.domain.Profile;
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.member.dto.MemberFindResponse;
+import beachcombing.backend.domain.member.controller.dto.MemberFindResponse;
 import lombok.RequiredArgsConstructor;;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;

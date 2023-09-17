@@ -1,7 +1,7 @@
 package beachcombing.backend.domain.member.controller;
 
-import beachcombing.backend.domain.member.dto.MemberUpdateOneRequest;
-import beachcombing.backend.domain.member.dto.MemberFindOneResponse;
+import beachcombing.backend.domain.member.controller.dto.MemberFindResponse;
+import beachcombing.backend.domain.member.controller.dto.MemberUpdateRequest;
 import beachcombing.backend.domain.member.service.MemberService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -31,11 +31,11 @@ public class MemberController {
 
     //회원 정보 수정하기
     @PatchMapping("")
-    public ResponseEntity<Void> updateMember(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody MemberUpdateOneRequest memberUpdateOneRequest, @RequestParam(name = "is-changed") Boolean isChanged ) {
+    public ResponseEntity<Void> updateMember(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody MemberUpdateRequest memberUpdateRequest, @RequestParam(name = "is-changed") Boolean isChanged ) {
 
-        memberService.updateMember(principalDetails.getMember().getId(), memberUpdateOneRequest, isChanged);
+        memberService.updateMember(principalDetails.getMember().getId(), memberUpdateRequest, isChanged);
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
 
@@ -45,6 +45,22 @@ public class MemberController {
 
         memberService.checkNickname(nickName);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    //프로필 공개여부 설정하기
+    @PatchMapping("profile-public")
+    public ResponseEntity<Void> updateProfilePublic(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestParam(name = "isPublic") Boolean profilePublic){
+
+        memberService.updateProfilePublic(principalDetails.getMember().getId(), profilePublic);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    //회원 탈퇴하기
+    @DeleteMapping("")
+    public ResponseEntity<Void> deleteMember(@AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        memberService.deleteMember(principalDetails.getMember().getId());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     }

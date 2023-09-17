@@ -1,6 +1,6 @@
 package beachcombing.backend.domain.member.domain;
 
-import beachcombing.backend.domain.member.dto.MemberUpdateOneRequest;
+import beachcombing.backend.domain.member.controller.dto.MemberUpdateRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.*;
@@ -27,7 +27,7 @@ public class Profile {  // 회원 기본 정보
     }
 
     //image빠짐
-    public void updateNicknameAndImage (MemberUpdateOneRequest request, Boolean isChanged){
+    public void updateNicknameAndImage (MemberUpdateRequest request, Boolean isChanged){
         this.nickname = request.getNickname();
 
         //TODO getIsChanged가 true 이면, image 변경

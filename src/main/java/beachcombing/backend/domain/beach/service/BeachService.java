@@ -7,7 +7,7 @@ import beachcombing.backend.domain.beach.controller.dto.BeachVerifyNearRequest;
 import beachcombing.backend.domain.beach.domain.repository.BeachRepository;
 import beachcombing.backend.domain.beach.service.helper.RayCastingHelper;
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.member.repository.MemberRepository;
+import beachcombing.backend.domain.member.domain.repository.MemberRepository;
 import beachcombing.backend.domain.record.domain.Record;
 import beachcombing.backend.domain.beach.controller.dto.BeachFineMyMarkerResponse;
 import beachcombing.backend.domain.record.domain.repository.RecordRepository;
@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

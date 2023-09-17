@@ -4,7 +4,7 @@ import beachcombing.backend.domain.beach.domain.Beach;
 import beachcombing.backend.domain.record.controller.dto.RecordByBeachFindAllResponse;
 import beachcombing.backend.domain.beach.domain.repository.BeachRepository;
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.member.repository.MemberRepository;
+import beachcombing.backend.domain.member.domain.repository.MemberRepository;
 import beachcombing.backend.domain.record.controller.dto.RecordFindAllResponse;
 import beachcombing.backend.domain.record.controller.dto.RecordSaveRequest;
 import beachcombing.backend.domain.record.controller.dto.RecordSaveResponse;

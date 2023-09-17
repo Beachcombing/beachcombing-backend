@@ -61,4 +61,7 @@ public class Member extends BaseEntity {
                 .build();
     }
 
+    public void updateProfilePublic(Boolean profilePublic) {
+        this.profilePublic = profilePublic;
+    }
 }
