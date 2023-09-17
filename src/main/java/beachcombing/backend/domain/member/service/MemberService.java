@@ -49,13 +49,6 @@ public class MemberService {
         }
     }
 
-    //id값으로 멤버 찾기 -> 중복 코드 줄이기
-    @Transactional(readOnly = true)
-    public Member findMemberById(long memberId){
-        return memberRepository.findById(memberId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
-    }
-
     //프로필 공개여부 변경하기
     public void updateProfilePublic(Long memberId, Boolean profilePublic) {
 
@@ -66,5 +59,11 @@ public class MemberService {
     public void deleteMember(Long memberId) {
         Member findMember = findMemberById(memberId);
         memberRepository.delete(findMember);
+    }
+
+    //id값으로 멤버 찾기 -> 중복 코드 줄이기
+    private Member findMemberById(long memberId){
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
     }
 }
