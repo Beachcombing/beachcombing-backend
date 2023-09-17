@@ -57,10 +57,10 @@ public class MemberController {
 
     //회원 탈퇴하기
     @DeleteMapping("")
-    public ResponseEntity<Void> deleteAccount(@AuthenticationPrincipal PrincipalDetails principalDetails){
+    public ResponseEntity<Void> deleteMember(@AuthenticationPrincipal PrincipalDetails principalDetails){
 
-        memberService.deleteAccount(principalDetails.getMember().getId());
-        return ResponseEntity.status(HttpStatus.OK).build();
+        memberService.deleteMember(principalDetails.getMember().getId());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     }

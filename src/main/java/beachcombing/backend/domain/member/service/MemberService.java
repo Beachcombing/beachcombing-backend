@@ -22,18 +22,18 @@ public class MemberService {
 
     //회원 정보 조회
     @Transactional(readOnly = true)
-    public MemberFindOneResponse findMember(long userId) {
+    public MemberFindOneResponse findMember(long memberId) {
 
-        Member findMember = findMemberById(userId);
+        Member findMember = findMemberById(memberId);
         MemberFindOneResponse response = memberMapper.toUserFindOneResponse(findMember);
 
         return response;
     }
 
     //회원 정보 수정
-    public void updateMember(long userId, MemberUpdateRequest request, Boolean isChanged) {
+    public void updateMember(long memberId, MemberUpdateRequest request, Boolean isChanged) {
 
-        Member findMember = findMemberById(userId);
+        Member findMember = findMemberById(memberId);
         checkNickname(request.getNickname());
         findMember.getProfile().updateNicknameAndImage(request, isChanged);
 
@@ -51,20 +51,20 @@ public class MemberService {
 
     //id값으로 멤버 찾기 -> 중복 코드 줄이기
     @Transactional(readOnly = true)
-    public Member findMemberById(long userId){
-        return memberRepository.findById(userId)
+    public Member findMemberById(long memberId){
+        return memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
     }
 
     //프로필 공개여부 변경하기
-    public void updateProfilePublic(Long userId, Boolean profilePublic) {
+    public void updateProfilePublic(Long memberId, Boolean profilePublic) {
 
-        Member findMember = findMemberById(userId);
+        Member findMember = findMemberById(memberId);
         findMember.updateProfilePublic(profilePublic);
     }
 
-    public void deleteAccount(Long userId) {
-        Member findMember = findMemberById(userId);
+    public void deleteMember(Long memberId) {
+        Member findMember = findMemberById(memberId);
         memberRepository.delete(findMember);
     }
 }
