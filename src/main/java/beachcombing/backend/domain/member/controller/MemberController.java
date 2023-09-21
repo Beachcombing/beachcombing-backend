@@ -2,6 +2,7 @@ package beachcombing.backend.domain.member.controller;
 
 import beachcombing.backend.domain.member.controller.dto.MemberFindResponse;
 import beachcombing.backend.domain.member.controller.dto.MemberUpdateRequest;
+import beachcombing.backend.domain.member.controller.dto.NotificationFindResponse;
 import beachcombing.backend.domain.member.service.MemberService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -49,9 +52,9 @@ public class MemberController {
 
     //프로필 공개여부 설정하기
     @PatchMapping("profile-public")
-    public ResponseEntity<Void> updateProfilePublic(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestParam(name = "isPublic") Boolean profilePublic){
+    public ResponseEntity<Void> updateMemberProfilePublic(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestParam(name = "isPublic") Boolean profilePublic){
 
-        memberService.updateProfilePublic(principalDetails.getMember().getId(), profilePublic);
+        memberService.updateMemberProfilePublic(principalDetails.getMember().getId(), profilePublic);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -63,4 +66,22 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    // 포인트 받기
+    @PatchMapping("")
+    public ResponseEntity<Void> updateMemberPoint(@AuthenticationPrincipal PrincipalDetails userDetails,
+                                                  @RequestParam("option") int option){
+        memberService.updateMemberPoint(userDetails.getMember().getId(),option);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    // 알림 목록 조회
+    @GetMapping("notification")
+    public ResponseEntity<List<NotificationFindResponse>> findNotification(@AuthenticationPrincipal PrincipalDetails userDetails){
+        List<NotificationFindResponse> response = memberService.findNotification(userDetails.getMember().getId());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+
+
+
+}

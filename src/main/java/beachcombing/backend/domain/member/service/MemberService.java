@@ -1,6 +1,7 @@
 package beachcombing.backend.domain.member.service;
 
 
+import beachcombing.backend.domain.member.controller.dto.NotificationFindResponse;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.controller.dto.MemberFindResponse;
 import beachcombing.backend.domain.member.controller.dto.MemberUpdateRequest;
@@ -11,6 +12,8 @@ import beachcombing.backend.global.config.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -50,7 +53,7 @@ public class MemberService {
     }
 
     //프로필 공개여부 변경하기
-    public void updateProfilePublic(Long memberId, Boolean profilePublic) {
+    public void updateMemberProfilePublic(Long memberId, Boolean profilePublic) {
 
         Member findMember = findMemberById(memberId);
         findMember.updateProfilePublic(profilePublic);
@@ -59,6 +62,13 @@ public class MemberService {
     public void deleteMember(Long memberId) {
         Member findMember = findMemberById(memberId);
         memberRepository.delete(findMember);
+    }
+
+    public void updateMemberPoint(Long memberId, int option) {
+
+    }
+
+    public List<NotificationFindResponse> findNotification(Long memberId) {
     }
 
     //id값으로 멤버 찾기 -> 중복 코드 줄이기
