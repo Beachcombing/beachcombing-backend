@@ -1,4 +1,4 @@
-package beachcombing.backend.domain.image;
+package beachcombing.backend.domain.image.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
@@ -25,7 +25,7 @@ public class ImageService {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    public String saveFile(MultipartFile multipartFile) {
+    public String uploadImage(MultipartFile multipartFile) {
         // 파일 이름
         // 파일명 중복을 방지하기 위한 UUID 추가
         String fileName = UUID.randomUUID() + "." + multipartFile.getOriginalFilename();
@@ -38,13 +38,28 @@ public class ImageService {
         // 업로드
         try (InputStream inputStream = multipartFile.getInputStream()) {
             amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
-                    .withCannedAcl(CannedAccessControlList.PublicRead));
+                    .withCannedAcl(CannedAccessControlList.PublicRead)); // 이미지 업로드 확인용 퍼블릭 이미지 액세스 허용 옵션 추가
         } catch (IOException e) {
             log.error("S3 파일 업로드에 실패했습니다. {}", e.getMessage());
             throw new IllegalStateException("S3 파일 업로드에 실패했습니다.");
         }
 
         return amazonS3Client.getUrl(bucket, fileName).toString();
+    }
+
+
+    public String processImage(String image) {
+
+        if (image.isEmpty()) {
+            return null;
+        }
+
+        // 구글 프로필 적용 시
+//        if (image.startsWith("https://")) { // 구글 프로필 이미지 처리
+//            return image;
+//        }
+
+        return "https://" + bucket + ".s3.ap-northeast-2.amazonaws.com/" + image;
     }
 
 }
