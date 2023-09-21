@@ -50,5 +50,4 @@ public class MemberMapper {
         return Member.createMember(profile, authInfo);
     }
 
-
 }

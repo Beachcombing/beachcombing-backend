@@ -27,15 +27,11 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenService refreshTokenService;
     private final RefreshTokenRepository refreshTokenRepository;
-    //private final AuthMapper authMapper;
 
     // 일반 회원가입 (테스트용)
     public void join(AuthJoinRequest authJoinRequest) {
 
         Member member = memberMapper.toEntity(authJoinRequest);
-                //authJoinRequest.toEntity();
-                // memberMapper.toEntity(authJoinRequest);
-                //
         memberRepository.save(member);
     }
 

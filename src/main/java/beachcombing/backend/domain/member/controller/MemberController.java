@@ -62,7 +62,7 @@ public class MemberController {
     public ResponseEntity<MemberTutorialSaveResponse> completeTutorial(@AuthenticationPrincipal PrincipalDetails principalDetails){
 
         MemberTutorialSaveResponse response = memberService.completeTutorial(principalDetails.getMember().getId());
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     //잔여포인트 조회하기
@@ -71,7 +71,7 @@ public class MemberController {
     public ResponseEntity<MemberFindRemainPointsResponse> findRemainPoints(@AuthenticationPrincipal PrincipalDetails principalDetails)
     {
         MemberFindRemainPointsResponse response = memberService.findRemainPoints(principalDetails.getMember().getId());
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     //회원 탈퇴하기
