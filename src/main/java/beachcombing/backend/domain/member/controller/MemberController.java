@@ -67,7 +67,7 @@ public class MemberController {
     }
 
     // 포인트 받기
-    @PatchMapping("")
+    @PatchMapping("point")
     public ResponseEntity<Void> updateMemberPoint(@AuthenticationPrincipal PrincipalDetails userDetails,
                                                   @RequestParam("option") int option){
         memberService.updateMemberPoint(userDetails.getMember().getId(),option);
