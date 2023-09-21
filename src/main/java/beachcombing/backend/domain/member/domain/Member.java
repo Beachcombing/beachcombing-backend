@@ -64,4 +64,11 @@ public class Member extends BaseEntity {
     public void updateProfilePublic(Boolean profilePublic) {
         this.profilePublic = profilePublic;
     }
+
+    //튜토리얼 완료 등록하기
+    public void completeTutorial() { this.tutorialCompleted = true; }
+    
+    public Integer getRemainPoints(){
+        return this.totalPoint - this.purchasePoint;
+    }
 }

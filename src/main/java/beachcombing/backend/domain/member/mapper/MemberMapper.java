@@ -12,21 +12,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class MemberMapper {
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    public static MemberFindResponse toMemberFindResponse(Member member) {
-
-        return MemberFindResponse.builder()
-                .id(member.getId())
-                .email(member.getProfile().getEmail())
-                .nickName(member.getProfile().getNickname())
-                .image(member.getProfile().getImage())
-                .totalPoint(member.getTotalPoint())
-                .monthPoint(member.getMonthPoint())
-                .purchasePoint(member.getPurchasePoint())
-                .profilePublic(member.getProfilePublic())
-                .build();
-    }
 
     public AuthInfo toAuthInfo(String loginId, String password, String provider) {
 
@@ -62,4 +49,6 @@ public class MemberMapper {
 
         return Member.createMember(profile, authInfo);
     }
+
+
 }

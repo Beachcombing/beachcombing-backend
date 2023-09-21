@@ -4,7 +4,6 @@ import beachcombing.backend.domain.auth.controller.dto.AuthJoinRequest;
 import beachcombing.backend.domain.auth.controller.dto.AuthLoginRequest;
 import beachcombing.backend.domain.auth.controller.dto.AuthLoginResponse;
 import beachcombing.backend.domain.auth.controller.dto.AuthRefreshResponse;
-import beachcombing.backend.domain.auth.mapper.AuthMapper;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
 import beachcombing.backend.domain.member.domain.repository.MemberRepository;
@@ -28,12 +27,15 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenService refreshTokenService;
     private final RefreshTokenRepository refreshTokenRepository;
-    private final AuthMapper authMapper;
+    //private final AuthMapper authMapper;
 
     // 일반 회원가입 (테스트용)
     public void join(AuthJoinRequest authJoinRequest) {
 
         Member member = memberMapper.toEntity(authJoinRequest);
+                //authJoinRequest.toEntity();
+                // memberMapper.toEntity(authJoinRequest);
+                //
         memberRepository.save(member);
     }
 
@@ -55,7 +57,7 @@ public class AuthService {
         String refreshToken = jwtTokenProvider.generateRefreshToken(member);
         refreshTokenService.saveRefreshToken(refreshToken, member.getAuthInfo().getLoginId());
 
-        return authMapper.toAuthLoginResponse(accessToken, refreshToken, member);
+        return AuthLoginResponse.of(accessToken, refreshToken, member);
 
     }
 
@@ -81,7 +83,7 @@ public class AuthService {
             throw new CustomException(ErrorCode.TOKEN_EXPIRED);
         }
 
-        return authMapper.toAuthRefreshResponse(createdAccessToken, member);
+        return AuthRefreshResponse.of(createdAccessToken, member);
     }
 
     public void logout(String request) {
