@@ -64,4 +64,8 @@ public class Record extends BaseEntity {
                 .build();
     }
 
+    public void updateRecordFeed(Feed feed){
+        this.feed = feed;
+    }
+
 }
