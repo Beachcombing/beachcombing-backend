@@ -50,6 +50,5 @@ class ImageServiceTest {
 
         // then
         Assertions.assertThat(processedImage).isEqualTo("https://" + bucket +".s3.ap-northeast-2.amazonaws.com/" + expected);
-        System.out.println("processedImage = " + processedImage);
     }
 }
