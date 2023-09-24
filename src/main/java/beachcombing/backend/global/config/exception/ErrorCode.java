@@ -32,6 +32,9 @@ public enum ErrorCode {
     // Beach 예외
     NOT_FOUND_BEACH(HttpStatus.NOT_FOUND, "해당 해변을 찾을 수 없습니다."),
     NOT_NEAR_BEACH(HttpStatus.CONFLICT, "해변 인증범위 바깥에 위치합니다."),
+
+    // 이미지 업로드 예외
+    UPLOAD_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "S3 파일 업로드에 실패했습니다."),
     ;
 
     private final HttpStatus status;

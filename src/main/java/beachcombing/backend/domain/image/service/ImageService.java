@@ -1,5 +1,7 @@
 package beachcombing.backend.domain.image.service;
 
+import beachcombing.backend.global.config.exception.CustomException;
+import beachcombing.backend.global.config.exception.ErrorCode;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -41,9 +43,8 @@ public class ImageService {
                     .withCannedAcl(CannedAccessControlList.PublicRead)); // 이미지 업로드 확인용 퍼블릭 이미지 액세스 허용 옵션 추가
         } catch (IOException e) {
             log.error("S3 파일 업로드에 실패했습니다. {}", e.getMessage());
-            throw new IllegalStateException("S3 파일 업로드에 실패했습니다.");
+            throw new CustomException(ErrorCode.UPLOAD_FAILED); // 파일 업로드 실패 에러를 던짐}
         }
-
         return amazonS3Client.getUrl(bucket, fileName).toString();
     }
 
