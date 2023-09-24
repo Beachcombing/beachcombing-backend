@@ -2,6 +2,7 @@ package beachcombing.backend.domain.member.controller;
 
 import beachcombing.backend.domain.member.controller.dto.MemberFindResponse;
 import beachcombing.backend.domain.member.controller.dto.MemberUpdateRequest;
+import beachcombing.backend.domain.member.controller.dto.MemberRankingAllResponse;
 import beachcombing.backend.domain.member.service.MemberService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +54,13 @@ public class MemberController {
 
         memberService.updateProfilePublic(principalDetails.getMember().getId(), profilePublic);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    //랭킹 조회하기
+    @GetMapping("ranking")
+    public ResponseEntity<MemberRankingAllResponse> getRankingList(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestParam(name="range") String range, @RequestParam(required = false) int pageSize, @RequestParam(required = false) Long lastId, @RequestParam(required = false) Integer lastPoint){
+        MemberRankingAllResponse response = memberService.getRankingList(range, pageSize, lastId, lastPoint);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     //회원 탈퇴하기

@@ -1,6 +1,7 @@
 package beachcombing.backend.domain.member.service;
 
 
+import beachcombing.backend.domain.member.controller.dto.MemberRankingAllResponse;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.controller.dto.MemberFindResponse;
 import beachcombing.backend.domain.member.controller.dto.MemberUpdateRequest;
@@ -9,8 +10,14 @@ import beachcombing.backend.domain.member.domain.repository.MemberRepository;
 import beachcombing.backend.global.config.exception.CustomException;
 import beachcombing.backend.global.config.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -56,10 +63,42 @@ public class MemberService {
         findMember.updateProfilePublic(profilePublic);
     }
 
+    //탈퇴하기
     public void deleteMember(Long memberId) {
         Member findMember = findMemberById(memberId);
         memberRepository.delete(findMember);
     }
+
+    //랭킹 조회하기
+    public MemberRankingAllResponse getRankingList(String range, int pageSize, long lastId, int lastPoint) {
+        List<Member> memberList = new ArrayList<>();
+
+        if(range.equals("all")){
+           memberList = memberRepository.findByMonthPointRanking(pageSize, lastId, lastPoint);
+        }
+        else if(range.equals("month")){
+            memberList = memberRepository.findByMonthPointRanking(pageSize, lastId, lastPoint);
+        }
+        if(memberList.isEmpty()){
+            throw new CustomException(ErrorCode.BAD_REQUEST_PARAM);
+        }
+
+        //그 다음 페이지 존재 여부 확인
+        boolean nextPage = memberList.size() > pageSize;
+        if(nextPage) { memberList.remove(memberList.size() - 1); }
+
+        //반환
+        return MemberRankingAllResponse.builder()
+                .nextPage(nextPage)
+                .memberDtoList(memberList.stream()
+                        .map(m-> MemberRankingAllResponse.MemberDto.of(m, range))
+                        .collect(Collectors.toList()))
+                .build();
+
+    }
+
+
+
 
     //id값으로 멤버 찾기 -> 중복 코드 줄이기
     private Member findMemberById(long memberId){
