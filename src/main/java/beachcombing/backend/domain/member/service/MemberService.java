@@ -1,6 +1,8 @@
 package beachcombing.backend.domain.member.service;
 
 
+import beachcombing.backend.domain.member.controller.dto.MemberFindRemainPointsResponse;
+import beachcombing.backend.domain.member.controller.dto.MemberTutorialSaveResponse;
 import beachcombing.backend.domain.member.controller.dto.NotificationFindResponse;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.controller.dto.MemberFindResponse;
@@ -37,7 +39,7 @@ public class MemberService {
     public MemberFindResponse findMember(long memberId) {
 
         Member findMember = getMember(memberId);
-        MemberFindResponse response = memberMapper.toMemberFindResponse(findMember);
+        MemberFindResponse response = MemberFindResponse.from(findMember);
 
         return response;
     }
@@ -100,10 +102,23 @@ public class MemberService {
         return response;
     }
 
+    //튜토리얼 완료 등록 함수
+    public MemberTutorialSaveResponse completeTutorial(Long memberId) {
+        Member findMember = getMember(memberId);
+        findMember.completeTutorial();
+        return MemberTutorialSaveResponse.from(findMember);
+
+    }
+
+    //잔여포인트 조회하기
+    public MemberFindRemainPointsResponse findRemainPoints(Long memberId) {
+        Member findMember = getMember(memberId);
+        return MemberFindRemainPointsResponse.from(findMember.getRemainPoints());
+    }
+
     //id값으로 멤버 찾기 -> 중복 코드 줄이기
     private Member getMember(long memberId){
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
     }
-
 }

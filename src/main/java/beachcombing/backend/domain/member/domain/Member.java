@@ -83,6 +83,13 @@ public class Member extends BaseEntity {
         this.profilePublic = profilePublic;
     }
 
+    //튜토리얼 완료 등록하기
+    public void completeTutorial() { this.tutorialCompleted = true; }
+
+    public Integer getRemainPoints(){
+        return this.totalPoint - this.purchasePoint;
+    }
+
     public boolean updateMemberPoint(int option){
         int point = 0;
 
@@ -103,6 +110,5 @@ public class Member extends BaseEntity {
         this.totalPoint += point;
         this.monthPoint += point;
         return true;
-
     }
 }

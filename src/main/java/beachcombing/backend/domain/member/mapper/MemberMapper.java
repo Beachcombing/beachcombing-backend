@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class MemberMapper {
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public static MemberFindResponse toMemberFindResponse(Member member) {

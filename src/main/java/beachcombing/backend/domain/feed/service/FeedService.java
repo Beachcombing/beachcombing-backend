@@ -56,7 +56,7 @@ public class FeedService {
     //멤버 존재 여부
     private Member findMemberById(long memberId){
         return memberRepository.findById(memberId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
     }
 
     //피드 존재 여부

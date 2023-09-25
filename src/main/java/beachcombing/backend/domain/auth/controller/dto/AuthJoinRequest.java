@@ -1,9 +1,16 @@
 package beachcombing.backend.domain.auth.controller.dto;
 
+import beachcombing.backend.domain.member.domain.AuthInfo;
+import beachcombing.backend.domain.member.domain.Member;
+import beachcombing.backend.domain.member.domain.Profile;
+import lombok.AllArgsConstructor;
 import beachcombing.backend.domain.common.domain.Provider;
 import beachcombing.backend.domain.common.domain.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @NoArgsConstructor
 @Getter

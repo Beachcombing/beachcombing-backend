@@ -1,6 +1,8 @@
 package beachcombing.backend.domain.member.controller;
 
+import beachcombing.backend.domain.member.controller.dto.MemberFindRemainPointsResponse;
 import beachcombing.backend.domain.member.controller.dto.MemberFindResponse;
+import beachcombing.backend.domain.member.controller.dto.MemberTutorialSaveResponse;
 import beachcombing.backend.domain.member.controller.dto.MemberUpdateRequest;
 import beachcombing.backend.domain.member.controller.dto.NotificationFindResponse;
 import beachcombing.backend.domain.member.service.MemberService;
@@ -56,6 +58,23 @@ public class MemberController {
 
         memberService.updateMemberProfilePublic(principalDetails.getMember().getId(), profilePublic);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    //회원 튜토리얼 완료여부 설정하기
+    @PatchMapping("tutorial")
+    public ResponseEntity<MemberTutorialSaveResponse> completeTutorial(@AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        MemberTutorialSaveResponse response = memberService.completeTutorial(principalDetails.getMember().getId());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    //잔여포인트 조회하기
+
+    @GetMapping("point")
+    public ResponseEntity<MemberFindRemainPointsResponse> findRemainPoints(@AuthenticationPrincipal PrincipalDetails principalDetails)
+    {
+        MemberFindRemainPointsResponse response = memberService.findRemainPoints(principalDetails.getMember().getId());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     //회원 탈퇴하기
