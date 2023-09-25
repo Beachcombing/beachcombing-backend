@@ -82,4 +82,27 @@ public class Member extends BaseEntity {
     public void updateProfilePublic(Boolean profilePublic) {
         this.profilePublic = profilePublic;
     }
+
+    public boolean updateMemberPoint(int option){
+        int point = 0;
+
+        switch (option){
+            case 0:
+                point = 100;
+                break;
+            case 1:
+                point = 30;
+                break;
+            case 2:
+                point= 70;
+                break;
+            default:
+                return false;
+        }
+
+        this.totalPoint += point;
+        this.monthPoint += point;
+        return true;
+
+    }
 }
