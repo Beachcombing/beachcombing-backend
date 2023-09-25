@@ -1,6 +1,8 @@
 package beachcombing.backend.domain.member.mapper;
 
 import beachcombing.backend.domain.auth.controller.dto.AuthJoinRequest;
+import beachcombing.backend.domain.common.domain.Provider;
+import beachcombing.backend.domain.common.domain.Role;
 import beachcombing.backend.domain.member.domain.AuthInfo;
 import beachcombing.backend.domain.member.domain.Profile;
 import beachcombing.backend.domain.member.domain.Member;
@@ -15,7 +17,21 @@ public class MemberMapper {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public AuthInfo toAuthInfo(String loginId, String password, String provider) {
+    public static MemberFindResponse toMemberFindResponse(Member member) {
+
+        return MemberFindResponse.builder()
+                .id(member.getId())
+                .email(member.getProfile().getEmail())
+                .nickName(member.getProfile().getNickname())
+                .image(member.getProfile().getImage())
+                .totalPoint(member.getTotalPoint())
+                .monthPoint(member.getMonthPoint())
+                .purchasePoint(member.getPurchasePoint())
+                .profilePublic(member.getProfilePublic())
+                .build();
+    }
+
+    public AuthInfo toAuthInfo(String loginId, String password, Provider provider) {
 
         return AuthInfo.builder()
                 .loginId(loginId)
@@ -24,7 +40,7 @@ public class MemberMapper {
                 .build();
     }
 
-    public Profile toProfile(String email, String nickName, String image, String role) {
+    public Profile toProfile(String email, String nickName, String image, Role role) {
 
         return Profile.builder()
                 .email(email)
@@ -49,5 +65,4 @@ public class MemberMapper {
 
         return Member.createMember(profile, authInfo);
     }
-
 }

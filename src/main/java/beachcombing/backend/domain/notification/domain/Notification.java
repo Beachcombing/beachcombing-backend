@@ -2,6 +2,7 @@ package beachcombing.backend.domain.notification.domain;
 
 import beachcombing.backend.domain.common.domain.BaseEntity;
 import beachcombing.backend.domain.member.domain.Member;
+import beachcombing.backend.domain.member.event.NotificationCode;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -11,7 +12,6 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Notification extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "notification_id")
@@ -33,12 +33,13 @@ public class Notification extends BaseEntity {
         this.details = details;
     }
 
-    public static Notification createNotification(Member member, String title, String message, String details) {
+    public static Notification createNotification(Member member, NotificationCode notificationCode) {
         return Notification.builder()
                 .member(member)
-                .title(title)
-                .message(message)
-                .details(details)
+                .title(notificationCode.getTitle())
+                .message(notificationCode.getMessage())
+                .details(notificationCode.getDetails())
                 .build();
     }
+
 }

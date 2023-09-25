@@ -4,6 +4,8 @@ import beachcombing.backend.domain.member.domain.AuthInfo;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.domain.Profile;
 import lombok.AllArgsConstructor;
+import beachcombing.backend.domain.common.domain.Provider;
+import beachcombing.backend.domain.common.domain.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +18,9 @@ public class AuthJoinRequest {
 
     private String loginId;
     private String password;
-    private String provider;
+    private Provider provider;
     private String email;
     private String nickName;
     private String image;
-    private String role;
-
+    private Role role;
 }
