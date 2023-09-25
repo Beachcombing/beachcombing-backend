@@ -1,10 +1,7 @@
 package beachcombing.backend.domain.auth.service;
 
+import beachcombing.backend.domain.auth.controller.dto.*;
 import beachcombing.backend.domain.auth.service.helper.GoogleLoginHelper;
-import beachcombing.backend.domain.auth.controller.dto.AuthJoinRequest;
-import beachcombing.backend.domain.auth.controller.dto.AuthLoginRequest;
-import beachcombing.backend.domain.auth.controller.dto.AuthLoginResponse;
-import beachcombing.backend.domain.auth.controller.dto.AuthRefreshResponse;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
 import beachcombing.backend.domain.member.domain.repository.MemberRepository;
@@ -29,7 +26,6 @@ public class AuthService {
     private final RefreshTokenService refreshTokenService;
     private final RefreshTokenRepository refreshTokenRepository;
     private final GoogleLoginHelper googleLoginHelper;
-    private final AuthMapper authMapper;
 
     // 일반 회원가입 (테스트용)
     public void join(AuthJoinRequest authJoinRequest) {
