@@ -1,6 +1,8 @@
 package beachcombing.backend.domain.member.mapper;
 
 import beachcombing.backend.domain.auth.controller.dto.AuthJoinRequest;
+import beachcombing.backend.domain.common.domain.Provider;
+import beachcombing.backend.domain.common.domain.Role;
 import beachcombing.backend.domain.member.domain.AuthInfo;
 import beachcombing.backend.domain.member.domain.Profile;
 import beachcombing.backend.domain.member.domain.Member;
@@ -28,7 +30,7 @@ public class MemberMapper {
                 .build();
     }
 
-    public AuthInfo toAuthInfo(String loginId, String password, String provider) {
+    public AuthInfo toAuthInfo(String loginId, String password, Provider provider) {
 
         return AuthInfo.builder()
                 .loginId(loginId)
@@ -37,7 +39,7 @@ public class MemberMapper {
                 .build();
     }
 
-    public Profile toProfile(String email, String nickName, String image, String role) {
+    public Profile toProfile(String email, String nickName, String image, Role role) {
 
         return Profile.builder()
                 .email(email)
