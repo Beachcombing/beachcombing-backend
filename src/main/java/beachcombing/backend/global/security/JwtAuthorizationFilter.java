@@ -2,6 +2,8 @@ package beachcombing.backend.global.security;
 
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.domain.repository.MemberRepository;
+import beachcombing.backend.global.config.exception.CustomException;
+import beachcombing.backend.global.config.exception.ErrorCode;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -45,7 +47,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         if (username != null) { // 권한 구분 위해 Authentication 객체를 생성해 세션에 저장
 
-            Member member = memberRepository.findByAuthInfoLoginId(username);
+            Member member = memberRepository.findByAuthInfoLoginId(username)
+                    .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_MEMBER));
 
             // 인증은 토큰 검증시 끝. 인증을 하기 위해서가 아닌 스프링 시큐리티가 수행해주는 권한 처리를 위해
             // 아래와 같이 토큰을 만들어서 Authentication 객체를 강제로 만들고 그걸 세션에 저장!

@@ -1,10 +1,7 @@
 package beachcombing.backend.domain.auth.service;
 
-import beachcombing.backend.domain.auth.controller.dto.AuthJoinRequest;
-import beachcombing.backend.domain.auth.controller.dto.AuthLoginRequest;
-import beachcombing.backend.domain.auth.controller.dto.AuthLoginResponse;
-import beachcombing.backend.domain.auth.controller.dto.AuthRefreshResponse;
-import beachcombing.backend.domain.auth.mapper.AuthMapper;
+import beachcombing.backend.domain.auth.controller.dto.*;
+import beachcombing.backend.domain.auth.service.helper.GoogleLoginHelper;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
 import beachcombing.backend.domain.member.domain.repository.MemberRepository;
@@ -28,7 +25,7 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenService refreshTokenService;
     private final RefreshTokenRepository refreshTokenRepository;
-    private final AuthMapper authMapper;
+    private final GoogleLoginHelper googleLoginHelper;
 
     // 일반 회원가입 (테스트용)
     public void join(AuthJoinRequest authJoinRequest) {
@@ -41,22 +38,30 @@ public class AuthService {
     public AuthLoginResponse login(AuthLoginRequest request) {
 
         // 아이디와 비밀번호 유효성 체크
-        Member member = memberRepository.findByAuthInfoLoginId(request.getLoginId());
+        Member member = memberRepository.findByAuthInfoLoginId(request.getLoginId()).orElse(null);
 
         if(member == null) {
             throw new CustomException(ErrorCode.UNAUTHORIZED_ID);
         }
+
         if(!passwordEncoder.matches(request.getPassword(), member.getAuthInfo().getPassword())) {
             throw new CustomException(ErrorCode.UNAUTHORIZED_PASSWORD);
         }
 
-        // 토큰 생성
-        String accessToken = jwtTokenProvider.generateAccessToken(member);
-        String refreshToken = jwtTokenProvider.generateRefreshToken(member);
-        refreshTokenService.saveRefreshToken(refreshToken, member.getAuthInfo().getLoginId());
+       return createAndSaveToken(member); // 토큰 생성 및 저장
+    }
 
-        return authMapper.toAuthLoginResponse(accessToken, refreshToken, member);
+    // 구글 로그인
+    public AuthLoginResponse googleLogin(AuthGoogleLoginRequest request) {
+        Member member = googleLoginHelper.getUserData(request.idToken); // IdToken으로 구글에서 유저 정보 받아오기
 
+        Member findMember = memberRepository.findByAuthInfoLoginId(member.getAuthInfo().getLoginId())
+                .orElse(null);
+        if(findMember == null){ // 최초 로그인이라면 회원가입 시키기
+            memberRepository.save(member);
+        }
+
+       return createAndSaveToken(member); // 토큰 생성 및 저장
     }
 
     // accessToken 재발급
@@ -74,14 +79,15 @@ public class AuthService {
             throw new CustomException(ErrorCode.TOKEN_INVALID);
         }
 
-        Member member = memberRepository.findByAuthInfoLoginId(loginId);
+        Member member = memberRepository.findByAuthInfoLoginId(loginId)
+                .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_MEMBER));
         String createdAccessToken = jwtTokenProvider.generateAccessToken(member);
 
         if (createdAccessToken == null) {
             throw new CustomException(ErrorCode.TOKEN_EXPIRED);
         }
 
-        return authMapper.toAuthRefreshResponse(createdAccessToken, member);
+        return AuthRefreshResponse.of(createdAccessToken, member);
     }
 
     public void logout(String request) {
@@ -92,5 +98,15 @@ public class AuthService {
 //        redisTemplate.opsForValue()
 //                .set(accessToken, "blackList", expiration, TimeUnit.MILLISECONDS);
     }
+
+    private AuthLoginResponse createAndSaveToken(Member member){
+        String accessToken = jwtTokenProvider.generateAccessToken(member);
+        String refreshToken = jwtTokenProvider.generateRefreshToken(member);
+
+        refreshTokenService.saveRefreshToken(refreshToken, member.getAuthInfo().getLoginId());
+
+        return AuthLoginResponse.of(accessToken, refreshToken, member);
+    }
+
 }
 
