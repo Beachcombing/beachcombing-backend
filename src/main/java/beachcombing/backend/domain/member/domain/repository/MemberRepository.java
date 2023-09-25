@@ -12,9 +12,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberRep
     Member findByAuthInfoLoginId(String loginId);
     Boolean existsByProfileNickname(String nickname);
 
-    List<Member> findByMonthPointLessThanEqualAndIdGreaterThan(Integer lastPoint, long lastId, Pageable pageable);
-
-
 
 
 }

@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.ErrorResponseException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,22 +71,21 @@ public class MemberService {
     }
 
     //랭킹 조회하기
-    public MemberRankingAllResponse getRankingList(String range, int pageSize, long lastId, int lastPoint) {
+    public MemberRankingAllResponse getRankingList(String range, int pageSize, Long lastId, Integer lastPoint) {
+
         List<Member> memberList = new ArrayList<>();
 
         if(range.equals("all")){
-           memberList = memberRepository.findByMonthPointRanking(pageSize, lastId, lastPoint);
+           memberList = memberRepository.findByTotalPointRanking(pageSize, lastId, lastPoint);
         }
         else if(range.equals("month")){
             memberList = memberRepository.findByMonthPointRanking(pageSize, lastId, lastPoint);
         }
-        if(memberList.isEmpty()){
-            throw new CustomException(ErrorCode.BAD_REQUEST_PARAM);
-        }
 
         //그 다음 페이지 존재 여부 확인
         boolean nextPage = memberList.size() > pageSize;
-        if(nextPage) { memberList.remove(memberList.size() - 1); }
+        if(nextPage) { memberList.remove(memberList.size() - 1);
+        }
 
         //반환
         return MemberRankingAllResponse.builder()
@@ -96,9 +96,6 @@ public class MemberService {
                 .build();
 
     }
-
-
-
 
     //id값으로 멤버 찾기 -> 중복 코드 줄이기
     private Member findMemberById(long memberId){

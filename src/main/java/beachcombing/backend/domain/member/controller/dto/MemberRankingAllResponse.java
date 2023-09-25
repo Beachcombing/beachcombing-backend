@@ -4,6 +4,7 @@ import beachcombing.backend.domain.beach.controller.dto.BeachFindResponse;
 import beachcombing.backend.domain.member.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class MemberRankingAllResponse {
 
     private Boolean nextPage;
