@@ -1,9 +1,9 @@
 package beachcombing.backend.domain.member.domain.repository;
 
 import beachcombing.backend.domain.member.domain.Member;
-import jakarta.persistence.EntityManager;
 
 import java.util.List;
+
 
 public class MemberRepositoryImpl implements MemberRepositoryCustom{
 
@@ -16,4 +16,5 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
     public List<Member> findByMonthPointRanking(int pageSize, Long lastId, Integer lastPoint) {
         return null;
     }
+
 }
