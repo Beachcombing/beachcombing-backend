@@ -34,8 +34,14 @@ public enum ErrorCode {
     NOT_FOUND_BEACH(HttpStatus.NOT_FOUND, "해당 해변을 찾을 수 없습니다."),
     NOT_NEAR_BEACH(HttpStatus.CONFLICT, "해변 인증범위 바깥에 위치합니다."),
 
+    // Feed 예외
+    NOT_FOUND_FEED(HttpStatus.NOT_FOUND, "해당 피드를 찾을 수 없습니다."),
+    PERMISSION_DENIED(HttpStatus.UNAUTHORIZED, "타인의 글은 수정 및 삭제할 수 없습니다."),
+    EXIST_FEED_RECORD(HttpStatus.CONFLICT, "이미 피드가 작성된 레코드입니다."),
+
     // 이미지 업로드 예외
     UPLOAD_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "S3 파일 업로드에 실패했습니다."),
+
     ;
 
 
