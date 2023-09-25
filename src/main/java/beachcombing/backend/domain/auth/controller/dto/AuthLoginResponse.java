@@ -1,5 +1,7 @@
 package beachcombing.backend.domain.auth.controller.dto;
 
+import beachcombing.backend.domain.common.domain.Role;
+import beachcombing.backend.domain.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -10,5 +12,13 @@ public class AuthLoginResponse {
   
     private String refreshToken;
   
-    private String role;
+    private Role role;
+
+    public static AuthLoginResponse of(String accessToken, String refreshToken, Member member){
+        return AuthLoginResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .role(member.getProfile().getRole())
+                .build();
+    }
 }

@@ -3,6 +3,8 @@ name: Develop
 on:
   push:
     branches: [ "develop" ]
+#  pull_request:
+#    branches: [ "develop" ]
 
 permissions:
   contents: read
@@ -53,6 +55,7 @@ jobs:
         key: ${{ secrets.SSH_PEM_KEY }}
         envs: GITHUB_SHA
         script: |
+          sudo docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
           sudo docker pull future430/beachcombing:${GITHUB_SHA::7}
           sudo docker tag future430/beachcombing:${GITHUB_SHA::7} beachcombing
           sudo docker-compose -p beachcombing up -d

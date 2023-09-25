@@ -103,7 +103,7 @@ public class MemberService {
     //id값으로 멤버 찾기 -> 중복 코드 줄이기
     private Member getMember(long memberId){
         return memberRepository.findById(memberId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
     }
 
 }
