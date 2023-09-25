@@ -1,9 +1,6 @@
 package beachcombing.backend.domain.auth.controller;
 
-import beachcombing.backend.domain.auth.controller.dto.AuthJoinRequest;
-import beachcombing.backend.domain.auth.controller.dto.AuthLoginRequest;
-import beachcombing.backend.domain.auth.controller.dto.AuthLoginResponse;
-import beachcombing.backend.domain.auth.controller.dto.AuthRefreshResponse;
+import beachcombing.backend.domain.auth.controller.dto.*;
 import beachcombing.backend.domain.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("auth")
 @Slf4j
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
 
     // 일반 회원가입 (백엔드 테스트용)
-    @PostMapping("/join")
+    @PostMapping("join")
     public ResponseEntity<Void> join(@RequestBody AuthJoinRequest authJoinRequest) {
 
         authService.join(authJoinRequest);
@@ -32,10 +29,18 @@ public class AuthController {
     }
 
     // 일반 로그인 ( 백엔드 테스트용 )
-    @PostMapping("/login")
+    @PostMapping("login")
     public ResponseEntity<AuthLoginResponse> login(@RequestBody AuthLoginRequest request) {
 
         AuthLoginResponse response =authService.login(request);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+
+    // 구글로그인
+    @PostMapping("google")
+    public ResponseEntity<AuthLoginResponse> googleLogin(@RequestBody AuthGoogleLoginRequest request){
+        AuthLoginResponse response = authService.googleLogin(request);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
@@ -53,7 +58,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    //TODO 구글로그인
+
 
 
 

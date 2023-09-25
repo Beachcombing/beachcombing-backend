@@ -1,5 +1,6 @@
 package beachcombing.backend.domain.auth.controller.dto;
 
+import beachcombing.backend.domain.common.domain.Role;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -7,5 +8,5 @@ import lombok.Getter;
 @Builder
 public class AuthRefreshResponse {
     private String accessToken;
-    private String role;
+    private Role role;
 }
