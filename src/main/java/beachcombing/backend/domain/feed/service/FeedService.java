@@ -1,9 +1,11 @@
 package beachcombing.backend.domain.feed.service;
 
+import beachcombing.backend.domain.feed.controller.dto.FeedFindAllResponse;
 import beachcombing.backend.domain.feed.controller.dto.FeedSaveRequest;
 import beachcombing.backend.domain.feed.controller.dto.FeedSaveResponse;
 import beachcombing.backend.domain.feed.domain.Feed;
 import beachcombing.backend.domain.feed.domain.repository.FeedRepository;
+import beachcombing.backend.domain.feed.domain.repository.MemberPreferredFeedRepository;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.domain.repository.MemberRepository;
 import beachcombing.backend.domain.record.domain.Record;
@@ -14,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -22,6 +26,7 @@ public class FeedService {
     private final FeedRepository feedRepository;
     private final MemberRepository memberRepository;
     private final RecordRepository recordRepository;
+    private final MemberPreferredFeedRepository memberPreferredFeedRepository;
 
     //피드 기록하기
     public FeedSaveResponse saveFeed(Long memberId, FeedSaveRequest feedSaveRequest) {
@@ -56,7 +61,7 @@ public class FeedService {
     //멤버 존재 여부
     private Member findMemberById(long memberId){
         return memberRepository.findById(memberId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
     }
 
     //피드 존재 여부
@@ -84,5 +89,19 @@ public class FeedService {
         if( feed.getRecord().getMember().getId() != member.getId())
         {throw new CustomException(ErrorCode.PERMISSION_DENIED);}
         return true;
+    }
+
+    // 모든 피드 조회
+    public List<FeedFindAllResponse> findAllFeed(Member member) {
+        List<FeedFindAllResponse> response = feedRepository.findAllByOrderByCreatedDateDesc().stream()
+                .map(feed -> {
+                    Long likes = memberPreferredFeedRepository.countByFeed(feed);
+                    Boolean preferred = memberPreferredFeedRepository.existsByMemberAndFeed(member, feed);
+                    return FeedFindAllResponse.from(feed, likes, preferred);
+                })
+                .toList();
+
+
+        return response;
     }
 }
