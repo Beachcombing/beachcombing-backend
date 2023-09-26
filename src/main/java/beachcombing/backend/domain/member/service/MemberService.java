@@ -167,6 +167,15 @@ public class MemberService {
 
     }
 
+    // 피드 좋아요 취소
+    public void deleteFeedLike(Long memberId, Long feedId) {
+
+        Member member = getMember(memberId);
+        Feed feed = getFeed(feedId);
+
+        memberPreferredFeedRepository.deleteByMemberAndFeed(member, feed);
+    }
+
     //id값으로 멤버 찾기 -> 중복 코드 줄이기
     private Member getMember(long memberId){
         return memberRepository.findById(memberId)

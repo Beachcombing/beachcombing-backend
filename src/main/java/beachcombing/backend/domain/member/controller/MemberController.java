@@ -103,9 +103,16 @@ public class MemberController {
     }
 
     // 피드 좋아요 하기
-    @PostMapping("preferred-feeds/{feed_id}")
-    public ResponseEntity<FeedLikeResponse> saveFeedLike(@AuthenticationPrincipal PrincipalDetails userDetails, @PathVariable("feed_id") Long feedId) {
+    @PostMapping("preferred-feeds/{feedId}")
+    public ResponseEntity<FeedLikeResponse> saveFeedLike(@AuthenticationPrincipal PrincipalDetails userDetails, @PathVariable Long feedId) {
         FeedLikeResponse response = memberService.saveFeedLike(userDetails.getMember().getId(), feedId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @DeleteMapping("preferred-feeds/{feedId}")
+    public ResponseEntity<Void> deleteLikeFeed(@AuthenticationPrincipal PrincipalDetails userDetails,
+                                               @PathVariable("feedId") Long feedId) {
+        memberService.deleteFeedLike(userDetails.getMember().getId(), feedId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
