@@ -109,6 +109,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    // 피드 좋아요 취소
     @DeleteMapping("preferred-feeds/{feedId}")
     public ResponseEntity<Void> deleteLikeFeed(@AuthenticationPrincipal PrincipalDetails userDetails,
                                                @PathVariable("feedId") Long feedId) {
