@@ -1,7 +1,6 @@
 package beachcombing.backend.domain.auth.service;
 
 import beachcombing.backend.domain.auth.controller.dto.*;
-import beachcombing.backend.domain.auth.mapper.AuthMapper;
 import beachcombing.backend.domain.auth.service.helper.GoogleLoginHelper;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
@@ -27,7 +26,6 @@ public class AuthService {
     private final RefreshTokenService refreshTokenService;
     private final RefreshTokenRepository refreshTokenRepository;
     private final GoogleLoginHelper googleLoginHelper;
-    private final AuthMapper authMapper;
 
     // 일반 회원가입 (테스트용)
     public void join(AuthJoinRequest authJoinRequest) {
@@ -89,7 +87,7 @@ public class AuthService {
             throw new CustomException(ErrorCode.TOKEN_EXPIRED);
         }
 
-        return authMapper.toAuthRefreshResponse(createdAccessToken, member);
+        return AuthRefreshResponse.of(createdAccessToken, member);
     }
 
     public void logout(String request) {

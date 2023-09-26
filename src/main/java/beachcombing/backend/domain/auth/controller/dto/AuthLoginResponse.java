@@ -1,7 +1,7 @@
 package beachcombing.backend.domain.auth.controller.dto;
 
-import beachcombing.backend.domain.common.domain.Role;
 import beachcombing.backend.domain.member.domain.Member;
+import beachcombing.backend.domain.common.domain.Role;
 import lombok.Builder;
 import lombok.Getter;
 
