@@ -1,17 +1,16 @@
 package beachcombing.backend.domain.member.service;
 
 
-import beachcombing.backend.domain.member.controller.dto.MemberRankingAllResponse;
-import beachcombing.backend.domain.member.controller.dto.MemberFindRemainPointsResponse;
-import beachcombing.backend.domain.member.controller.dto.MemberTutorialSaveResponse;
-import beachcombing.backend.domain.member.controller.dto.NotificationFindResponse;
+import beachcombing.backend.domain.feed.domain.Feed;
+import beachcombing.backend.domain.feed.domain.repository.FeedRepository;
+import beachcombing.backend.domain.feed.domain.repository.MemberPreferredFeedRepository;
+import beachcombing.backend.domain.member.controller.dto.*;
 import beachcombing.backend.domain.member.domain.Member;
-import beachcombing.backend.domain.member.controller.dto.MemberFindResponse;
-import beachcombing.backend.domain.member.controller.dto.MemberUpdateRequest;
 import beachcombing.backend.domain.member.event.MemberEvent;
 import beachcombing.backend.domain.member.event.NotificationCode;
 import beachcombing.backend.domain.member.mapper.MemberMapper;
 import beachcombing.backend.domain.member.domain.repository.MemberRepository;
+import beachcombing.backend.domain.member_preferred_feed.domain.MemberPreferredFeed;
 import beachcombing.backend.domain.notification.domain.Notification;
 import beachcombing.backend.domain.notification.repository.NotificationRepository;
 import beachcombing.backend.global.config.exception.CustomException;
@@ -36,6 +35,8 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
     private final NotificationRepository notificationRepository;
+    private final FeedRepository feedRepository;
+    private final MemberPreferredFeedRepository memberPreferredFeedRepository;
 
     private final ApplicationEventPublisher eventPublisher;
 
@@ -148,9 +149,32 @@ public class MemberService {
                 .build();
     }
 
+    // 피드 좋아요 하기
+    public FeedLikeResponse saveFeedLike(Long memberId, Long feedId) {
+        Member member = getMember(memberId);
+        Feed feed = getFeed(feedId);
+
+        // 중복 예외 처리
+        if(memberPreferredFeedRepository.existsByMemberAndFeed(member, feed)) {
+            throw new CustomException(ErrorCode.EXIST_MEMBER_PREFERRED_FEED);
+        }
+
+        MemberPreferredFeed memberPreferredFeed = MemberPreferredFeed.createMemberPreferredFeed(feed, member);
+
+        memberPreferredFeedRepository.save(memberPreferredFeed);
+
+        return FeedLikeResponse.from(memberPreferredFeed.getId());
+
+    }
+
     //id값으로 멤버 찾기 -> 중복 코드 줄이기
     private Member getMember(long memberId){
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
+    }
+
+    private Feed getFeed(long feedId){
+        return feedRepository.findById(feedId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FEED));
     }
 }
