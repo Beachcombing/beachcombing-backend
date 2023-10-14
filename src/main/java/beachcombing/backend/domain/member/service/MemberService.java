@@ -1,7 +1,6 @@
 package beachcombing.backend.domain.member.service;
 
 
-import beachcombing.backend.domain.member.controller.dto.MemberRankingAllResponse;
 import beachcombing.backend.domain.member.controller.dto.MemberFindRemainPointsResponse;
 import beachcombing.backend.domain.member.controller.dto.MemberTutorialSaveResponse;
 import beachcombing.backend.domain.member.controller.dto.NotificationFindResponse;
@@ -17,14 +16,10 @@ import beachcombing.backend.domain.notification.repository.NotificationRepositor
 import beachcombing.backend.global.config.exception.CustomException;
 import beachcombing.backend.global.config.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.ErrorResponseException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,7 +70,6 @@ public class MemberService {
         findMember.updateProfilePublic(profilePublic);
     }
 
-    //탈퇴하기
     public void deleteMember(Long memberId) {
         Member findMember = getMember(memberId);
         memberRepository.delete(findMember);
@@ -120,32 +114,6 @@ public class MemberService {
     public MemberFindRemainPointsResponse findRemainPoints(Long memberId) {
         Member findMember = getMember(memberId);
         return MemberFindRemainPointsResponse.from(findMember.getRemainPoints());
-    }
-
-    //랭킹 조회하기
-    public MemberRankingAllResponse getRankingList(String range, int pageSize, Long lastId, Integer lastPoint) {
-
-        List<Member> memberList = new ArrayList<>();
-
-        if(range.equals("all")){
-           memberList = memberRepository.findByTotalPointRanking(pageSize, lastId, lastPoint);
-        }
-        else if(range.equals("month")){
-            memberList = memberRepository.findByMonthPointRanking(pageSize, lastId, lastPoint);
-        }
-
-        //그 다음 페이지 존재 여부 확인
-        boolean nextPage = memberList.size() > pageSize;
-        if(nextPage) { memberList.remove(memberList.size() - 1);
-        }
-
-        //반환
-        return MemberRankingAllResponse.builder()
-                .nextPage(nextPage)
-                .memberDtoList(memberList.stream()
-                        .map(m-> MemberRankingAllResponse.MemberDto.of(m, range))
-                        .collect(Collectors.toList()))
-                .build();
     }
 
     //id값으로 멤버 찾기 -> 중복 코드 줄이기
