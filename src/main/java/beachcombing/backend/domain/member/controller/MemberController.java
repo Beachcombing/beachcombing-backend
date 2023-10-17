@@ -4,7 +4,6 @@ import beachcombing.backend.domain.member.controller.dto.MemberFindRemainPointsR
 import beachcombing.backend.domain.member.controller.dto.MemberFindResponse;
 import beachcombing.backend.domain.member.controller.dto.MemberTutorialSaveResponse;
 import beachcombing.backend.domain.member.controller.dto.MemberUpdateRequest;
-import beachcombing.backend.domain.member.controller.dto.MemberRankingAllResponse;
 import beachcombing.backend.domain.member.controller.dto.NotificationFindResponse;
 import beachcombing.backend.domain.member.service.MemberService;
 import beachcombing.backend.global.security.auth.PrincipalDetails;
@@ -75,13 +74,6 @@ public class MemberController {
     public ResponseEntity<MemberFindRemainPointsResponse> findRemainPoints(@AuthenticationPrincipal PrincipalDetails principalDetails)
     {
         MemberFindRemainPointsResponse response = memberService.findRemainPoints(principalDetails.getMember().getId());
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
-
-    //랭킹 조회하기
-    @GetMapping("ranking")
-    public ResponseEntity<MemberRankingAllResponse> getRankingList(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestParam(name="range") String range, @RequestParam(required = false) int pageSize, @RequestParam(required = false) Long lastId, @RequestParam(required = false) Integer lastPoint){
-        MemberRankingAllResponse response = memberService.getRankingList(range, pageSize, lastId, lastPoint);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
