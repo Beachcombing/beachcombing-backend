@@ -1,5 +1,6 @@
 package beachcombing.backend.domain.feed.controller;
 
+import beachcombing.backend.domain.feed.controller.dto.FeedFindAllResponse;
 import beachcombing.backend.domain.feed.controller.dto.FeedSaveRequest;
 import beachcombing.backend.domain.feed.controller.dto.FeedSaveResponse;
 import beachcombing.backend.domain.feed.service.FeedService;
@@ -12,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/feeds")
@@ -35,5 +38,12 @@ public class FeedController {
 
         feedService.deleteFeed(principalDetails.getMember().getId(), feedId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    // 모든 피드 조회
+    @GetMapping("")
+    public ResponseEntity<List<FeedFindAllResponse>> findAllFeed(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        List<FeedFindAllResponse> response = feedService.findAllFeed(principalDetails.getMember());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

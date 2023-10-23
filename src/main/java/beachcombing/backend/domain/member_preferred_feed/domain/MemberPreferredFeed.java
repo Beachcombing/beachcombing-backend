@@ -31,7 +31,7 @@ public class MemberPreferredFeed {
         this.member = member;
     }
 
-    public MemberPreferredFeed createMemberPreferredFeed(Feed feed, Member member){
+    public static MemberPreferredFeed createMemberPreferredFeed(Feed feed, Member member){
 
         return MemberPreferredFeed.builder()
                 .feed(feed)
