@@ -10,8 +10,9 @@ public class InitDB {
 
     private final InitService initService;
 
-    @PostConstruct
-    public void init() {
-        initService.initDatabase();
-    }
+//    @PostConstruct
+//    public void init() {
+//        initService.initDatabase();
+//        initService.saveTrashcanFromApi();
+//    }
 }
