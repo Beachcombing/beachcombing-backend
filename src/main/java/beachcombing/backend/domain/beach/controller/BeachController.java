@@ -49,7 +49,5 @@ public class BeachController {
     public ResponseEntity<Void> verifyNearBeach(@PathVariable("beachId") Long beachId, @Valid @RequestBody BeachVerifyNearRequest request){
         beachService.verifyNearBeach(beachId, request);
         return ResponseEntity.status(HttpStatus.OK).build();
-
     }
-
 }

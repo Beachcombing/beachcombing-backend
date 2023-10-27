@@ -41,7 +41,15 @@ public class Trashcan {
         this.member = member;
     }
 
-    public static Trashcan createTrashcan(String image, Boolean isCertified, Location location, Member member) {
+    public static Trashcan createTrashcanByApi(Location location) {
+
+        return Trashcan.builder()
+                .isCertified(true)
+                .location(location)
+                .build();
+    }
+
+    public static Trashcan createTrashcanByMember(String image, Boolean isCertified, Location location, Member member) {
 
         return Trashcan.builder()
                 .image(image)
