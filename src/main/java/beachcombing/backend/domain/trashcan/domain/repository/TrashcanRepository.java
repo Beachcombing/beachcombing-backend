@@ -1,4 +1,4 @@
-package beachcombing.backend.domain.trashcan.repository;
+package beachcombing.backend.domain.trashcan.domain.repository;
 
 import beachcombing.backend.domain.trashcan.domain.Trashcan;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -2,7 +2,7 @@ package beachcombing.backend.global.init;
 
 import beachcombing.backend.domain.common.domain.Location;
 import beachcombing.backend.domain.trashcan.domain.Trashcan;
-import beachcombing.backend.domain.trashcan.repository.TrashcanRepository;
+import beachcombing.backend.domain.trashcan.domain.repository.TrashcanRepository;
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
