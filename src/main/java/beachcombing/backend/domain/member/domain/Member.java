@@ -111,4 +111,12 @@ public class Member extends BaseEntity {
         this.monthPoint += point;
         return true;
     }
+
+    public String getNickname() {
+        return profile.getNickname();
+    }
+
+    public String getImage() {
+        return profile.getImage();
+    }
 }

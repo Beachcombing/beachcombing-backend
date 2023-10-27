@@ -3,6 +3,7 @@ package beachcombing.backend.domain.trashcan.domain;
 import beachcombing.backend.domain.common.domain.Location;
 import beachcombing.backend.domain.member.domain.Member;
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -57,5 +58,13 @@ public class Trashcan {
                 .location(location)
                 .member(member)
                 .build();
+    }
+
+    public BigDecimal getLat() {
+        return location.getLat();
+    }
+
+    public BigDecimal getLng() {
+        return location.getLng();
     }
 }
