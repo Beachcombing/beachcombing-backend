@@ -1,5 +1,6 @@
 package beachcombing.backend.domain.trashcan.controller.dto;
 
+import beachcombing.backend.domain.common.domain.Location;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import lombok.AccessLevel;
@@ -30,5 +31,12 @@ public class TrashcanReportRequest {
         this.lat = lat;
         this.lng = lng;
         this.image = image;
+    }
+
+    public Location toLocation() {
+        return Location.builder()
+                .lat(lat)
+                .lng(lng)
+                .build();
     }
 }
