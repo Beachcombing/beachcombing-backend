@@ -1,5 +1,6 @@
 package beachcombing.backend.domain.trashcan.domain;
 
+import beachcombing.backend.domain.common.domain.BaseEntity;
 import beachcombing.backend.domain.common.domain.Location;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.global.util.ImageUtil;
@@ -23,40 +24,43 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Trashcan {
+public class Trashcan extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "trashcan_id")
     private Long id;
 
-    private String image; // 쓰레기통 사진
-    private Boolean isCertified; // 인증 여부
+    private String image;           // 쓰레기통 사진
+    private Boolean isCertified;    // 인증 여부
+    private String address;         // 쓰레기통 주소
 
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "lat", column = @Column(nullable = false, precision = 10, scale = 8)),
             @AttributeOverride(name = "lng", column = @Column(nullable = false, precision = 11, scale = 8))
     })
-    private Location location; // 쓰레기통 좌표. TODO: column embeddable 타입 내에서 적용해도 바깥까지 적용되는지 확인해보기
+    private Location location;      // 쓰레기통 좌표. TODO: column embeddable 타입 내에서 적용해도 바깥까지 적용되는지 확인해보기
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member member; // 신고한 회원
+    private Member member;          // 신고한 회원
 
     @Builder
-    public Trashcan(String image, Boolean isCertified, Location location, Member member) {
+    public Trashcan(String image, Boolean isCertified, String address, Location location, Member member) {
 
         this.image = image;
         this.isCertified = isCertified;
+        this.address = address;
         this.location = location;
         this.member = member;
     }
 
-    public static Trashcan createTrashcanByApi(Location location) {
+    public static Trashcan createTrashcanByApi(Location location, String address) {
 
         return Trashcan.builder()
                 .isCertified(true)
+                .address(address)
                 .location(location)
                 .build();
     }
@@ -84,5 +88,11 @@ public class Trashcan {
     public String getImage() {
 
         return ImageUtil.processImage(image);
+    }
+
+    public void certifyTrashcan(String address) {
+
+        this.isCertified = true;
+        this.address = address;
     }
 }
