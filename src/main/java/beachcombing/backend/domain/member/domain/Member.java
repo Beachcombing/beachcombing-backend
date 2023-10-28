@@ -107,6 +107,7 @@ public class Member extends BaseEntity {
     public boolean updateMemberPoint(int option) {
         int point = 0;
 
+        // TODO: option을 enum으로 만들기
         switch (option) {
             case 0:
                 point = 100;
