@@ -31,14 +31,13 @@ public class TrashcanController {
 
         Long trashcanId = trashcanService.reportTrashcan(userDetails.getMember().getId(), request);
         IdResponse response = IdResponse.from(trashcanId);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
 
     // 신고된 쓰레기통 목록 조회하기 (관리자)
     @GetMapping("/admin/trashcans/reported")
-    public ResponseEntity<List<TrashcanFindAllResponse>> findAllReportedTrashcan(
-            @AuthenticationPrincipal PrincipalDetails userDetails) {
+    public ResponseEntity<List<TrashcanFindAllResponse>> findAllReportedTrashcan() {
 
         List<TrashcanFindAllResponse> response = trashcanService.findAllReportedTrashcan();
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -49,7 +48,6 @@ public class TrashcanController {
     public ResponseEntity<Void> certifyTrashcan(@PathVariable("trashcanId") Long trashcanId) {
 
         trashcanService.certifyTrashcan(trashcanId);
-
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -58,7 +56,6 @@ public class TrashcanController {
     public ResponseEntity<List<TrashcanFindAllResponse>> findAllCertifiedTrashcan() {
 
         List<TrashcanFindAllResponse> response = trashcanService.findAllCertifiedTrashcan();
-
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
