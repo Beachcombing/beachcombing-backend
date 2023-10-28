@@ -44,6 +44,7 @@ public enum ErrorCode {
 
     // Trashcan 예외
     NOT_FOUND_TRASHCAN(HttpStatus.NOT_FOUND, "해당 쓰레기통을 찾을 수 없습니다."),
+    ALREADY_CERTIFIED_TRASHCAN(HttpStatus.CONFLICT, "이미 인증된 쓰레기통입니다."),
 
     // 이미지 업로드 예외
     UPLOAD_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "S3 파일 업로드에 실패했습니다."),
