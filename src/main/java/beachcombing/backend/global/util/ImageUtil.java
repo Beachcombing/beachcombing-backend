@@ -16,15 +16,15 @@ public class ImageUtil {
 
     public static String processImage(String image) {
 
-        if (image.isEmpty()) {
+        if (image == null || image.isEmpty()) {
             return null;
         }
 
-        // 구글 프로필 적용 시
-//        if (image.startsWith("https://")) { // 구글 프로필 이미지 처리
-//            return image;
-//        }
+        if (image.startsWith("https://")) { // 구글 프로필 이미지 처리
+            return image;
+        }
 
         return "https://" + bucket + ".s3.ap-northeast-2.amazonaws.com/" + image;
     }
+
 }
