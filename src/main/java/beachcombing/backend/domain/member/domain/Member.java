@@ -45,12 +45,6 @@ public class Member extends BaseEntity {
 
     private Boolean tutorialCompleted; // 튜토리얼 완료 여부
 
-//    @OneToMany(mappedBy = "member")
-//    private List<Record> records = new ArrayList<>();  // 청소 기록 리스트 (Record:Member=다:1)
-//
-//    @OneToMany(mappedBy = "member")
-//    private List<Purchase> purchaseList = new ArrayList<>();  // 구매 기록 리스트 (Purchase:Member=다:1)
-
     @Builder
     public Member(Profile profile, AuthInfo authInfo, Integer totalPoint, Integer monthPoint, Integer purchasePoint,
                   Boolean profilePublic, Boolean tutorialCompleted) {

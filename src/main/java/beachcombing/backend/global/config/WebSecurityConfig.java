@@ -54,7 +54,7 @@ public class WebSecurityConfig {
                 .addFilterBefore(jwtExceptionFilter(), JwtAuthorizationFilter.class) // JWT 관련 예외 처리
                 .authorizeRequests(authorize -> authorize
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                        //.requestMatchers("/admin/**").access("hasRole('ROLE_ADMIN')") // TODO: 권한 부분 AuthorizationFilter에 추가해야함
                         .anyRequest().authenticated()
                 );
         return http.build();
