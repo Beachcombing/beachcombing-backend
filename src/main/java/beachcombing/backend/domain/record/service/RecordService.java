@@ -1,10 +1,11 @@
 package beachcombing.backend.domain.record.service;
 
 import beachcombing.backend.domain.beach.domain.Beach;
-import beachcombing.backend.domain.record.controller.dto.RecordByBeachFindAllResponse;
 import beachcombing.backend.domain.beach.domain.repository.BeachRepository;
+import beachcombing.backend.domain.image.service.ImageService;
 import beachcombing.backend.domain.member.domain.Member;
 import beachcombing.backend.domain.member.domain.repository.MemberRepository;
+import beachcombing.backend.domain.record.controller.dto.RecordByBeachFindAllResponse;
 import beachcombing.backend.domain.record.controller.dto.RecordFindAllResponse;
 import beachcombing.backend.domain.record.controller.dto.RecordSaveRequest;
 import beachcombing.backend.domain.record.controller.dto.RecordSaveResponse;
@@ -12,12 +13,11 @@ import beachcombing.backend.domain.record.domain.Record;
 import beachcombing.backend.domain.record.domain.repository.RecordRepository;
 import beachcombing.backend.global.config.exception.CustomException;
 import beachcombing.backend.global.config.exception.ErrorCode;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,24 +26,20 @@ import java.util.List;
 public class RecordService {
     private final RecordRepository recordRepository;
 
-    //private final ImageService imageService;
+    private final ImageService imageService;
     private final MemberRepository memberRepository;
     private final BeachRepository beachRepository;
 
 
     // 청소 기록하기
-    public RecordSaveResponse saveRecord(Long memberId, RecordSaveRequest request){
+    public RecordSaveResponse saveRecord(Long memberId, RecordSaveRequest request) {
         Member member = getMember(memberId);
         Beach beach = getBeach(request.beachId);
 
-        // 이미지 업로드
-        //String beforeUuid = imageService.uploadImage(request.beforeImage);
-        // String afterUuid = imageService.uploadImage(request.afterImage);
-        String beforeUuid = "beforeImage";
-        String afterUuid = "afterImage";
+        String beforeUuid = imageService.uploadImage(request.beforeImage);
+        String afterUuid = imageService.uploadImage(request.afterImage);
 
-        Record record = Record.createRecord(request.duration,request.distance, beforeUuid, afterUuid, member, beach);
-
+        Record record = Record.createRecord(request.duration, request.distance, beforeUuid, afterUuid, member, beach);
         recordRepository.save(record);
 
         return RecordSaveResponse.from(record);
@@ -73,7 +69,8 @@ public class RecordService {
         Member member = getMember(memberId);
         Beach beach = getBeach(beachId);
 
-        List<RecordByBeachFindAllResponse.RecordDto> recordDtoList = recordRepository.findByMemberAndBeachOrderByCreatedDateDesc(member, beach).stream()
+        List<RecordByBeachFindAllResponse.RecordDto> recordDtoList = recordRepository.findByMemberAndBeachOrderByCreatedDateDesc(
+                        member, beach).stream()
                 .map(record -> {
                             //String beforeImageUrl = imageService.processImage(record.getBeforeImage());
                             //String afterImageUrl = imageService.processImage(record.getAfterImage());
