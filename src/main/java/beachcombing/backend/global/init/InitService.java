@@ -3,22 +3,21 @@ package beachcombing.backend.global.init;
 import beachcombing.backend.domain.common.domain.Location;
 import beachcombing.backend.domain.trashcan.domain.Trashcan;
 import beachcombing.backend.domain.trashcan.domain.repository.TrashcanRepository;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Map;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
@@ -41,8 +40,8 @@ public class InitService {
 
         String urlStr = "https://api.odcloud.kr/api/15089095/v1/uddi:c03ea19d-e9b0-4cfe-9714-96a9bb363db6?" +
                 "page=" + page +
-                "&perPage=" + perPage+
-                "&serviceKey="+serviceKey;
+                "&perPage=" + perPage +
+                "&serviceKey=" + serviceKey;
         StringBuffer result = new StringBuffer();
 
         try {
@@ -58,16 +57,16 @@ public class InitService {
             JSONObject jsonObject = (JSONObject) jsonParser.parse(result.toString());
             JSONArray jsonArray = (JSONArray) jsonObject.get("data");
 
-            for(int i=0; i<jsonArray.size(); i++) {
+            for (int i = 0; i < jsonArray.size(); i++) {
                 JSONObject object = (JSONObject) jsonArray.get(i);
                 String address = (String) object.get("설치장소");
-                Map<String, String> coords = geocodingHelper.getGeoDataByAddress(address);
+                Map<String, String> coords = geocodingHelper.getCoordsByAddress(address);
 
                 Location location = Location.builder()
                         .lat(new BigDecimal(coords.get("lat")))
                         .lng(new BigDecimal(coords.get("lng")))
                         .build();
-                Trashcan trashcan = Trashcan.createTrashcanByApi(location);
+                Trashcan trashcan = Trashcan.createTrashcanByApi(location, address);
                 trashcanRepository.save(trashcan);
             }
 
