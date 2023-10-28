@@ -18,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +33,6 @@ public class TrashcanService {
     public Long reportTrashcan(Long memberId, TrashcanReportRequest request) {
 
         Member findMember = getMemberOrThrow(memberId);
-        checkExistsImage(request.getImage());
         String imageUrl = imageService.uploadImage(request.getImage());
         Trashcan trashcan = Trashcan.createTrashcanByMember(imageUrl, request.toLocation(), findMember);
 
@@ -46,7 +44,6 @@ public class TrashcanService {
     public List<TrashcanFindAllResponse> findAllReportedTrashcan() {
 
         List<Trashcan> findTrashcanList = trashcanRepository.findByIsCertified(false);
-
         return findTrashcanList.stream()
                 .map(TrashcanFindAllResponse::from)
                 .collect(Collectors.toList());
@@ -86,12 +83,5 @@ public class TrashcanService {
 
         return trashcanRepository.findById(trashcanId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_TRASHCAN));
-    }
-
-    private void checkExistsImage(MultipartFile image) {
-
-        if (image.isEmpty()) {
-            throw new CustomException(ErrorCode.SHOULD_EXIST_IMAGE);
-        }
     }
 }
