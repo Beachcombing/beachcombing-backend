@@ -1,6 +1,5 @@
 package beachcombing.backend.global.init;
 
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +9,7 @@ public class InitDB {
 
     private final InitService initService;
 
+    // 처음 초기화할 때만 사용
 //    @PostConstruct
 //    public void init() {
 //        initService.initDatabase();
