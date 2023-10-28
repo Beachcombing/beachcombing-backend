@@ -6,16 +6,14 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @Service
@@ -48,7 +46,7 @@ public class ImageService {
         return amazonS3Client.getUrl(bucket, fileName).toString();
     }
 
-
+    // TODO: 중복코드임. 지우기
     public String processImage(String image) {
 
         if (image.isEmpty()) {
@@ -62,5 +60,4 @@ public class ImageService {
 
         return "https://" + bucket + ".s3.ap-northeast-2.amazonaws.com/" + image;
     }
-
 }
