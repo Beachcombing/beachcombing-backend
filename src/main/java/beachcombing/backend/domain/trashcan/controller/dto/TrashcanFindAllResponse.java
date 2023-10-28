@@ -4,6 +4,7 @@ import beachcombing.backend.domain.member.controller.dto.MemberReporterInfo;
 import beachcombing.backend.domain.trashcan.domain.Trashcan;
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -30,7 +31,9 @@ public class TrashcanFindAllResponse {
                 .lng(trashcan.getLng())
                 .address(trashcan.getAddress())
                 .date(trashcan.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")))
-                .member(MemberReporterInfo.from(trashcan.getMember()))
+                .member(Optional.ofNullable(trashcan.getMember())
+                        .map(MemberReporterInfo::from)
+                        .orElse(null))
                 .build();
     }
 }

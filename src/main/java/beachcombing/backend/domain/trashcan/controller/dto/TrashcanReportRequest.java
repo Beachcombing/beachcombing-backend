@@ -3,15 +3,19 @@ package beachcombing.backend.domain.trashcan.controller.dto;
 import beachcombing.backend.domain.common.domain.Location;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@Setter
 public class TrashcanReportRequest {
 
     @NotNull
@@ -24,14 +28,6 @@ public class TrashcanReportRequest {
 
     @NotNull
     private MultipartFile image;
-
-    @Builder
-    private TrashcanReportRequest(BigDecimal lat, BigDecimal lng, MultipartFile image) {
-
-        this.lat = lat;
-        this.lng = lng;
-        this.image = image;
-    }
 
     public Location toLocation() {
         return Location.builder()
