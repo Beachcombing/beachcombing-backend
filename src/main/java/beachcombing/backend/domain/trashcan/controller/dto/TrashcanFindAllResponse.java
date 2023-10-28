@@ -3,6 +3,7 @@ package beachcombing.backend.domain.trashcan.controller.dto;
 import beachcombing.backend.domain.member.controller.dto.MemberReporterInfo;
 import beachcombing.backend.domain.trashcan.domain.Trashcan;
 import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -27,6 +28,8 @@ public class TrashcanFindAllResponse {
                 .isCertified(trashcan.getIsCertified())
                 .lat(trashcan.getLat())
                 .lng(trashcan.getLng())
+                .address(trashcan.getAddress())
+                .date(trashcan.getCreatedDate().toLocalDate().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")))
                 .member(MemberReporterInfo.from(trashcan.getMember()))
                 .build();
     }
