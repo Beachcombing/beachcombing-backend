@@ -2,7 +2,18 @@ package beachcombing.backend.domain.trashcan.domain;
 
 import beachcombing.backend.domain.common.domain.Location;
 import beachcombing.backend.domain.member.domain.Member;
-import jakarta.persistence.*;
+import beachcombing.backend.global.util.ImageUtil;
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import java.math.BigDecimal;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -50,21 +61,28 @@ public class Trashcan {
                 .build();
     }
 
-    public static Trashcan createTrashcanByMember(String image, Boolean isCertified, Location location, Member member) {
+    public static Trashcan createTrashcanByMember(String image, Location location, Member member) {
 
         return Trashcan.builder()
                 .image(image)
-                .isCertified(isCertified)
+                .isCertified(false)
                 .location(location)
                 .member(member)
                 .build();
     }
 
     public BigDecimal getLat() {
+
         return location.getLat();
     }
 
     public BigDecimal getLng() {
+
         return location.getLng();
+    }
+
+    public String getImage() {
+
+        return ImageUtil.processImage(image);
     }
 }
