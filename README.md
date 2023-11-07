@@ -9,7 +9,7 @@
 
 ## 🏛 Project Architecture
 
-<image src='https://github.com/Beach-Combine/.github/blob/main/images/architecture.png?raw=true' width="800"/>
+<image src='https://github.com/Beachcombing/beachcombing-backend/assets/78267146/57ed91ec-075e-4212-b1c9-78ae75df8dfd' width="800"/>
 
 <br/>
 
