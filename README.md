@@ -1,12 +1,6 @@
 <image src='https://github.com/Beach-Combine/.github/blob/main/images/header.png?raw=true' width="800"/>
 <br/>
 
-
-
-<image src='https://github.com/Beach-Combine/.github/blob/main/images/longImage.png?raw=true' width="800"/>
-
-<br/>
-
 ## 📽 Demo Video Link
 
 [![BeachCombine](https://github.com/Beach-Combine/.github/blob/main/images/video.JPG?raw=true)](https://youtu.be/AJusc-HUwQA)
@@ -19,23 +13,7 @@
 
 <br/>
 
-## ✅ Server Deployment Process (CI/CD using Github Actions)
 
-### Local : Gradle build, Docker build
-1. jar build : `gradle build`
-2. image creation : `docker build -t yourAccountName/repositoryName ./`
-3. push to Docker Hub : `docker push yourAccountName/repositoryName`
-
-(`AccoutName` and `RepositoryName` are from Docker Hub)
-
-### Server : Deploy
-1. Pull from Docker Hub : `docker pull yourAccountName/repositoryName`
-2. Create image as configured in Docker-compose.yml : `docker tag yourAccountName/repositoryName dockerImageName`
-3. Run Docker Compose : `docker-compose up`
-
-(`dockerImageName` should be written as the image name in Docker-compose.yml)
-
-<br />
 
 ## 🛠 Tech Stacks
 
@@ -97,17 +75,9 @@
 
 ## 👥 Contributors
 
-|                                    [권보민](https://github.com/pingowl)                                    |                                   [추서연](https://github.com/ChooSeoyeon)                                   |
-| :---------------------------------------------------------------------------: | :--------------------------------------------------------------------------: |
-| <img src="https://avatars.githubusercontent.com/u/101239440?v=4" width=150px> | <img src="https://avatars.githubusercontent.com/u/83302344?v=4" width=150px> |
+|                                    [김미래]()                                    |                                   [추서연](https://github.com/ChooSeoyeon)   |  [이서우]()  | [김성겸]() |
+| :-------------------------------------------------: | :-------------------------------------------------: |:-------------------------------------------------: | :-------------------------------------------------: |
+| <img src="" width=150px>                                                      | <img src="https://avatars.githubusercontent.com/u/83302344?v=4" width=150px> | <img src="" width=150px>  |  <img src="" width=150px> |
 
 
-<br/>
 
-## 📎 Link
-
-- Email : [t01053604256@gmail.com](mailto:t01053604256@gmail.com)
-- [Mobile repository](https://github.com/Beach-Combine/Mobile)
-- [Backend repository](https://github.com/Beach-Combine/Backend)
-- [AI repository](https://github.com/Beach-Combine/AI)
-  <br/>
