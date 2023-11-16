@@ -16,8 +16,8 @@
 
 
 ## 🛠 Tech Stacks
+<img width="874" alt="스크린샷 2023-11-17 오전 12 50 55" src="https://github.com/Beachcombing/beachcombing-backend/assets/78267146/2b96a04c-01b7-4153-8935-2a10bc37e823">
 
-<image src='https://github.com/Beach-Combine/.github/blob/main/images/techStack.png?raw=true' width="800"/>
 
 <br/>
 
