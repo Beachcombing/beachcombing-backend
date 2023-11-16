@@ -15,9 +15,10 @@
 
 
 
-## 🛠 Tech Stacks
 
-<image src='https://github.com/Beach-Combine/.github/blob/main/images/techStack.png?raw=true' width="800"/>
+## 🛠 Tech Stacks
+<img width="874" alt="tech" src="https://github.com/Beachcombing/beachcombing-backend/assets/78267146/bcb5250f-f2bd-4053-bede-7aa700947178">
+
 
 <br/>
 
